@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Músicos de Fondo — Boutique de Diseño Sonoro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0907;
+  --cream: #F2EDE4;
+  --gold: #C9A84C;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-glow: rgba(201,168,76,0.06);
+  --muted: #6B6355;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'Inconsolata', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:var(--serif);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.5}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(12px);background:rgba(10,9,7,0.7);border-bottom:0.5px solid var(--gold-dim);transition:all .4s}
+.nav-logo{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.8}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,237,228,.45);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 40px 80px;position:relative}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 55%,var(--gold-glow),transparent 70%)}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:0;animation:fadeUp .8s ease forwards .3s;margin-bottom:32px}
+.hero-title{font-size:clamp(60px,11vw,130px);font-weight:300;line-height:.88;letter-spacing:-.02em;opacity:0;animation:fadeUp 1s ease forwards .5s}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:clamp(15px,2vw,19px);font-weight:300;font-style:italic;color:rgba(242,237,228,.55);max-width:560px;margin:24px auto 0;opacity:0;animation:fadeUp 1s ease forwards .8s}
+.hero-line{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);margin:48px auto 0;opacity:0;animation:fadeUp 1s ease forwards 1s}
+
+/* ── SHARED ── */
+section{padding:100px 40px;max-width:1100px;margin:0 auto}
+.hr{border:none;border-top:.5px solid var(--gold-dim);margin:0}
+.slabel{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.slabel::after{content:'';flex:1;max-width:50px;height:.5px;background:var(--gold);opacity:.35}
+h2{font-size:clamp(34px,5vw,56px);font-weight:300;line-height:1.08;letter-spacing:-.01em;margin-bottom:22px}
+h2 em{font-style:italic;color:var(--gold)}
+p.lead{font-size:clamp(16px,1.8vw,19px);color:rgba(242,237,228,.6);max-width:600px;font-style:italic;margin-bottom:16px}
+p.body{font-size:15px;color:rgba(242,237,228,.5);max-width:620px;line-height:1.85;margin-bottom:14px}
+
+/* ── MANIFEST ── */
+.manifest-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--gold-dim);margin-top:56px}
+.manifest-cell{background:var(--ink);padding:40px 32px;transition:background .35s}
+.manifest-cell:hover{background:var(--gold-glow)}
+.manifest-num{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.18em;margin-bottom:16px;opacity:.55}
+.manifest-cell h3{font-size:22px;font-weight:300;font-style:italic;margin-bottom:10px}
+.manifest-cell p{font-size:13px;color:rgba(242,237,228,.5);line-height:1.8}
+
+/* ── SERVICES ── */
+.services-list{display:flex;flex-direction:column;gap:0;margin-top:56px;border-top:.5px solid var(--gold-dim)}
+.svc{border-bottom:.5px solid var(--gold-dim);overflow:hidden}
+.svc-header{display:flex;align-items:center;gap:20px;padding:28px 0;cursor:pointer;transition:opacity .3s}
+.svc-header:hover{opacity:.85}
+.svc-num{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.18em;min-width:28px;opacity:.55}
+.svc-title{font-size:clamp(20px,3vw,28px);font-weight:300;flex:1}
+.svc-title em{font-style:italic;color:var(--gold)}
+.svc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;border:.5px solid var(--gold-dim);color:var(--muted);padding:5px 14px;white-space:nowrap;transition:all .3s}
+.svc:hover .svc-tag{border-color:rgba(201,168,76,.4);color:var(--gold)}
+.svc-toggle{font-size:18px;color:var(--muted);transition:transform .4s, color .3s;width:24px;text-align:center}
+.svc.open .svc-toggle{transform:rotate(45deg);color:var(--gold)}
+.svc-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.svc.open .svc-body{max-height:600px}
+.svc-inner{padding:0 0 36px 48px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.svc-desc{font-size:14px;color:rgba(242,237,228,.55);line-height:1.85}
+.svc-desc strong{color:var(--cream);font-weight:400}
+.svc-bullets{display:flex;flex-direction:column;gap:10px}
+.bullet{display:flex;gap:12px;align-items:flex-start}
+.bullet-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:7px;flex-shrink:0;opacity:.5}
+.bullet-text{font-size:13px;color:rgba(242,237,228,.5);line-height:1.7}
+
+/* ── FORMATS ── */
+.formats-row{display:flex;gap:1px;margin-top:56px;background:var(--gold-dim)}
+.fmt{flex:1;background:var(--ink);padding:36px 28px;text-align:center;transition:background .3s}
+.fmt:hover{background:var(--gold-glow)}
+.fmt-name{font-size:18px;font-weight:300;font-style:italic;margin-bottom:6px}
+.fmt-count{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.16em;margin-bottom:14px}
+.fmt-desc{font-size:12.5px;color:rgba(242,237,228,.42);line-height:1.7}
+
+/* ── VALUE PROPS ── */
+.value-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gold-dim);margin-top:56px}
+.val{background:var(--ink);padding:40px 36px;transition:background .35s}
+.val:hover{background:var(--gold-glow)}
+.val h4{font-size:17px;font-weight:400;margin-bottom:8px}
+.val p{font-size:13px;color:rgba(242,237,228,.5);line-height:1.8}
+
+/* ── CLIENTS ── */
+.clients-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.cl-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:.5px solid rgba(201,168,76,.18);color:rgba(242,237,228,.4);padding:10px 18px;transition:all .25s}
+.cl-tag:hover{border-color:rgba(201,168,76,.45);color:var(--cream)}
+
+/* ── CTA ── */
+.cta-section{text-align:center;padding:100px 40px 120px;position:relative}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 50% 50%,var(--gold-glow),transparent 70%);pointer-events:none}
+.cta-big{font-size:clamp(44px,7vw,88px);font-weight:300;font-style:italic;line-height:1;margin-bottom:36px;letter-spacing:-.02em}
+.cta-big em{color:var(--gold)}
+.cta-links{display:flex;justify-content:center;align-items:center;gap:36px;flex-wrap:wrap}
+.cta-link{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,237,228,.5);text-decoration:none;transition:color .25s}
+.cta-link:hover{color:var(--gold)}
+.cta-link.primary{color:var(--gold);border:.5px solid var(--gold);padding:14px 32px}
+.cta-link.primary:hover{background:rgba(201,168,76,.07)}
+
+/* ── FOOTER ── */
+footer{border-top:.5px solid rgba(201,168,76,.1);padding:28px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+footer p{font-family:var(--mono);font-size:10px;color:rgba(242,237,228,.2);letter-spacing:.1em}
+footer .sello{font-family:var(--mono);font-size:10px;color:rgba(201,168,76,.35);letter-spacing:.16em;text-transform:uppercase}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .manifest-grid{grid-template-columns:1fr}
+  .svc-inner{grid-template-columns:1fr}
+  .formats-row{flex-direction:column}
+  .value-grid{grid-template-columns:1fr}
+  section{padding:70px 24px}
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .svc-tag{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Músicos de Fondo</div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#formatos">Formatos</a>
+    <a href="#valor">Por qué nosotros</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow">Boutique de Diseño Sonoro · Medellín, Colombia</p>
+  <h1 class="hero-title">Músicos<br>de <em>Fondo</em></h1>
+  <p class="hero-sub">Diseñamos experiencias musicales en vivo a la medida de su espacio, su audiencia y su momento. No somos una banda — somos su socio estratégico en diseño sonoro.</p>
+  <div class="hero-line"></div>
+</header>
+
+<hr class="hr">
+
+<!-- ─── MANIFIESTO ─── -->
+<section>
+  <div class="reveal">
+    <p class="slabel">La promesa</p>
+    <h2>No amenizamos.<br>Diseñamos <em>atmósferas.</em></h2>
+    <p class="lead">Bespoke Soundtrack — música a la medida donde usted tiene el control total del género, el formato, los instrumentos y el nivel de protagonismo.</p>
+    <p class="body">Partimos del Jazz y lo fusionamos con Latin, Son Cubano, Funk, Blues y Pop para crear identidades sonoras únicas. Operamos desde solistas íntimos hasta septetos y reducciones sinfónicas. Cada presentación incluye producción técnica profesional y registro audiovisual para sus canales de comunicación.</p>
+  </div>
+  <div class="manifest-grid reveal">
+    <div class="manifest-cell">
+      <div class="manifest-num">01</div>
+      <h3>Partner, no proveedor</h3>
+      <p>Nuestro éxito depende de que su negocio facture más gracias a nuestra presencia. Entendemos de rotación de mesas, perfiles de consumidor y momentos de servicio.</p>
+    </div>
+    <div class="manifest-cell">
+      <div class="manifest-num">02</div>
+      <h3>Cero fricción</h3>
+      <p>Operación llave en mano con rider técnico estandarizado, puntualidad corporativa y un ecosistema B2B diseñado para que usted no resuelva nada.</p>
+    </div>
+    <div class="manifest-cell">
+      <div class="manifest-num">03</div>
+      <h3>ROI medible</h3>
+      <p>Elevamos el ticket promedio, aumentamos la permanencia del cliente y convertimos días de bajo flujo en eventos de destino con alta rentabilidad.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ─── SERVICIOS ─── -->
+<section id="servicios">
+  <div class="reveal">
+    <p class="slabel">Ecosistema de servicios</p>
+    <h2>Siete maneras de<br>transformar <em>su espacio</em></h2>
+    <p class="lead">Cada servicio es un producto cerrado con propuesta de valor, público objetivo y modelo de negocio propio. Seleccione el que necesita.</p>
+  </div>
+
+  <div class="services-list reveal">
+
+    <!-- SVC 1 -->
+    <div class="svc">
+      <div class="svc-header" onclick="toggleSvc(this)">
+        <span class="svc-num">01</span>
+        <span class="svc-title">Jazz <em>Experience</em></span>
+        <span class="svc-tag">Horeca · Hoteles · Restaurantes</span>
+        <span class="svc-toggle">+</span>
+      </div>
+      <div class="svc-body">
+        <div class="svc-inner">
+          <div class="svc-desc">
+            Experiencias inmersivas de <strong>maridaje sonoro 360º</strong> para el sector de alta gastronomía y hotelería. Residencias semanales, noches temáticas o activaciones puntuales diseñadas para transformar su espacio en un evento de destino.<br><br>
+            <strong>El resultado:</strong> noches de bajo flujo que se convierten en sold out, menús degustación que justifican un ticket premium y una identidad sonora que sus huéspedes recuerdan.
+          </div>
+          <div class="svc-bullets">
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Residencias semanales o mensuales con formato a la medida</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Desde dúo íntimo para lobby hasta cuarteto para rooftop</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Producción técnica incluida — operación llave en mano</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Registro audiovisual: 2 Reels + 20 fotos HD por evento</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">+10 años de experiencia en programación Horeca</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVC 2 -->
+    <div class="svc">
+      <div class="svc-header" onclick="toggleSvc(this)">
+        <span class="svc-num">02</span>
+        <span class="svc-title">Cine <em>Conciertos</em></span>
+        <span class="svc-tag">Cultura · Teatros · Instituciones</span>
+        <span class="svc-toggle">+</span>
+      </div>
+      <div class="svc-body">
+        <div class="svc-inner">
+          <div class="svc-desc">
+            <strong>Live Scoring</strong> — musicalización en vivo de películas icónicas. La banda reinterpreta la banda sonora en tiempo real mientras se proyecta la película. Desde El Viaje de Chihiro y WALL-E hasta Tiempos Modernos de Chaplin.<br><br>
+            <strong>Producto cero riesgos:</strong> asumimos la gestión y pago de los derechos de exhibición pública (EGEDA/MPLC). Usted solo provee pantalla y aforo.
+          </div>
+          <div class="svc-bullets">
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Formato septeto / Small Big Band para máximo impacto</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Clearing legal de derechos de autor incluido</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Ideal para teatros, cajas de compensación y galas VIP</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Sin competencia directa en Colombia</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVC 3 -->
+    <div class="svc">
+      <div class="svc-header" onclick="toggleSvc(this)">
+        <span class="svc-num">03</span>
+        <span class="svc-title">Bodas <em>Simbólicas</em></span>
+        <span class="svc-tag">Ultra-Premium · Wedding Planners</span>
+        <span class="svc-toggle">+</span>
+      </div>
+      <div class="svc-body">
+        <div class="svc-inner">
+          <div class="svc-desc">
+            <strong>Live Scoring nupcial</strong> — musicalización en vivo de los momentos críticos de la ceremonia. Composición o arreglo sinfónico exclusivo de "la obra maestra" para la pareja. La canción que define su historia, interpretada en vivo.<br><br>
+            Operamos bajo modelo B2B2C aliándonos con Wedding Planners y Oficiantes del mercado de Destination Weddings.
+          </div>
+          <div class="svc-bullets">
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Bespoke Soundtrack — pieza compuesta para la pareja</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Desde dúo acústico hasta ensamble sinfónico</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Producción integral sin fricción para el planner</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVC 4 -->
+    <div class="svc">
+      <div class="svc-header" onclick="toggleSvc(this)">
+        <span class="svc-num">04</span>
+        <span class="svc-title">Pulso <em>Corporativo</em></span>
+        <span class="svc-tag">RRHH · Bienestar · Team Building</span>
+        <span class="svc-toggle">+</span>
+      </div>
+      <div class="svc-body">
+        <div class="svc-inner">
+          <div class="svc-desc">
+            Laboratorios de arte y bienestar laboral diseñados para penetrar presupuestos de Recursos Humanos y Salud Ocupacional.<br><br>
+            <strong>La Metáfora del Jazz:</strong> taller de liderazgo y comunicación donde el equipo participa en un jam session interactivo. <strong>Pausa Activa Premium:</strong> sesiones de desconexión con Live Scoring. <strong>Laboratorio de Identidad:</strong> el equipo compone la letra del "himno" de la empresa sobre una base armónica de la banda.
+          </div>
+          <div class="svc-bullets">
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Reduce burnout y mejora clima organizacional</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Formato de 60 a 120 minutos, adaptable</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Ideal para empresas de +50 empleados</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVC 5 -->
+    <div class="svc">
+      <div class="svc-header" onclick="toggleSvc(this)">
+        <span class="svc-num">05</span>
+        <span class="svc-title">Páginas <em>Sonoras</em></span>
+        <span class="svc-tag">Literatura · Librerías · Ferias</span>
+        <span class="svc-toggle">+</span>
+      </div>
+      <div class="svc-body">
+        <div class="svc-inner">
+          <div class="svc-desc">
+            La literatura se convierte en experiencia multisensorial. Improvisación y Live Scoring sobre lecturas curadas — realismo mágico con ritmos autóctonos, poesía con jazz, narrativa con cumbia.<br><br>
+            Formatos inmersivos para librerías, ferias del libro y entidades culturales que necesitan justificar taquillas premium en eventos literarios.
+          </div>
+          <div class="svc-bullets">
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Alianzas con narradores y escritores locales</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Desde dúo hasta cuarteto según el aforo</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Experiencia validada con Librería Lerner</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVC 6 -->
+    <div class="svc">
+      <div class="svc-header" onclick="toggleSvc(this)">
+        <span class="svc-num">06</span>
+        <span class="svc-title">Navi<em>Jazz</em></span>
+        <span class="svc-tag">Temporada · Fin de año · Retail</span>
+        <span class="svc-toggle">+</span>
+      </div>
+      <div class="svc-body">
+        <div class="svc-inner">
+          <div class="svc-desc">
+            El villancico tradicional transformado en Swing y Jazz de talla internacional. Tres formatos para cada tipo de cliente:<br><br>
+            <strong>El Cuento de Invierno:</strong> formato teatral familiar con marionetas.<br>
+            <strong>The Holiday Swing Gala:</strong> formato elegante de etiqueta para adultos.<br>
+            <strong>White Christmas Pop-Ups:</strong> intervenciones acústicas para activaciones comerciales en retail.
+          </div>
+          <div class="svc-bullets">
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Preventa desde mayo — agendas se cierran en septiembre</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Small Big Band para máximo impacto navideño</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Para corporativos, centros comerciales y retail de lujo</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVC 7 -->
+    <div class="svc">
+      <div class="svc-header" onclick="toggleSvc(this)">
+        <span class="svc-num">07</span>
+        <span class="svc-title">Intervenciones <em>Institucionales</em></span>
+        <span class="svc-tag">Público · Metro · Espacios urbanos</span>
+        <span class="svc-toggle">+</span>
+      </div>
+      <div class="svc-body">
+        <div class="svc-inner">
+          <div class="svc-desc">
+            Formatos de <strong>descompresión sonora</strong> en espacios de alto tráfico urbano. Jazz suave en horas pico para gestionar el estrés colectivo y posicionar a entidades públicas como mecenas del talento local.<br><br>
+            Un programa de arte institucional de lujo que transforma la infraestructura pública en experiencia cultural.
+          </div>
+          <div class="svc-bullets">
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Estaciones de metro, terminales, centros culturales</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Formato dúo o trío acústico, bajo impacto logístico</div></div>
+            <div class="bullet"><div class="bullet-dot"></div><div class="bullet-text">Campañas alineadas con RSE y cultura ciudadana</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ─── FORMATOS ─── -->
+<section id="formatos">
+  <div class="reveal">
+    <p class="slabel">Formatos escalables</p>
+    <h2>El tamaño <em>correcto</em><br>para cada espacio</h2>
+    <p class="body">Cada formato se adapta al aforo, la acústica y el propósito del evento. Usted elige el nivel de protagonismo que necesita.</p>
+  </div>
+  <div class="formats-row reveal">
+    <div class="fmt">
+      <div class="fmt-name">Dúo</div>
+      <div class="fmt-count">2 músicos</div>
+      <div class="fmt-desc">Voz + Piano o Guitarra. Recepciones de bajo formato, lobbies, cenas privadas.</div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-name">Trío</div>
+      <div class="fmt-count">3 músicos</div>
+      <div class="fmt-desc">Voz + Piano/Guitarra + Contrabajo. Dinámicas rítmicas para restaurantes y cocteles.</div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-name">Cuarteto</div>
+      <div class="fmt-count">4 músicos</div>
+      <div class="fmt-desc">La base clásica del jazz. Batería + Bajo + Piano + Voz. El best-seller para eventos corporativos.</div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-name">Quinteto+</div>
+      <div class="fmt-count">5–6 músicos</div>
+      <div class="fmt-desc">Mayor textura melódica y rítmica. Para corporativos de mayor aforo y presencia escénica.</div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-name">Septeto</div>
+      <div class="fmt-count">7 músicos</div>
+      <div class="fmt-desc">Small Big Band. El formato premium para Cine-Conciertos, NaviJazz y galas de alto impacto.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ─── VALOR ─── -->
+<section id="valor">
+  <div class="reveal">
+    <p class="slabel">Por qué nosotros</p>
+    <h2>No cobramos por hora.<br>Diseñamos <em>rentabilidad.</em></h2>
+  </div>
+  <div class="value-grid reveal">
+    <div class="val">
+      <h4>Aumentamos la permanencia</h4>
+      <p>Un diseño sonoro curado retiene al cliente en la mesa. 45 minutos extra por la atmósfera son un segundo coctel, un postre y una cuenta más alta.</p>
+    </div>
+    <div class="val">
+      <h4>Justificamos precios premium</h4>
+      <p>El consumidor asocia música en vivo sofisticada con estatus y lujo. Eso permite cobrar menús degustación y tickets de entrada sin resistencia.</p>
+    </div>
+    <div class="val">
+      <h4>Días valle → eventos de destino</h4>
+      <p>Transformamos noches de bajo tráfico en experiencias 360 que atraen a un público de alto poder adquisitivo que busca activamente esta curaduría.</p>
+    </div>
+    <div class="val">
+      <h4>Activos digitales incluidos</h4>
+      <p>Cada presentación incluye 2 Reels y 20 fotografías HD enfocadas en el performance. Contenido listo para sus redes que vende la próxima reserva.</p>
+    </div>
+    <div class="val">
+      <h4>10 años de operación B2B</h4>
+      <p>No improvisamos en la logística — solo en el escenario. Rider estandarizado, puntualidad corporativa, vestuario impecable y cero sorpresas.</p>
+    </div>
+    <div class="val">
+      <h4>Producción llave en mano</h4>
+      <p>Sonido, microfonía, backline e iluminación incluidos. Usted solo provee el espacio y la energía eléctrica. Del resto nos encargamos nosotros.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ─── CLIENTES ─── -->
+<section>
+  <div class="reveal">
+    <p class="slabel">Confianza</p>
+    <h2>Han confiado<br>en <em>nosotros</em></h2>
+  </div>
+  <div class="clients-wrap reveal">
+    <span class="cl-tag">Z Bar Jazz Club</span>
+    <span class="cl-tag">Hotel Marquee</span>
+    <span class="cl-tag">C.C. El Tesoro</span>
+    <span class="cl-tag">C.C. Oviedo</span>
+    <span class="cl-tag">Colombo Americano</span>
+    <span class="cl-tag">Comfenalco Antioquia</span>
+    <span class="cl-tag">Inexmoda</span>
+    <span class="cl-tag">Librería Lerner</span>
+    <span class="cl-tag">Elemental Food & Friends</span>
+    <span class="cl-tag">Bellas Artes Medellín</span>
+    <span class="cl-tag">Grupo Carmen</span>
+    <span class="cl-tag">Casa El Ramal</span>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ─── CONTACTO ─── -->
+<div class="cta-section" id="contacto">
+  <p class="cta-big reveal">¿Cuál es su<br>próximo <em>evento?</em></p>
+  <div class="cta-links reveal">
+    <a href="mailto:musicosdefondo@falsoidolo.com" class="cta-link primary">Solicitar propuesta</a>
+    <a href="https://www.instagram.com/musicosdefondo/" target="_blank" class="cta-link">@musicosdefondo</a>
+    <a href="https://musicosdefondo.com" target="_blank" class="cta-link">musicosdefondo.com</a>
+  </div>
+</div>
+
+<footer>
+  <p>Músicos de Fondo — Boutique de Diseño Sonoro · Medellín, Colombia</p>
+  <span class="sello">Un proyecto de Falso Ídolo</span>
+</footer>
+
+<script>
+function toggleSvc(header){
+  const svc=header.parentElement;
+  const wasOpen=svc.classList.contains('open');
+  document.querySelectorAll('.svc.open').forEach(s=>s.classList.remove('open'));
+  if(!wasOpen)svc.classList.add('open');
+}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
