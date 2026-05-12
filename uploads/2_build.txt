@@ -1,0 +1,245 @@
+﻿2026-05-11T23:53:56.3293620Z Current runner version: '2.334.0'
+2026-05-11T23:53:56.3317658Z ##[group]Runner Image Provisioner
+2026-05-11T23:53:56.3318429Z Hosted Compute Agent
+2026-05-11T23:53:56.3319047Z Version: 20260213.493
+2026-05-11T23:53:56.3319882Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-05-11T23:53:56.3320588Z Build Date: 2026-02-13T00:28:41Z
+2026-05-11T23:53:56.3321234Z Worker ID: {85ae0093-d50a-48ed-98bb-35c3308aa751}
+2026-05-11T23:53:56.3321913Z Azure Region: westus
+2026-05-11T23:53:56.3322401Z ##[endgroup]
+2026-05-11T23:53:56.3323887Z ##[group]Operating System
+2026-05-11T23:53:56.3324552Z Ubuntu
+2026-05-11T23:53:56.3324979Z 24.04.4
+2026-05-11T23:53:56.3325464Z LTS
+2026-05-11T23:53:56.3325894Z ##[endgroup]
+2026-05-11T23:53:56.3326380Z ##[group]Runner Image
+2026-05-11T23:53:56.3326859Z Image: ubuntu-24.04
+2026-05-11T23:53:56.3327439Z Version: 20260413.86.1
+2026-05-11T23:53:56.3328586Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260413.86/images/ubuntu/Ubuntu2404-Readme.md
+2026-05-11T23:53:56.3330569Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260413.86
+2026-05-11T23:53:56.3331466Z ##[endgroup]
+2026-05-11T23:53:56.3332598Z ##[group]GITHUB_TOKEN Permissions
+2026-05-11T23:53:56.3334418Z Contents: read
+2026-05-11T23:53:56.3334934Z Metadata: read
+2026-05-11T23:53:56.3335512Z Pages: write
+2026-05-11T23:53:56.3336045Z ##[endgroup]
+2026-05-11T23:53:56.3338179Z Secret source: Actions
+2026-05-11T23:53:56.3339062Z Prepare workflow directory
+2026-05-11T23:53:56.3692629Z Prepare all required actions
+2026-05-11T23:53:56.3732127Z Getting action download info
+2026-05-11T23:53:56.8128242Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-05-11T23:53:56.9380944Z Download action repository 'actions/jekyll-build-pages@v1' (SHA:44a6e6beabd48582f863aeeb6cb2151cc1716697)
+2026-05-11T23:53:57.3188930Z Download action repository 'actions/upload-pages-artifact@v3' (SHA:56afc609e74202658d3ffba0e8f6dda462b719fa)
+2026-05-11T23:53:57.6324157Z Getting action download info
+2026-05-11T23:53:57.8277647Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-05-11T23:53:58.0585540Z Complete job name: build
+2026-05-11T23:53:58.1117438Z ##[group]Pull down action image 'ghcr.io/actions/jekyll-build-pages:v1.0.13'
+2026-05-11T23:53:58.1168331Z ##[command]/usr/bin/docker pull ghcr.io/actions/jekyll-build-pages:v1.0.13
+2026-05-11T23:53:58.7921716Z v1.0.13: Pulling from actions/jekyll-build-pages
+2026-05-11T23:53:58.7924434Z efc2b5ad9eec: Pulling fs layer
+2026-05-11T23:53:58.7926068Z 165b60d1bb48: Pulling fs layer
+2026-05-11T23:53:58.7927420Z 2a328af1ca3a: Pulling fs layer
+2026-05-11T23:53:58.7928604Z 32b58fa44788: Pulling fs layer
+2026-05-11T23:53:58.7930243Z 590ab93c22d2: Pulling fs layer
+2026-05-11T23:53:58.7932035Z 26ea96c4c14c: Pulling fs layer
+2026-05-11T23:53:58.7933762Z bd7e451dfea1: Pulling fs layer
+2026-05-11T23:53:58.7935296Z c209e9dadc51: Pulling fs layer
+2026-05-11T23:53:58.7936615Z a4925b5c711a: Pulling fs layer
+2026-05-11T23:53:58.7937734Z cd9459784e3c: Pulling fs layer
+2026-05-11T23:53:58.7938760Z 32b58fa44788: Waiting
+2026-05-11T23:53:58.7940766Z bd7e451dfea1: Waiting
+2026-05-11T23:53:58.7941740Z 590ab93c22d2: Waiting
+2026-05-11T23:53:58.7942605Z c209e9dadc51: Waiting
+2026-05-11T23:53:58.7943433Z 26ea96c4c14c: Waiting
+2026-05-11T23:53:58.7944238Z a4925b5c711a: Waiting
+2026-05-11T23:53:58.7945052Z cd9459784e3c: Waiting
+2026-05-11T23:53:58.9538030Z 2a328af1ca3a: Verifying Checksum
+2026-05-11T23:53:58.9540142Z 2a328af1ca3a: Download complete
+2026-05-11T23:53:59.0098702Z 165b60d1bb48: Verifying Checksum
+2026-05-11T23:53:59.0101670Z 165b60d1bb48: Download complete
+2026-05-11T23:53:59.0495790Z efc2b5ad9eec: Verifying Checksum
+2026-05-11T23:53:59.0497760Z efc2b5ad9eec: Download complete
+2026-05-11T23:53:59.1664306Z 590ab93c22d2: Verifying Checksum
+2026-05-11T23:53:59.1666484Z 590ab93c22d2: Download complete
+2026-05-11T23:53:59.3103420Z 32b58fa44788: Download complete
+2026-05-11T23:53:59.3442947Z bd7e451dfea1: Verifying Checksum
+2026-05-11T23:53:59.3450152Z bd7e451dfea1: Download complete
+2026-05-11T23:53:59.5234932Z a4925b5c711a: Verifying Checksum
+2026-05-11T23:53:59.5237766Z a4925b5c711a: Download complete
+2026-05-11T23:53:59.6293920Z c209e9dadc51: Verifying Checksum
+2026-05-11T23:53:59.6300832Z c209e9dadc51: Download complete
+2026-05-11T23:53:59.7055830Z cd9459784e3c: Verifying Checksum
+2026-05-11T23:53:59.7068312Z cd9459784e3c: Download complete
+2026-05-11T23:53:59.8831136Z 26ea96c4c14c: Verifying Checksum
+2026-05-11T23:53:59.8850738Z 26ea96c4c14c: Download complete
+2026-05-11T23:54:00.5210600Z efc2b5ad9eec: Pull complete
+2026-05-11T23:54:01.9543031Z 165b60d1bb48: Pull complete
+2026-05-11T23:54:01.9681759Z 2a328af1ca3a: Pull complete
+2026-05-11T23:54:02.9615349Z 32b58fa44788: Pull complete
+2026-05-11T23:54:02.9762280Z 590ab93c22d2: Pull complete
+2026-05-11T23:54:07.1164639Z 26ea96c4c14c: Pull complete
+2026-05-11T23:54:07.1508384Z bd7e451dfea1: Pull complete
+2026-05-11T23:54:09.2615992Z c209e9dadc51: Pull complete
+2026-05-11T23:54:09.2872261Z a4925b5c711a: Pull complete
+2026-05-11T23:54:09.2964271Z cd9459784e3c: Pull complete
+2026-05-11T23:54:09.2997115Z Digest: sha256:6791ebfd912185ed59bfb5fb102664fa872496b79f87ff8b9cfba292a7345041
+2026-05-11T23:54:09.3014772Z Status: Downloaded newer image for ghcr.io/actions/jekyll-build-pages:v1.0.13
+2026-05-11T23:54:09.3024090Z ghcr.io/actions/jekyll-build-pages:v1.0.13
+2026-05-11T23:54:09.3043619Z ##[endgroup]
+2026-05-11T23:54:09.3344293Z ##[group]Run actions/checkout@v4
+2026-05-11T23:54:09.3344904Z with:
+2026-05-11T23:54:09.3345080Z   ref: main
+2026-05-11T23:54:09.3345255Z   submodules: recursive
+2026-05-11T23:54:09.3345492Z   repository: musicosdefondo/musicosdefondo
+2026-05-11T23:54:09.3345958Z   token: ***
+2026-05-11T23:54:09.3346145Z   ssh-strict: true
+2026-05-11T23:54:09.3346325Z   ssh-user: git
+2026-05-11T23:54:09.3346713Z   persist-credentials: true
+2026-05-11T23:54:09.3347049Z   clean: true
+2026-05-11T23:54:09.3347244Z   sparse-checkout-cone-mode: true
+2026-05-11T23:54:09.3347512Z   fetch-depth: 1
+2026-05-11T23:54:09.3347687Z   fetch-tags: false
+2026-05-11T23:54:09.3347867Z   show-progress: true
+2026-05-11T23:54:09.3348053Z   lfs: false
+2026-05-11T23:54:09.3348243Z   set-safe-directory: true
+2026-05-11T23:54:09.3348735Z ##[endgroup]
+2026-05-11T23:54:09.4469920Z Syncing repository: musicosdefondo/musicosdefondo
+2026-05-11T23:54:09.4471396Z ##[group]Getting Git version info
+2026-05-11T23:54:09.4471902Z Working directory is '/home/runner/work/musicosdefondo/musicosdefondo'
+2026-05-11T23:54:09.4472509Z [command]/usr/bin/git version
+2026-05-11T23:54:09.4514928Z git version 2.53.0
+2026-05-11T23:54:09.4542790Z ##[endgroup]
+2026-05-11T23:54:09.4559709Z Temporarily overriding HOME='/home/runner/work/_temp/e425c99d-d16a-4268-b134-1f2e93b1ec90' before making global git config changes
+2026-05-11T23:54:09.4561064Z Adding repository directory to the temporary git global config as a safe directory
+2026-05-11T23:54:09.4574511Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/musicosdefondo/musicosdefondo
+2026-05-11T23:54:09.4609244Z Deleting the contents of '/home/runner/work/musicosdefondo/musicosdefondo'
+2026-05-11T23:54:09.4612950Z ##[group]Initializing the repository
+2026-05-11T23:54:09.4617133Z [command]/usr/bin/git init /home/runner/work/musicosdefondo/musicosdefondo
+2026-05-11T23:54:09.4722549Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-05-11T23:54:09.4723620Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-05-11T23:54:09.4724580Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-05-11T23:54:09.4725285Z hint: call:
+2026-05-11T23:54:09.4725619Z hint:
+2026-05-11T23:54:09.4726059Z hint: 	git config --global init.defaultBranch <name>
+2026-05-11T23:54:09.4726631Z hint:
+2026-05-11T23:54:09.4727149Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-05-11T23:54:09.4728014Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-05-11T23:54:09.4729100Z hint:
+2026-05-11T23:54:09.4729752Z hint: 	git branch -m <name>
+2026-05-11T23:54:09.4730144Z hint:
+2026-05-11T23:54:09.4730694Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-05-11T23:54:09.4731702Z Initialized empty Git repository in /home/runner/work/musicosdefondo/musicosdefondo/.git/
+2026-05-11T23:54:09.4738259Z [command]/usr/bin/git remote add origin https://github.com/musicosdefondo/musicosdefondo
+2026-05-11T23:54:09.4767994Z ##[endgroup]
+2026-05-11T23:54:09.4768386Z ##[group]Disabling automatic garbage collection
+2026-05-11T23:54:09.4772654Z [command]/usr/bin/git config --local gc.auto 0
+2026-05-11T23:54:09.4802135Z ##[endgroup]
+2026-05-11T23:54:09.4802738Z ##[group]Setting up auth
+2026-05-11T23:54:09.4810617Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-05-11T23:54:09.4841384Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-05-11T23:54:09.5126300Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-05-11T23:54:09.5156790Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-05-11T23:54:09.5381189Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-05-11T23:54:09.5413996Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-05-11T23:54:09.5641574Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-05-11T23:54:09.5678080Z ##[endgroup]
+2026-05-11T23:54:09.5678786Z ##[group]Fetching the repository
+2026-05-11T23:54:09.5687954Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +refs/heads/main*:refs/remotes/origin/main* +refs/tags/main*:refs/tags/main*
+2026-05-11T23:54:11.2327505Z From https://github.com/musicosdefondo/musicosdefondo
+2026-05-11T23:54:11.2355529Z  * [new branch]      main       -> origin/main
+2026-05-11T23:54:11.2356678Z ##[endgroup]
+2026-05-11T23:54:11.2357012Z ##[group]Determining the checkout info
+2026-05-11T23:54:11.2363933Z [command]/usr/bin/git branch --list --remote origin/main
+2026-05-11T23:54:11.2388511Z   origin/main
+2026-05-11T23:54:11.2393023Z ##[endgroup]
+2026-05-11T23:54:11.2398164Z [command]/usr/bin/git sparse-checkout disable
+2026-05-11T23:54:11.2434457Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-05-11T23:54:11.2462023Z ##[group]Checking out the ref
+2026-05-11T23:54:11.2466472Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-05-11T23:54:11.2939715Z Switched to a new branch 'main'
+2026-05-11T23:54:11.2940788Z branch 'main' set up to track 'origin/main'.
+2026-05-11T23:54:11.2949651Z ##[endgroup]
+2026-05-11T23:54:11.2950453Z ##[group]Setting up auth for fetching submodules
+2026-05-11T23:54:11.2957212Z [command]/usr/bin/git config --global http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-05-11T23:54:11.2996357Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2026-05-11T23:54:11.3028029Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2026-05-11T23:54:11.3058804Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-280555611@github.com:
+2026-05-11T23:54:11.3084081Z ##[endgroup]
+2026-05-11T23:54:11.3084433Z ##[group]Fetching submodules
+2026-05-11T23:54:11.3088919Z [command]/usr/bin/git submodule sync --recursive
+2026-05-11T23:54:11.3314052Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --depth=1 --recursive
+2026-05-11T23:54:11.3541477Z [command]/usr/bin/git submodule foreach --recursive git config --local gc.auto 0
+2026-05-11T23:54:11.3765939Z ##[endgroup]
+2026-05-11T23:54:11.3766609Z ##[group]Persisting credentials for submodules
+2026-05-11T23:54:11.3773861Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'url\.https\:\/\/github\.com\/\.insteadOf' && git config --local --unset-all 'url.https://github.com/.insteadOf' || :"
+2026-05-11T23:54:11.3995609Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local 'http.https://github.com/.extraheader' 'AUTHORIZATION: basic ***' && git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-05-11T23:54:11.4220742Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'git@github.com:'
+2026-05-11T23:54:11.4444388Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'org-280555611@github.com:'
+2026-05-11T23:54:11.4660456Z ##[endgroup]
+2026-05-11T23:54:11.4697300Z [command]/usr/bin/git log -1 --format=%H
+2026-05-11T23:54:11.4722278Z d2010bcffbd05e5b7e3d12bfb2c20926df1c7613
+2026-05-11T23:54:11.4965668Z ##[group]Run actions/jekyll-build-pages@v1
+2026-05-11T23:54:11.4965953Z with:
+2026-05-11T23:54:11.4966118Z   source: .
+2026-05-11T23:54:11.4966281Z   destination: ./_site
+2026-05-11T23:54:11.4966468Z   future: false
+2026-05-11T23:54:11.4966697Z   build_revision: d2010bcffbd05e5b7e3d12bfb2c20926df1c7613
+2026-05-11T23:54:11.4966983Z   verbose: true
+2026-05-11T23:54:11.4967270Z   token: ***
+2026-05-11T23:54:11.4967448Z ##[endgroup]
+2026-05-11T23:54:11.5063219Z ##[command]/usr/bin/docker run --name ghcrioactionsjekyllbuildpagesv1013_294c7d --label a93863 --workdir /github/workspace --rm -e "INPUT_SOURCE" -e "INPUT_DESTINATION" -e "INPUT_FUTURE" -e "INPUT_BUILD_REVISION" -e "INPUT_VERBOSE" -e "INPUT_TOKEN" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_ID_TOKEN_REQUEST_URL" -e "ACTIONS_ID_TOKEN_REQUEST_TOKEN" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/musicosdefondo/musicosdefondo":"/github/workspace" ghcr.io/actions/jekyll-build-pages:v1.0.13
+2026-05-11T23:54:12.2618087Z [33mConfiguration file: none[0m
+2026-05-11T23:54:12.3822585Z To use retry middleware with Faraday v2.0+, install `faraday-retry` gem
+2026-05-11T23:54:12.6713571Z [33mError reading file /github/workspace/uploads/MASTERDATA_MusicosDeFondo_v1.3_FINAL2.md: invalid byte sequence in UTF-8 [0m
+2026-05-11T23:54:13.8328010Z [33m    Liquid Warning: Liquid syntax error (line 145): Unexpected character \ in "{{ y: \-5 }}" in uploads/Guía Clon Auros.md[0m
+2026-05-11T23:54:14.4264665Z [31m  Conversion error: Jekyll::Converters::Markdown encountered an error while converting 'uploads/MASTERDATA_MusicosDeFondo_v1.3_FINAL2.md':[0m
+2026-05-11T23:54:14.4265987Z [31m                    The source text contains invalid characters for the used encoding UTF-8[0m
+2026-05-11T23:54:14.4266984Z /usr/local/bundle/gems/kramdown-2.4.0/lib/kramdown/parser/base.rb:93:in `adapt_source': The source text contains invalid characters for the used encoding UTF-8 (RuntimeError)
+2026-05-11T23:54:14.4267962Z 	from /usr/local/bundle/gems/kramdown-2.4.0/lib/kramdown/parser/kramdown.rb:90:in `parse'
+2026-05-11T23:54:14.4268625Z 	from /usr/local/bundle/gems/kramdown-parser-gfm-1.1.0/lib/kramdown/parser/gfm.rb:56:in `parse'
+2026-05-11T23:54:14.4269278Z 	from /usr/local/bundle/gems/kramdown-2.4.0/lib/kramdown/parser/base.rb:69:in `parse'
+2026-05-11T23:54:14.4270141Z 	from /usr/local/bundle/gems/kramdown-2.4.0/lib/kramdown/document.rb:102:in `initialize'
+2026-05-11T23:54:14.4270815Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/converters/markdown/kramdown_parser.rb:42:in `new'
+2026-05-11T23:54:14.4271577Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/converters/markdown/kramdown_parser.rb:42:in `convert'
+2026-05-11T23:54:14.4272594Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/converters/markdown.rb:77:in `convert'
+2026-05-11T23:54:14.4273262Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/renderer.rb:101:in `block in convert'
+2026-05-11T23:54:14.4273825Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/renderer.rb:99:in `each'
+2026-05-11T23:54:14.4274315Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/renderer.rb:99:in `reduce'
+2026-05-11T23:54:14.4274799Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/renderer.rb:99:in `convert'
+2026-05-11T23:54:14.4275299Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/renderer.rb:83:in `render_document'
+2026-05-11T23:54:14.4275792Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/renderer.rb:62:in `run'
+2026-05-11T23:54:14.4276302Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/site.rb:479:in `render_regenerated'
+2026-05-11T23:54:14.4276857Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/site.rb:472:in `block in render_pages'
+2026-05-11T23:54:14.4277383Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/site.rb:471:in `each'
+2026-05-11T23:54:14.4277863Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/site.rb:471:in `render_pages'
+2026-05-11T23:54:14.4278340Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/site.rb:192:in `render'
+2026-05-11T23:54:14.4278784Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/site.rb:71:in `process'
+2026-05-11T23:54:14.4279259Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/command.rb:28:in `process_site'
+2026-05-11T23:54:14.4279968Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/commands/build.rb:65:in `build'
+2026-05-11T23:54:14.4280468Z 	from /usr/local/bundle/gems/jekyll-3.10.0/lib/jekyll/commands/build.rb:36:in `process'
+2026-05-11T23:54:14.4281057Z 	from /usr/local/bundle/gems/github-pages-232/bin/github-pages:70:in `block (3 levels) in <top (required)>'
+2026-05-11T23:54:14.4281693Z 	from /usr/local/bundle/gems/mercenary-0.3.6/lib/mercenary/command.rb:220:in `block in execute'
+2026-05-11T23:54:14.4282229Z 	from /usr/local/bundle/gems/mercenary-0.3.6/lib/mercenary/command.rb:220:in `each'
+2026-05-11T23:54:14.4282736Z 	from /usr/local/bundle/gems/mercenary-0.3.6/lib/mercenary/command.rb:220:in `execute'
+2026-05-11T23:54:14.4283223Z 	from /usr/local/bundle/gems/mercenary-0.3.6/lib/mercenary/program.rb:42:in `go'
+2026-05-11T23:54:14.4283688Z 	from /usr/local/bundle/gems/mercenary-0.3.6/lib/mercenary.rb:19:in `program'
+2026-05-11T23:54:14.4284167Z 	from /usr/local/bundle/gems/github-pages-232/bin/github-pages:6:in `<top (required)>'
+2026-05-11T23:54:14.4284593Z 	from /usr/local/bundle/bin/github-pages:25:in `load'
+2026-05-11T23:54:14.4284904Z 	from /usr/local/bundle/bin/github-pages:25:in `<main>'
+2026-05-11T23:54:14.4450348Z ##[error] Logging at level: debug GitHub Pages: github-pages v232 GitHub Pages: jekyll v3.10.0 Theme: jekyll-theme-primer Theme source: /usr/local/bundle/gems/jekyll-theme-primer-0.6.0 Requiring: jekyll-github-metadata Requiring: jekyll-seo-tag Requiring: jekyll-coffeescript Requiring: jekyll-commonmark-ghpages Requiring: jekyll-gist Requiring: jekyll-github-metadata Requiring: jekyll-paginate Requiring: jekyll-relative-links Requiring: jekyll-optional-front-matter Requiring: jekyll-readme-index Requiring: jekyll-default-layout Requiring: jekyll-titles-from-headings GitHub Metadata: Initializing... Source: /github/workspace/. Destination: /github/workspace/./_site Incremental build: disabled. Enable with --incremental Generating... EntryFilter: excluded /CNAME Generating: JekyllOptionalFrontMatter::Generator finished in 0.000479259 seconds. Generating: JekyllReadmeIndex::Generator finished in 8.8617e-05 seconds. Generating: Jekyll::Paginate::Pagination finished in 7.374e-06 seconds. Generating: JekyllRelativeLinks::Generator finished in 0.001033138 seconds. Generating: JekyllDefaultLayout::Generator finished in 0.001801551 seconds. Requiring: kramdown-parser-gfm Generating: JekyllTitlesFromHeadings::Generator finished in 0.008684757 seconds. Rendering: assets/css/style.scss Pre-Render Hooks: assets/css/style.scss Rendering Markup: assets/css/style.scss Rendering: uploads/Guía Clon Auros.md Pre-Render Hooks: uploads/Guía Clon Auros.md Rendering Liquid: uploads/Guía Clon Auros.md Rendering Markup: uploads/Guía Clon Auros.md Rendering Layout: uploads/Guía Clon Auros.md Layout source: theme GitHub Metadata: Generating for musicosdefondo/musicosdefondo GitHub Metadata: Calling @client.repository("musicosdefondo/musicosdefondo", {:accept=>"application/vnd.github.drax-preview+json"}) GitHub Metadata: Calling @client.pages("musicosdefondo/musicosdefondo", {}) Rendering: uploads/MASTERDATA_MusicosDeFondo_v1.3_FINAL2.md Pre-Render Hooks: uploads/MASTERDATA_MusicosDeFondo_v1.3_FINAL2.md Rendering Markup: uploads/MASTERDATA_MusicosDeFondo_v1.3_FINAL2.md github-pages 232 | Error: The source text contains invalid characters for the used encoding UTF-8 
+2026-05-11T23:54:14.5324132Z Post job cleanup.
+2026-05-11T23:54:14.6313580Z [command]/usr/bin/git version
+2026-05-11T23:54:14.6351291Z git version 2.53.0
+2026-05-11T23:54:14.6397751Z Temporarily overriding HOME='/home/runner/work/_temp/4801e86a-f5fd-492b-b756-31ee924760d9' before making global git config changes
+2026-05-11T23:54:14.6399028Z Adding repository directory to the temporary git global config as a safe directory
+2026-05-11T23:54:14.6405071Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/musicosdefondo/musicosdefondo
+2026-05-11T23:54:14.6443283Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-05-11T23:54:14.6477726Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-05-11T23:54:14.6708123Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-05-11T23:54:14.6730236Z http.https://github.com/.extraheader
+2026-05-11T23:54:14.6743089Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-05-11T23:54:14.6774885Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-05-11T23:54:14.6999835Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-05-11T23:54:14.7031442Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-05-11T23:54:14.7387329Z Cleaning up orphan processes
+2026-05-11T23:54:14.7737822Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
