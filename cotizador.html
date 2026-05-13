@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizador · Diseña tu evento sonoro · Músicos de Fondo</title>
+<meta name="description" content="Diseña tu evento musical en 3 minutos. Rango de inversión inmediato. Boutique de diseño sonoro en Medellín.">
+<meta property="og:title" content="Tu evento sonoro, en tres minutos · Músicos de Fondo">
+<meta property="og:description" content="Diseña tu evento musical en 3 minutos. Boutique de diseño sonoro.">
+<meta property="og:image" content="uploads/bandperformancejazzclub.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Cotizador Músicos de Fondo","applicationCategory":"BusinessApplication","description":"Configurador interactivo de propuesta musical"}</script>
+<link rel="stylesheet" href="cotizador.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<!-- Grain overlay -->
+<svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <filter id="gf"><feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#gf)"/>
+</svg>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+
+<!-- Global nav -->
+<nav class="global-nav" id="globalNav">
+  <button id="btnBack" class="nav-back" data-grow>← ATRÁS</button>
+  <button id="audio-btn" class="audio-btn" data-grow>
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M3 6H1v4h2l4 4V2L3 6z"/>
+      <path d="M11 5a4 4 0 010 6M13.5 3a7 7 0 010 10" stroke-linecap="round"/>
+    </svg>
+    <span id="audio-label">SFX OFF</span>
+  </button>
+</nav>
+
+<!-- Progress dots -->
+<div class="progress-dots" id="progressDots"></div>
+
+<!-- Toast -->
+<div id="toast"><div class="toast-text"></div></div>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 0 — APERTURA
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-0">
+  <div class="a0-bg">
+    <img class="a0-photo" src="uploads/bandperformancejazzclub.jpg" alt="">
+    <div class="a0-overlay"></div>
+    <div class="a0-vignette"></div>
+  </div>
+  <a href="/" class="a0-back micro" style="position:absolute;top:24px;left:40px;z-index:20;opacity:.5">← VOLVER A LA WEB</a>
+  <div class="a0-content">
+    <img class="a0-logo" src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo" data-grow>
+    <p class="eyebrow a0-eyebrow">EL COTIZADOR · MÚSICOS DE FONDO</p>
+    <h1 class="a0-headline">Tu evento,<br>en <em>tres minutos.</em></h1>
+    <p class="a0-sub">Una conversación visual para diseñar tu propuesta musical. Sin formularios largos. Sin promesas vacías. Solo el rango exacto de inversión que necesitas para empezar.</p>
+    <div class="scroll-hint" data-grow>
+      <div class="scroll-line"></div>
+      <div class="scroll-dot"></div>
+      <p class="micro">DESLIZA O HAZ CLICK</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 1 — TICKET DE ENTRADA
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-1">
+  <div class="a1-left">
+    <p class="eyebrow">01 / ACCESO</p>
+    <h1>Antes de entrar,<br>déjanos un <em>correo.</em></h1>
+    <p class="lead-italic" style="font-size:16px">Te enviamos el resumen completo de tu cotización por email. Sin spam. Sin newsletters. Solo tu propuesta.</p>
+    <div class="a1-bullets">
+      <div class="a1-bullet">RESUMEN PERSONALIZADO POR EMAIL</div>
+      <div class="a1-bullet">RESPUESTA DE MARLON EN &lt;24H</div>
+      <div class="a1-bullet">CERO COMUNICACIONES MASIVAS</div>
+    </div>
+  </div>
+
+  <div class="a1-right">
+    <div class="ticket-wrapper">
+      <div class="ticket" data-grow>
+        <div class="ticket-warm"></div>
+        <div class="ticket-header">
+          <span class="micro" style="color:var(--gold)">MÚSICOS DE FONDO · ADMIT ONE</span>
+          <span class="micro" id="t-num" style="color:var(--gold)">N° 00001</span>
+        </div>
+
+        <div class="ticket-title">Acceso al Cotizador</div>
+
+        <div class="ticket-field-wrap">
+          <label class="ticket-field-label" for="t-email">TU CORREO ELECTRÓNICO</label>
+          <div class="ticket-field-inner">
+            <input class="ticket-input" id="t-email" type="email" placeholder="nombre@empresa.com" autocomplete="email">
+            <span class="t-check" id="t-check">✓</span>
+          </div>
+        </div>
+
+        <div class="ticket-field-wrap" style="margin-top:14px">
+          <label class="ticket-field-label" for="t-source">¿CÓMO NOS ENCONTRASTE? (OPCIONAL)</label>
+          <select class="ticket-select" id="t-source">
+            <option value="">Selecciona</option>
+            <option value="instagram">Instagram</option>
+            <option value="recomendacion">Recomendación</option>
+            <option value="google">Google</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="ticket-footer">
+          <span class="micro">VÁLIDO POR UNA SESIÓN</span>
+          <span class="micro">MEDELLÍN · COLOMBIA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="t-error" id="t-error">Necesitamos un email válido para continuar</div>
+
+    <button class="btn-pill disabled" id="btnEnter" disabled data-grow>ENTRAR AL COTIZADOR →</button>
+    <button class="btn-ghost" style="font-size:8px;letter-spacing:.15em">Tu privacidad nos importa → sin spam, sin datos de terceros</button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 2 — ATMÓSFERA
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-2">
+  <div class="a2-bg">
+    <img src="uploads/bandperformancejazzclub.jpg" alt="" style="opacity:0">
+    <div class="a2-bg-veil"></div>
+  </div>
+
+  <div class="a2-left">
+    <p class="eyebrow">02 / ATMÓSFERA</p>
+    <h1>¿Qué historia<br>quieres <em>contar?</em></h1>
+    <p class="lead-italic a2-lead" style="font-size:15px">Cada producto es un universo sonoro distinto. Pasa sobre cada opción para sentirlo.</p>
+  </div>
+
+  <div class="a2-right">
+    <div class="event-row" data-id="horeca" data-label="Experiencia 360° HORECA" data-img="uploads/singercloseup.jpg" data-grow>
+      <span class="event-num">01</span>
+      <div class="event-info">
+        <div class="event-name">Experiencia 360° <em>HORECA</em></div>
+        <div class="event-persona">Restaurantes · Hoteles</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/singercloseup.jpg" alt=""></div>
+    </div>
+    <div class="event-row" data-id="cine" data-label="Cine-Conciertos" data-img="uploads/cineconciertos.jpg" data-grow>
+      <span class="event-num">02</span>
+      <div class="event-info">
+        <div class="event-name"><em>Cine-Conciertos</em></div>
+        <div class="event-persona">Teatros · Cultura</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/cineconciertos.jpg" alt=""></div>
+    </div>
+    <div class="event-row" data-id="navijazz" data-label="NaviJazz" data-img="uploads/bandperformance1.jpg" data-grow>
+      <span class="event-num">03</span>
+      <div class="event-info">
+        <div class="event-name"><em>NaviJazz</em></div>
+        <div class="event-persona">Fin de Año · Retail</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/bandperformance1.jpg" alt=""></div>
+    </div>
+    <div class="event-row" data-id="itinerante" data-label="Música Itinerante" data-img="uploads/bandperformance.jpg" data-grow>
+      <span class="event-num">04</span>
+      <div class="event-info">
+        <div class="event-name">Música <em>Itinerante</em></div>
+        <div class="event-persona">Centros Comerciales</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/bandperformance.jpg" alt=""></div>
+    </div>
+    <div class="event-row" data-id="boda" data-label="Bodas Simbólicas" data-img="uploads/trumpetcloseup.jpg" data-grow>
+      <span class="event-num">05</span>
+      <div class="event-info">
+        <div class="event-name">Bodas <em>Simbólicas</em></div>
+        <div class="event-persona">Wedding Premium</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/trumpetcloseup.jpg" alt=""></div>
+    </div>
+    <div class="event-row" data-id="corporativo" data-label="Pulso Corporativo" data-img="uploads/pianistcloseup.jpg" data-grow>
+      <span class="event-num">06</span>
+      <div class="event-info">
+        <div class="event-name">Pulso <em>Corporativo</em></div>
+        <div class="event-persona">RRHH · Bienestar</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/pianistcloseup.jpg" alt=""></div>
+    </div>
+    <div class="event-row" data-id="paginas" data-label="Páginas Sonoras" data-img="uploads/saxophonecloseup.jpg" data-grow>
+      <span class="event-num">07</span>
+      <div class="event-info">
+        <div class="event-name">Páginas <em>Sonoras</em></div>
+        <div class="event-persona">Literatura · Cultura</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/saxophonecloseup.jpg" alt=""></div>
+    </div>
+    <div class="event-row" data-id="custom" data-label="Personalizado" data-img="uploads/studio.jpg" data-grow>
+      <span class="event-num">08</span>
+      <div class="event-info">
+        <div class="event-name">Otro / <em>Personalizado</em></div>
+        <div class="event-persona">Cuéntanos tu idea</div>
+      </div>
+      <div class="event-thumb"><img src="uploads/studio.jpg" alt=""></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 3 — ENSAMBLE
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-3">
+  <div class="a3-header">
+    <p class="eyebrow">03 / ENSAMBLE</p>
+    <h1>Construye<br>tu <em>ensamble.</em></h1>
+    <p class="lead-italic a3-lead">Desliza para elegir el tamaño de la banda.</p>
+  </div>
+
+  <div class="stage-wrap">
+    <div class="stage-svg-box">
+      <svg id="stage-svg" viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="sglow" cx="50%" cy="100%" r="75%">
+            <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.2"/>
+            <stop offset="55%" stop-color="#C9A84C" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="#050403" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="700" height="230" fill="#050403"/>
+        <rect x="0" y="0" width="700" height="193" fill="url(#sglow)"/>
+        <rect x="0" y="193" width="700" height="37" fill="#070604"/>
+        <line x1="0" y1="193" x2="700" y2="193" stroke="rgba(201,168,76,0.28)" stroke-width="1.5"/>
+        <line x1="0" y1="200" x2="700" y2="200" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+        <line x1="0" y1="208" x2="700" y2="208" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+        <line x1="0" y1="216" x2="700" y2="216" stroke="rgba(201,168,76,0.03)" stroke-width="1"/>
+        <!-- Vignette sides -->
+        <rect x="0" y="0" width="80" height="230" fill="url(#lv)"/>
+        <rect x="620" y="0" width="80" height="230" fill="url(#rv)"/>
+        <defs>
+          <linearGradient id="lv" x1="0" x2="1"><stop offset="0%" stop-color="#050403" stop-opacity=".9"/><stop offset="100%" stop-color="#050403" stop-opacity="0"/></linearGradient>
+          <linearGradient id="rv" x1="0" x2="1"><stop offset="0%" stop-color="#050403" stop-opacity="0"/><stop offset="100%" stop-color="#050403" stop-opacity=".9"/></linearGradient>
+        </defs>
+
+        <!-- 1. SINGER cx=65 -->
+        <g class="musician" data-idx="0" style="opacity:1">
+          <circle cx="65" cy="103" r="12" fill="none" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <line x1="65" y1="115" x2="65" y2="125" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M53,125 L50,170 L80,170 L77,125 Z" fill="rgba(242,237,228,0.06)" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M53,134 L40,152 L40,164" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M77,132 L88,117" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <circle cx="90" cy="114" r="3.5" fill="none" stroke="rgba(201,168,76,0.55)" stroke-width="1.2"/>
+          <line x1="90" y1="114" x2="90" y2="123" stroke="rgba(201,168,76,0.45)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M57,170 L55,193 M73,170 L75,193" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- 2. BASSIST cx=158 -->
+        <g class="musician" data-idx="1" style="opacity:0">
+          <path d="M170,118 C180,112 183,100 179,91 C176,83 167,81 162,85 C157,81 148,83 145,91 C141,100 144,112 154,118 L152,192" fill="none" stroke="rgba(242,237,228,0.35)" stroke-width="1.2"/>
+          <path d="M170,118 L168,192" stroke="rgba(242,237,228,0.35)" stroke-width="1.2"/>
+          <line x1="152" y1="192" x2="168" y2="192" stroke="rgba(242,237,228,0.35)" stroke-width="1.2"/>
+          <circle cx="150" cy="103" r="12" fill="none" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M138,125 L136,170 L164,170 L162,125 Z" fill="rgba(242,237,228,0.06)" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M138,133 L128,145 M162,131 L170,124" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M142,170 L140,193 M158,170 L160,193" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- 3. PIANIST cx=248 SEATED -->
+        <g class="musician" data-idx="2" style="opacity:0">
+          <rect x="222" y="154" width="58" height="9" rx="1" fill="rgba(242,237,228,0.04)" stroke="rgba(242,237,228,0.3)" stroke-width="1"/>
+          <line x1="231" y1="154" x2="231" y2="163" stroke="rgba(242,237,228,0.18)" stroke-width="0.8"/>
+          <line x1="240" y1="154" x2="240" y2="163" stroke="rgba(242,237,228,0.18)" stroke-width="0.8"/>
+          <line x1="249" y1="154" x2="249" y2="163" stroke="rgba(242,237,228,0.18)" stroke-width="0.8"/>
+          <line x1="258" y1="154" x2="258" y2="163" stroke="rgba(242,237,228,0.18)" stroke-width="0.8"/>
+          <line x1="267" y1="154" x2="267" y2="163" stroke="rgba(242,237,228,0.18)" stroke-width="0.8"/>
+          <rect x="220" y="163" width="62" height="30" rx="1" fill="rgba(242,237,228,0.03)" stroke="rgba(242,237,228,0.25)" stroke-width="1"/>
+          <circle cx="248" cy="112" r="12" fill="none" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M236,124 L234,152 L262,152 L260,124 Z" fill="rgba(242,237,228,0.06)" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M236,134 L224,153 M260,134 L272,153" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M240,152 L234,170 L218,178 M256,152 L262,170 L278,178" stroke="rgba(242,237,228,0.55)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- 4. DRUMMER cx=338 SEATED -->
+        <g class="musician" data-idx="3" style="opacity:0">
+          <ellipse cx="338" cy="178" rx="24" ry="16" fill="rgba(242,237,228,0.03)" stroke="rgba(242,237,228,0.28)" stroke-width="1"/>
+          <ellipse cx="308" cy="162" rx="14" ry="7" fill="rgba(242,237,228,0.03)" stroke="rgba(242,237,228,0.28)" stroke-width="1"/>
+          <line x1="302" y1="138" x2="322" y2="140" stroke="rgba(242,237,228,0.3)" stroke-width="1.3"/>
+          <line x1="356" y1="135" x2="374" y2="132" stroke="rgba(242,237,228,0.28)" stroke-width="1.2"/>
+          <circle cx="338" cy="104" r="12" fill="none" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M326,126 L324,158 L352,158 L350,126 Z" fill="rgba(242,237,228,0.06)" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M326,133 L308,120" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <line x1="305" y1="117" x2="297" y2="105" stroke="rgba(242,237,228,0.5)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M350,133 L368,120" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <line x1="371" y1="117" x2="379" y2="105" stroke="rgba(242,237,228,0.5)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M330,158 L326,176 L314,193 M346,158 L350,176 L362,193" stroke="rgba(242,237,228,0.55)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- 5. TRUMPET cx=425 -->
+        <g class="musician" data-idx="4" style="opacity:0">
+          <path d="M447,102 C454,97 457,90 453,84 C450,79 443,80 441,84 C438,80 431,79 428,84 C424,90 427,97 434,102 L448,118" fill="none" stroke="rgba(201,168,76,0.52)" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="450" cy="120" r="5" fill="none" stroke="rgba(201,168,76,0.52)" stroke-width="1.5"/>
+          <circle cx="425" cy="104" r="12" fill="none" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M413,126 L411,170 L439,170 L437,126 Z" fill="rgba(242,237,228,0.06)" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M437,133 L441,124" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M413,135 L402,148" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M417,170 L415,193 M433,170 L435,193" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- 6. SAXOPHONE cx=512 -->
+        <g class="musician" data-idx="5" style="opacity:0">
+          <path d="M524,98 C527,90 524,82 518,81 C512,81 509,87 510,95 L509,130 C507,142 503,148 498,157 C494,164 496,173 502,174" fill="none" stroke="rgba(201,168,76,0.52)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M497,174 C492,177 489,183 493,186 C497,189 503,185 504,179" fill="none" stroke="rgba(201,168,76,0.52)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="512" cy="104" r="12" fill="none" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M500,126 L498,170 L526,170 L524,126 Z" fill="rgba(242,237,228,0.06)" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M524,133 L525,124 M500,135 L490,148" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M504,170 L502,193 M520,170 L522,193" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- 7. SECOND BRASS cx=605 -->
+        <g class="musician" data-idx="6" style="opacity:0">
+          <circle cx="605" cy="103" r="12" fill="none" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <line x1="605" y1="115" x2="605" y2="125" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M593,125 L591,170 L619,170 L617,125 Z" fill="rgba(242,237,228,0.06)" stroke="rgba(242,237,228,0.65)" stroke-width="1.3"/>
+          <path d="M593,133 L580,120" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M617,133 L630,120" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M629,118 C635,113 638,107 634,102 C631,98 625,100 624,104" stroke="rgba(201,168,76,0.48)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <circle cx="635" cy="100" r="4" fill="none" stroke="rgba(201,168,76,0.48)" stroke-width="1.4"/>
+          <path d="M597,170 L595,193 M613,170 L615,193" stroke="rgba(242,237,228,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="stage-info">
+      <div class="si-badge" id="si-badge">BEST-SELLER</div>
+      <div class="si-row">
+        <div class="si-label">FORMATO</div>
+        <div class="si-val" id="si-formato">Cuarteto</div>
+      </div>
+      <div class="si-sep"></div>
+      <div class="si-row">
+        <div class="si-label">INSTRUMENTACIÓN</div>
+        <div class="si-val" id="si-inst" style="font-size:13px">Voz · Piano · Bajo · Batería</div>
+      </div>
+      <div class="si-sep"></div>
+      <div class="si-row">
+        <div class="si-label">IDEAL PARA</div>
+        <div class="si-val" id="si-ideal" style="font-size:13px">Corporativos, fine dining</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ensemble-slider">
+    <div class="slider-track" id="ens-track">
+      <div class="slider-fill" id="ens-fill" style="width:50%"></div>
+      <div class="slider-stops">
+        <div class="s-stop on" style="left:0%"></div>
+        <div class="s-stop on" style="left:25%"></div>
+        <div class="s-stop on" style="left:50%"></div>
+        <div class="s-stop" style="left:75%"></div>
+        <div class="s-stop" style="left:100%"></div>
+      </div>
+      <div class="slider-thumb" id="ens-thumb" style="left:50%" data-grow></div>
+    </div>
+    <div class="slider-labels">
+      <span class="sl-label">Dúo</span>
+      <span class="sl-label">Trío</span>
+      <span class="sl-label on">Cuarteto</span>
+      <span class="sl-label">Quinteto</span>
+      <span class="sl-label">Septeto</span>
+    </div>
+  </div>
+
+  <button class="btn-pill show" id="act3-continue" data-grow>CONTINUAR →</button>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 4 — LUGAR Y MOMENTO
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-4">
+  <div class="a4-col">
+    <p class="eyebrow">04 / EL LUGAR</p>
+    <h2>¿Dónde <em>sucede?</em></h2>
+    <input class="city-input" id="cityInput" type="text" placeholder="Ciudad del evento" autocomplete="off">
+    <p class="city-note" id="cityNote"></p>
+    <div class="col-map">
+      <svg id="colombia-svg" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <path d="M 78,20 C 96,10 118,8 148,15 L 172,28 C 180,44 178,60 172,78 L 180,110 L 186,148 L 174,188 L 150,212 L 112,214 L 88,204 L 68,182 L 52,156 L 47,126 L 50,96 L 56,68 L 66,44 Z"
+          fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.32)" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M 78,20 L 66,30 L 58,48" stroke="rgba(201,168,76,0.22)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <!-- City dots (dim) -->
+        <circle cx="110" cy="36" r="2" fill="rgba(201,168,76,0.3)"/>
+        <circle cx="126" cy="148" r="2" fill="rgba(201,168,76,0.3)"/>
+        <circle cx="80" cy="162" r="2" fill="rgba(201,168,76,0.3)"/>
+        <circle cx="80" cy="162" r="2" fill="rgba(201,168,76,0.3)"/>
+        <!-- Pulsing dot (default Medellín) -->
+        <circle cx="95" cy="128" r="7" fill="rgba(201,168,76,0.12)" class="map-pulse"/>
+        <circle id="map-dot" cx="95" cy="128" r="3.5" fill="var(--gold)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="a4-col">
+    <p class="eyebrow">04 / EL MOMENTO</p>
+    <h2>¿Cuándo <em>sucede?</em></h2>
+    <div class="calendar">
+      <div class="cal-head">
+        <button class="cal-nav" id="cal-prev">←</button>
+        <span class="cal-month" id="cal-month">Mayo 2026</span>
+        <button class="cal-nav" id="cal-next">→</button>
+      </div>
+      <div class="cal-dow">
+        <span>DO</span><span>LU</span><span>MA</span><span>MI</span><span>JU</span><span>VI</span><span>SÁ</span>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+    <p class="urgency-note" id="urgency-note">URGENCIA: Tu fecha está cerca. Lo consideramos en el cálculo.</p>
+
+    <p class="eyebrow" style="margin-bottom:10px;margin-top:6px">AFORO ESTIMADO</p>
+    <div class="aforo-dots-box"><canvas id="aforo-canvas"></canvas></div>
+    <div class="aforo-bar-wrap"><div id="aforo-fill" class="aforo-fill" style="width:25%"></div></div>
+    <div class="aforo-stops">
+      <div class="aforo-stop">Íntimo<br><span style="opacity:.5">hasta 30</span></div>
+      <div class="aforo-stop on">Mediano<br><span style="opacity:.5">30–100</span></div>
+      <div class="aforo-stop">Grande<br><span style="opacity:.5">100–300</span></div>
+      <div class="aforo-stop">Masivo<br><span style="opacity:.5">300–800</span></div>
+      <div class="aforo-stop">Mayor<br><span style="opacity:.5">+800</span></div>
+    </div>
+
+    <button class="btn-pill disabled" id="act4-continue" disabled data-grow style="margin-top:20px">CONTINUAR →</button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 5 — NIVEL
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-5">
+  <div class="a5-header">
+    <p class="eyebrow">05 / NIVEL</p>
+    <h1>¿Cómo quieres<br>que se <em>sienta?</em></h1>
+    <p class="lead-italic a5-lead" style="font-size:15px">Cada nivel ajusta el acabado de la producción, la duración del set y la curaduría.</p>
+  </div>
+
+  <div class="level-cards">
+    <!-- Esencial -->
+    <div class="level-card" data-nivel="esencial" data-label="Esencial" data-grow>
+      <div class="lc-bg"><img src="uploads/pianistcloseup.jpg" alt=""></div>
+      <div class="lc-overlay"></div>
+      <div class="lc-body">
+        <div class="lc-tag">NIVEL 01</div>
+        <div class="lc-name">Esencial</div>
+        <div class="lc-sub">La pieza, impecable</div>
+        <div class="lc-sep"></div>
+        <div class="lc-items">
+          <div class="lc-item">Hasta 2 sets de 45 min</div>
+          <div class="lc-item">Producción técnica estándar</div>
+          <div class="lc-item">Repertorio curado por género</div>
+          <div class="lc-item">Registro audiovisual básico</div>
+        </div>
+        <div class="lc-closer">La esencia del oficio.</div>
+      </div>
+    </div>
+
+    <!-- Curado -->
+    <div class="level-card" data-nivel="b2b" data-label="Curado" data-grow>
+      <div class="lc-bg"><img src="uploads/singercloseup.jpg" alt=""></div>
+      <div class="lc-overlay"></div>
+      <div class="lc-rec">RECOMENDADO</div>
+      <div class="lc-body">
+        <div class="lc-tag">NIVEL 02 · RECOMENDADO</div>
+        <div class="lc-name">Curado</div>
+        <div class="lc-sub">La experiencia completa</div>
+        <div class="lc-sep"></div>
+        <div class="lc-items">
+          <div class="lc-item">Hasta 2 sets de 45 min</div>
+          <div class="lc-item">Producción técnica completa</div>
+          <div class="lc-item">Curaduría bespoke a la medida</div>
+          <div class="lc-item">2 Reels + 20 fotografías</div>
+          <div class="lc-item">Director artístico en set</div>
+        </div>
+        <div class="lc-closer">Diseño sonoro de autor.</div>
+      </div>
+    </div>
+
+    <!-- Premium -->
+    <div class="level-card" data-nivel="premium" data-label="Premium" data-grow>
+      <div class="lc-bg"><img src="uploads/bandperformance1.jpg" alt=""></div>
+      <div class="lc-overlay"></div>
+      <div class="lc-body">
+        <div class="lc-tag">NIVEL 03</div>
+        <div class="lc-name">Premium</div>
+        <div class="lc-sub">La obra maestra</div>
+        <div class="lc-sep"></div>
+        <div class="lc-items">
+          <div class="lc-item">Hasta 3 sets de 45 min</div>
+          <div class="lc-item">Producción premium (LED, DMX)</div>
+          <div class="lc-item">Arreglos y composición exclusiva</div>
+          <div class="lc-item">Cobertura audiovisual extendida</div>
+          <div class="lc-item">Vestuario y puesta en escena</div>
+        </div>
+        <div class="lc-closer">Una obra mayor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 6 — DETALLES
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-6">
+  <div class="a6-col">
+    <p class="eyebrow">06 / DETALLES</p>
+    <h2>¿Algo <em>más?</em></h2>
+    <p class="lead-italic">Selecciona lo que aplique. Opcional.</p>
+    <div class="extras-list">
+      <div class="extra-row" data-id="repertorio_custom" data-grow>
+        <div class="extra-chk"></div>
+        <div class="extra-info">
+          <div class="extra-name">Repertorio bespoke</div>
+          <div class="extra-desc">Composición exclusiva para tu evento</div>
+        </div>
+        <div class="extra-price">+$1.500.000</div>
+      </div>
+      <div class="extra-row" data-id="licencias" data-cond="cine" data-grow>
+        <div class="extra-chk"></div>
+        <div class="extra-info">
+          <div class="extra-name">Gestión de derechos</div>
+          <div class="extra-desc">Clearing de derechos de exhibición</div>
+        </div>
+        <div class="extra-price">+$1.200.000</div>
+      </div>
+      <div class="extra-row" data-id="vestuario" data-grow>
+        <div class="extra-chk"></div>
+        <div class="extra-info">
+          <div class="extra-name">Vestuario temático</div>
+          <div class="extra-desc">Alineado a la identidad de tu marca</div>
+        </div>
+        <div class="extra-price">+$600.000</div>
+      </div>
+      <div class="extra-row" data-id="set_extra" data-grow>
+        <div class="extra-chk"></div>
+        <div class="extra-info">
+          <div class="extra-name">Set adicional</div>
+          <div class="extra-desc">Más de 2×45 min de programa</div>
+        </div>
+        <div class="extra-price">+$900.000</div>
+      </div>
+      <div class="extra-row" data-id="marionetas" data-cond="navijazz" data-grow>
+        <div class="extra-chk"></div>
+        <div class="extra-info">
+          <div class="extra-name">Compañía de marionetas</div>
+          <div class="extra-desc">Espectáculo visual complementario</div>
+        </div>
+        <div class="extra-price">+$2.500.000</div>
+      </div>
+      <div class="extra-row" data-id="audiovisual_extra" data-grow>
+        <div class="extra-chk"></div>
+        <div class="extra-info">
+          <div class="extra-name">Cobertura AV extendida</div>
+          <div class="extra-desc">Paquete audiovisual ampliado</div>
+        </div>
+        <div class="extra-price">+$1.800.000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="a6-col">
+    <p class="eyebrow">EL EQUIPO TE ESCRIBIRÁ</p>
+    <h2>Para enviarte<br>la <em>propuesta.</em></h2>
+    <div class="contact-form">
+      <div class="cf-field">
+        <label class="cf-label" for="cf-nombre">NOMBRE COMPLETO *</label>
+        <input class="cf-input" id="cf-nombre" type="text" placeholder="Tu nombre" autocomplete="name">
+      </div>
+      <div class="cf-field">
+        <label class="cf-label" for="cf-empresa">EMPRESA O MARCA *</label>
+        <input class="cf-input" id="cf-empresa" type="text" placeholder="Nombre de la empresa" autocomplete="organization">
+      </div>
+      <div class="cf-field">
+        <label class="cf-label" for="cf-whatsapp">WHATSAPP *</label>
+        <input class="cf-input" id="cf-whatsapp" type="tel" placeholder="+57 300 000 0000" autocomplete="tel">
+      </div>
+      <div class="cf-field">
+        <label class="cf-label" for="cf-rol">TU ROL O CARGO (OPCIONAL)</label>
+        <input class="cf-input" id="cf-rol" type="text" placeholder="Ej. Gerente de Eventos">
+      </div>
+      <button class="act6-cta" id="act6-cta" data-grow>VER MI INVERSIÓN →</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 7 — REVELACIÓN
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-7">
+  <!-- Loading -->
+  <div id="loading-screen" class="loading-screen">
+    <img class="loading-iso" src="uploads/isotipomusicosdefondo.png" alt="">
+    <div class="loading-text">CALCULANDO TU PROPUESTA</div>
+    <div class="loading-bar-wrap"><div id="loading-bar" class="loading-bar"></div></div>
+  </div>
+
+  <!-- Reveal -->
+  <div id="reveal-screen" class="reveal-screen" style="display:none;opacity:0">
+    <img class="r-logo" src="uploads/isotipomusicosdefondo.png" alt="">
+    <p class="eyebrow">TU PROPUESTA</p>
+    <p class="r-headline">Tu evento sonoro, en <em>un rango.</em></p>
+    <div class="price-block">
+      <span class="price-n" id="price-min">$0</span>
+      <div class="price-dash">—</div>
+      <span class="price-n" id="price-max">$0</span>
+      <span class="price-cop">COP</span>
+    </div>
+    <p class="r-disclaimer">Rango aproximado. El valor final lo afinamos contigo según los detalles específicos del evento.</p>
+    <p class="r-fiscal">EXENTO DE IVA · SUJETO A RETENCIONES DE LEY VIGENTES</p>
+    <div class="prop-card">
+      <div class="pc-hd">PROPUESTA · MÚSICOS DE FONDO</div>
+      <div class="pc-title" id="pc-tipo"></div>
+      <div class="pc-row" id="pc-formato"></div>
+      <div class="pc-row" id="pc-lugar"></div>
+      <div class="pc-row" id="pc-aforo"></div>
+      <div class="pc-extras" id="pc-extras"></div>
+      <div class="pc-ft" id="pc-footer"></div>
+    </div>
+    <button class="r-cta-primary" id="r-cta-wa" data-grow>HABLAR CON MARLON POR WHATSAPP →</button>
+    <div class="r-ctas-sec">
+      <button class="btn-ghost" id="r-cta-email">Enviar resumen a mi email</button>
+      <button class="btn-ghost" id="r-cta-reset">Empezar de nuevo</button>
+    </div>
+  </div>
+
+  <!-- Superproducción -->
+  <div id="superp-screen" class="superp" style="display:none">
+    <img class="r-logo" src="uploads/isotipomusicosdefondo.png" alt="">
+    <h1>Tu evento es una <em>obra mayor.</em></h1>
+    <p class="lead-italic" style="max-width:480px;text-align:center;font-size:17px">Por el alcance que describiste, esto entra en categoría de superproducción. Tu propuesta se diseña directamente con nuestro equipo.</p>
+    <button class="btn-pill" onclick="window.open('https://wa.me/573003033436','_blank')" data-grow>HABLAR CON EL EQUIPO →</button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ACT 8 — CONFIRMACIÓN
+═══════════════════════════════════════════ -->
+<section class="scene" id="act-8">
+  <img class="a8-iso" src="uploads/isotipomusicosdefondo.png" alt="">
+  <svg class="checkmark-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="30" cy="30" r="26" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+    <path id="ck-path" d="M 14,30 L 24,43 L 46,17" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <h1 class="a8-h1">Listo.<br><em>Te escribimos.</em></h1>
+  <p class="a8-lead">Marlon recibió tu solicitud y te responderá personalmente en las próximas horas hábiles. Mientras tanto, ya abrimos WhatsApp por si quieres adelantarte.</p>
+  <div class="a8-ctas">
+    <button class="btn-pill" id="a8-wa" data-grow>ABRIR WHATSAPP AHORA →</button>
+    <button class="btn-ghost" id="a8-share">Compartir esta experiencia ↗</button>
+    <a href="/" class="btn-ghost">← Volver a musicosdefondo.com</a>
+  </div>
+  <div class="a8-footer">
+    <div class="a8-rule"></div>
+    <div class="a8-ref" id="a8-ref">N° 00001 · ARCHIVADO · 11.05.2026</div>
+  </div>
+</section>
+
+<!-- Map pulse animation -->
+<style>
+  .map-pulse { animation: map-ring 2.2s ease-out infinite; }
+  @keyframes map-ring { 0%{r:4;opacity:.35} 100%{r:14;opacity:0} }
+</style>
+
+<script src="cotizador.js"></script>
+</body>
+</html>
