@@ -570,61 +570,113 @@ function tearTicket() {
    ACT 2 — ATMÓSFERA
    ============================================================ */
 function initAct2() {
-  const rows = document.querySelectorAll('.event-row');
-  const bgWrap = document.querySelector('.a2-bg');
-  const bgImg  = bgWrap.querySelector('img');
+  const rows     = document.querySelectorAll('.event-row');
+  const bgWrap   = document.querySelector('.a2-bg');
+  const bgImg    = bgWrap.querySelector('img');
+  const trigger  = document.getElementById('a2-trigger');
+  const trigLbl  = document.getElementById('a2-trig-label');
+  const panel    = document.getElementById('a2-panel');
+  const continueBtn = document.getElementById('a2-continue');
 
-  // Reset state on re-entry (back from later acts)
+  const closePanel = () => {
+    trigger.classList.remove('open');
+    panel.classList.remove('open');
+  };
+  const openPanel = () => {
+    trigger.classList.add('open');
+    panel.classList.add('open');
+  };
+
+  // Restore previous selection (when navigating back into act 2)
   rows.forEach(r => { r.classList.remove('selected','dim'); r.querySelector('.event-thumb').classList.remove('expanded'); });
-  bgWrap.classList.remove('show');
+  closePanel();
+  if (S.tipo) {
+    const prev = Array.from(rows).find(r => r.dataset.id === S.tipo);
+    if (prev) {
+      prev.classList.add('selected');
+      trigLbl.innerHTML = '<span class="micro-tag">Tipo de evento</span>' + (S.tipoLabel || prev.dataset.label);
+      bgImg.src = prev.dataset.img;
+      bgWrap.classList.add('show');
+      continueBtn.classList.add('show');
+    }
+  } else {
+    trigLbl.innerHTML = '<span class="micro-tag">Tipo de evento</span>Selecciona una experiencia';
+    bgWrap.classList.remove('show');
+    continueBtn.classList.remove('show');
+  }
+
   if (initAct2._bound) return;
   initAct2._bound = true;
 
+  // Toggle dropdown
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (trigger.classList.contains('open')) closePanel();
+    else openPanel();
+  });
+
+  // Close on outside click / escape
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('act-2').classList.contains('active')) return;
+    if (!panel.contains(e.target) && !trigger.contains(e.target)) closePanel();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+  });
+
+  // Row hover / select
   rows.forEach(row => {
     const thumb = row.querySelector('.event-thumb');
 
-    row.addEventListener('mouseenter', ()=>{
-      rows.forEach(r => r.classList.toggle('dim', r!==row));
+    row.addEventListener('mouseenter', () => {
+      rows.forEach(r => r.classList.toggle('dim', r !== row));
       bgImg.src = row.dataset.img;
       bgWrap.classList.add('show');
       thumb.classList.add('expanded');
     });
-    row.addEventListener('mouseleave', ()=>{
+    row.addEventListener('mouseleave', () => {
       rows.forEach(r => r.classList.remove('dim'));
       thumb.classList.remove('expanded');
       if (!document.querySelector('.event-row.selected')) bgWrap.classList.remove('show');
     });
-    row.addEventListener('click', ()=>{
+
+    row.addEventListener('click', () => {
       rows.forEach(r => r.classList.remove('selected'));
       row.classList.add('selected');
       S.tipo = row.dataset.id;
       S.tipoLabel = row.dataset.label;
       bgImg.src = row.dataset.img; bgWrap.classList.add('show');
       // Pre-select septeto for cine/navijazz
-      if (S.tipo==='cine'||S.tipo==='navijazz') { S.formato='septeto'; S._preFormat=true; }
-      else { S._preFormat=false; }
+      if (S.tipo === 'cine' || S.tipo === 'navijazz') { S.formato = 'septeto'; S._preFormat = true; }
+      else { S._preFormat = false; }
       save();
 
-      // Wipe transition
-      const curtain = document.createElement('div');
-      Object.assign(curtain.style, {
-        position:'fixed',inset:'0',
-        background:'rgba(201,168,76,.06)',zIndex:'900',
-        transformOrigin:'left', transform:'scaleX(0)', pointerEvents:'none',
-      });
-      document.body.appendChild(curtain);
-      gsap.timeline({
-        onComplete:()=>{ curtain.remove(); }
-      })
-      .to(curtain,{scaleX:1,duration:.32,ease:'power2.in'})
-      .call(()=>{
-        document.getElementById('act-2').classList.remove('active');
-        const to=document.getElementById('act-3'); to.classList.add('active');
-        gsap.set(to,{opacity:0}); currentAct=3; save(); updateDots(); initAct(3);
-      })
-      .to(curtain,{scaleX:0,transformOrigin:'right',duration:.32,ease:'power2.out'})
-      .to(document.getElementById('act-3'),{opacity:1,duration:.25,ease:'power2.out'},'-=.2');
+      // Update trigger label, close dropdown, reveal continue button
+      trigLbl.innerHTML = '<span class="micro-tag">Tipo de evento</span>' + row.dataset.label;
+      closePanel();
+      continueBtn.classList.add('show');
     });
+  });
+
+  // CONTINUAR → wipe transition into act 3
+  continueBtn.addEventListener('click', () => {
+    if (!S.tipo) return;
+    const curtain = document.createElement('div');
+    Object.assign(curtain.style, {
+      position: 'fixed', inset: '0',
+      background: 'rgba(201,168,76,.06)', zIndex: '900',
+      transformOrigin: 'left', transform: 'scaleX(0)', pointerEvents: 'none',
+    });
+    document.body.appendChild(curtain);
+    gsap.timeline({ onComplete: () => { curtain.remove(); } })
+      .to(curtain, { scaleX: 1, duration: .32, ease: 'power2.in' })
+      .call(() => {
+        document.getElementById('act-2').classList.remove('active');
+        const to = document.getElementById('act-3'); to.classList.add('active');
+        gsap.set(to, { opacity: 0 }); currentAct = 3; save(); updateDots(); initAct(3);
+      })
+      .to(curtain, { scaleX: 0, transformOrigin: 'right', duration: .32, ease: 'power2.out' })
+      .to(document.getElementById('act-3'), { opacity: 1, duration: .25, ease: 'power2.out' }, '-=.2');
   });
 }
 
