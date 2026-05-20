@@ -27,13 +27,12 @@ const S = {
   nombre: '', empresa: '', whatsapp: '', rol: '',
   tipo: null, tipoLabel: '',
   formato: 'cuarteto', formatoLabel: 'Cuarteto · 4 músicos',
-  instrumentacion: '', instrumentacionLabel: '', instrumentacionCustom: '',
-  ciudad: '', ciudadKey: '', fecha: null,
+  instrumentacionSugerida: '', instrumentacionCustom: '',
+  ciudad: '', fecha: null,
   aforo: 'mediano', aforoLabel: 'Mediano (30–100)',
-  // Reemplazo de "nivel": ahora se deriva de duración + producción técnica
   duracion: null, duracionLabel: '', duracionCustom: '',
-  produccion_tecnica: null, produccionTecnicaLabel: '',
-  // Mantener nivel para compatibilidad con Apps Script (se calcula derivado)
+  produccionTecnica: null, produccionTecnicaLabel: '',
+  // Compatibilidad legacy (algunos lugares todavía lo usan)
   nivel: null, nivelLabel: '',
   extras: [], extrasLabels: [],
   urgencia: false, fueraMedellin: false,
@@ -43,65 +42,35 @@ const S = {
   startTime: Date.now(),
 };
 
-/* ── Price tables (basadas en MASTERDATA v1.2 — promedios de rango) ── */
-/* Cada producto trae su rango Mínimo / Promedio / Premium. Usamos el
-   PROMEDIO como base y los multiplicadores afinan hacia min/max. */
+/* ── Price tables ── */
 const BASE = {
-  horeca:      7300000,  // Experiencia 360° HORECA      (rango 4.6M–10.2M)
-  itinerante:  7300000,  // Música Itinerante            (rango 4.6M–10.2M)
-  cine:       11500000,  // Cine-Conciertos              (rango 7.9M–16.5M)
-  navijazz:   16600000,  // NaviJazz Small Big Band      (rango 9.8M–26M)
-  corporativo:12200000,  // Pulso Corporativo            (rango 7.5M–17.5M)
-  paginas:     9300000,  // Páginas Sonoras              (rango 5.8M–13M)
-  boda:        8500000,  // Bodas Simbólicas             (rango 5.6M–12.5M)
-  custom:      8000000,  // Personalizado
+  horeca:7300000, cine:11500000, navijazz:16600000,
+  itinerante:7300000, boda:8500000, corporativo:12200000,
+  paginas:9300000, custom:8000000,
 };
-
-/* Multiplicador por formato (línea-up del ensamble) — Sección 9.1 */
 const FMULT = { duo:.55, trio:.70, cuarteto:1.00, quinteto:1.25, septeto:1.60 };
-
-/* Multiplicador por DURACIÓN del show (reemplazo del "nivel" anterior).
-   2 sets × 45 min es el estándar = 1.00 */
-const DMULT = {
-  set40:     0.75,  // Set base 40 min — corto, una intervención
-  hora1:     0.85,  // 1 hora continua
-  sets2x45:  1.00,  // 2 sets × 45 min — ESTÁNDAR
-  sets3x45:  1.30,  // 3 sets × 45 min — jornada extensa
-  otra:      1.00,  // Otra (texto libre) — usamos estándar como base
-};
-
-/* Multiplicador por PRODUCCIÓN TÉCNICA (Escenario A vs B — Sección 6.1).
-   Refleja: con producción completa = nivel 2 técnica $1.5M–$2.5M absorbida en el precio;
-   sin producción = descuento porque el venue la cubre. */
-const TMULT = {
-  completa: 1.15,  // Escenario A — llave en mano (sonido + tarima + luces + backline)
-  venue:    0.92,  // Escenario B — el venue/cliente provee
-  asesoria: 1.00,  // Por definir — neutro
-};
-
-/* Multiplicador por aforo */
+// Multiplicador por duración del show (reemplaza al antiguo NMULT de nivel)
+const DMULT = { set40:0.78, set60:0.92, set2x45:1.10, set3x45:1.45, otro:1.10 };
+// Multiplicador por producción técnica
+const PMULT = { completa:1.00, parcial:0.92, cliente:0.84 };
 const AMULT = { intimo:1.00, mediano:1.00, grande:1.10, masivo:1.25, mayor:1.45 };
-
-/* Costos fijos de extras */
 const EXTRAS_COST = {
   repertorio_custom:1500000, licencias:1200000, vestuario:600000,
   set_extra:900000, marionetas:2500000, audiovisual_extra:1800000,
 };
 
-/* ── Ciudades base ── */
-const CITY_LABELS = {
-  'medellín': 'Medellín',
-  'bogotá':   'Bogotá',
-  'otra':     'Otra ciudad',
-};
-
 /* ── Ensemble data ── */
 const ENSEMBLES = [
-  { id:'duo',      label:'Dúo',      n:2, inst:'Voz · Piano',                      ideal:'Recepciones íntimas, lounge' },
-  { id:'trio',     label:'Trío',     n:3, inst:'Voz · Piano · Contrabajo',          ideal:'Cenas privadas, eventos boutique' },
-  { id:'cuarteto', label:'Cuarteto', n:4, inst:'Voz · Piano · Bajo · Batería',      ideal:'Corporativos, fine dining', best:true },
-  { id:'quinteto', label:'Quinteto', n:5, inst:'Voz · Piano · Bajo · Batería · Bronce', ideal:'Eventos de aforo mayor' },
-  { id:'septeto',  label:'Septeto',  n:7, inst:'Big Band reducida · Bronces · Voces', ideal:'Espectáculos, producciones premium' },
+  { id:'duo',      label:'Dúo',      n:2, inst:'Voz · Piano',                      ideal:'Recepciones íntimas, lounge',
+    options:['Voz + Piano','Voz + Guitarra','Piano + Contrabajo','Saxo + Piano'] },
+  { id:'trio',     label:'Trío',     n:3, inst:'Voz · Piano · Contrabajo',          ideal:'Cenas privadas, eventos boutique',
+    options:['Voz + Piano + Contrabajo','Piano + Bajo + Batería (jazz trío)','Voz + Guitarra + Cajon','Saxo + Piano + Contrabajo'] },
+  { id:'cuarteto', label:'Cuarteto', n:4, inst:'Voz · Piano · Bajo · Batería',      ideal:'Corporativos, fine dining', best:true,
+    options:['Voz + Piano + Bajo + Batería','Voz + Saxo + Piano + Contrabajo','Voz + Guitarra + Bajo + Batería','Piano + Saxo + Contrabajo + Batería'] },
+  { id:'quinteto', label:'Quinteto', n:5, inst:'Voz · Piano · Bajo · Batería · Bronce', ideal:'Eventos de aforo mayor',
+    options:['Voz + Piano + Bajo + Batería + Saxo','Voz + Piano + Bajo + Batería + Trompeta','Voz + Piano + Guitarra + Bajo + Batería','Voz + Saxo + Trompeta + Bajo + Batería'] },
+  { id:'septeto',  label:'Septeto',  n:7, inst:'Big Band reducida · Bronces · Voces', ideal:'Espectáculos, producciones premium',
+    options:['Big Band reducida (jazz tradicional)','2 Voces + Piano + Bajo + Batería + 2 Bronces','Voz + Piano + Guitarra + Bajo + Batería + Saxo + Trompeta','Voz + Cuerdas (vl/vla/vc) + Piano + Bajo + Batería'] },
 ];
 
 /* ── Event types ── */
@@ -138,39 +107,11 @@ function loadSaved() {
   try { const r=sessionStorage.getItem('mdf_q1'); return r?JSON.parse(r):null; } catch(e){ return null; }
 }
 
-/* ── Derivar `nivel` desde duración + producción técnica (compatibilidad legacy)
-   Se usa para mantener la columna nivel/nivel_label en Google Sheets sin
-   romper reportes históricos. La lógica busca un equivalente razonable: ── */
-function _derivarNivel() {
-  const d = S.duracion, t = S.produccion_tecnica;
-  if (!d || !t) return { id: null, label: '' };
-  // Premium: 3 sets + producción completa
-  if (d === 'sets3x45' && t === 'completa') return { id: 'premium', label: 'Premium (derivado)' };
-  // Esencial: venue cubre la técnica o set corto/1h sin producción completa
-  if (t === 'venue') return { id: 'esencial', label: 'Esencial (derivado)' };
-  if ((d === 'set40' || d === 'hora1') && t !== 'completa') return { id: 'esencial', label: 'Esencial (derivado)' };
-  // Por defecto: B2B curado (estándar)
-  return { id: 'b2b', label: 'Curado (derivado)' };
-}
-
-/* ── Calcular precio ──
-   Reemplaza el antiguo NMULT del slide 5 por DMULT × TMULT.
-   Mantiene compatibilidad derivando S.nivel/S.nivelLabel automáticamente. */
+/* ── Calcular ── */
 function calcular() {
-  if (!S.tipo || !S.duracion || !S.produccion_tecnica || !S.formato || !S.aforo) return null;
-
-  // Derivar nivel para compatibilidad con Sheets
-  const niv = _derivarNivel();
-  S.nivel = niv.id;
-  S.nivelLabel = niv.label;
-
+  if (!S.tipo || !S.duracion || !S.produccionTecnica || !S.formato || !S.aforo) return null;
   let base = BASE[S.tipo];
-  let adj = base
-    * FMULT[S.formato]
-    * (DMULT[S.duracion] || 1)
-    * (TMULT[S.produccion_tecnica] || 1)
-    * AMULT[S.aforo];
-
+  let adj = base * FMULT[S.formato] * (DMULT[S.duracion]||1) * (PMULT[S.produccionTecnica]||1) * AMULT[S.aforo];
   if (S.urgencia) adj *= 1.15;
   if (S.fueraMedellin) adj *= 1.18;
   const extSum = S.extras.reduce((a,k) => a + (EXTRAS_COST[k]||0), 0);
@@ -340,32 +281,29 @@ function _buildPayload(extra = {}) {
     formato:       S.formato    || '',
     formato_label: S.formatoLabel || '',
 
-    // Instrumentación (nuevo en slide 3)
-    instrumentacion:        S.instrumentacion || '',
-    instrumentacion_label:  S.instrumentacionLabel || '',
-    instrumentacion_custom: S.instrumentacionCustom || '',
-
     // Lugar y momento
     ciudad:         S.ciudad || '',
-    ciudad_key:     S.ciudadKey || '',
     fecha_evento:   S.fecha  || '',
     aforo:          S.aforo  || '',
     aforo_label:    S.aforoLabel || '',
     urgencia:       S.urgencia ? 'Sí' : 'No',
     fuera_medellin: S.fueraMedellin ? 'Sí' : 'No',
 
-    // Duración + Producción Técnica (reemplazo del slide 5 anterior)
-    duracion:                S.duracion || '',
-    duracion_label:          S.duracionLabel || '',
-    duracion_custom:         S.duracionCustom || '',
-    produccion_tecnica:       S.produccion_tecnica || '',
-    produccion_tecnica_label: S.produccionTecnicaLabel || '',
-
-    // Nivel — derivado automáticamente (compatibilidad legacy con la Sheet)
+    // Nivel y extras (legacy)
     nivel:         S.nivel      || '',
     nivel_label:   S.nivelLabel || '',
 
-    // Extras
+    // Programa (duración + producción técnica)
+    duracion:                S.duracion || '',
+    duracion_label:          S.duracionLabel || '',
+    duracion_custom:         S.duracionCustom || '',
+    produccion_tecnica:      S.produccionTecnica || '',
+    produccion_tecnica_label:S.produccionTecnicaLabel || '',
+
+    // Instrumentación
+    instrumentacion_sugerida: S.instrumentacionSugerida || '',
+    instrumentacion_custom:   S.instrumentacionCustom || '',
+
     extras:        (S.extras || []).join(', '),
     extras_labels: (S.extrasLabels || []).join(', '),
 
@@ -480,20 +418,17 @@ window.reintentarEnvioFinal = function () {
 /* ── WhatsApp message ── */
 function buildWA() {
   const extStr = S.extrasLabels.length ? S.extrasLabels.join(', ') : 'Ninguno';
-  const instLine = S.instrumentacionCustom
-    ? `\n• Instrumentación: ${S.instrumentacionCustom}`
-    : (S.instrumentacionLabel ? `\n• Instrumentación: ${S.instrumentacionLabel}` : '');
-  const durLine = S.duracionCustom
-    ? `${S.duracionLabel} (${S.duracionCustom})`
-    : S.duracionLabel;
+  const durStr = S.duracion==='otro' && S.duracionCustom ? S.duracionCustom : S.duracionLabel;
+  const instStr = S.instrumentacionCustom ? S.instrumentacionCustom : (S.instrumentacionSugerida || 'Sugerencia del equipo');
   return `Hola Marlon, soy ${S.nombre} de ${S.empresa}.
 
 Acabo de cotizar en el sitio web:
 • Tipo: ${S.tipoLabel}
-• Formato: ${S.formatoLabel}${instLine}
+• Formato: ${S.formatoLabel}
+• Instrumentación: ${instStr}
 • ${S.ciudad || 'Ciudad por definir'} · ${S.fecha || 'Fecha por definir'}
 • Aforo: ${S.aforoLabel}
-• Duración: ${durLine}
+• Duración: ${durStr}
 • Producción técnica: ${S.produccionTecnicaLabel}
 • Extras: ${extStr}
 
@@ -632,93 +567,63 @@ function tearTicket() {
 }
 
 /* ============================================================
-   ACT 2 — ATMÓSFERA  (select premium desplegable)
+   ACT 2 — ATMÓSFERA
    ============================================================ */
 function initAct2() {
-  const wrap     = document.getElementById('expSelect');
-  const btn      = document.getElementById('expSelectBtn');
-  const labelEl  = document.getElementById('expSelectLabel');
-  const dropdown = document.getElementById('expSelectDropdown');
-  const options  = dropdown.querySelectorAll('.exp-option');
-  const bgWrap   = document.querySelector('.a2-bg');
-  const bgImg    = bgWrap.querySelector('img');
+  const rows = document.querySelectorAll('.event-row');
+  const bgWrap = document.querySelector('.a2-bg');
+  const bgImg  = bgWrap.querySelector('img');
 
-  // Restaurar selección previa al volver atrás
-  if (S.tipo && S.tipoLabel) {
-    labelEl.textContent = S.tipoLabel;
-    wrap.classList.add('chosen');
-    options.forEach(o => o.classList.toggle('selected', o.dataset.id === S.tipo));
-  } else {
-    labelEl.textContent = 'Selecciona el tipo de experiencia';
-    wrap.classList.remove('chosen');
-    options.forEach(o => o.classList.remove('selected'));
-  }
-  wrap.classList.remove('open');
+  // Reset state on re-entry (back from later acts)
+  rows.forEach(r => { r.classList.remove('selected','dim'); r.querySelector('.event-thumb').classList.remove('expanded'); });
   bgWrap.classList.remove('show');
-
   if (initAct2._bound) return;
   initAct2._bound = true;
 
-  // Abrir / cerrar dropdown
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    wrap.classList.toggle('open');
-  });
+  rows.forEach(row => {
+    const thumb = row.querySelector('.event-thumb');
 
-  // Cerrar al hacer click fuera
-  document.addEventListener('click', (e) => {
-    if (currentAct === 2 && !wrap.contains(e.target)) wrap.classList.remove('open');
-  });
-
-  // Hover sobre opción → previsualizar fondo
-  options.forEach(opt => {
-    opt.addEventListener('mouseenter', () => {
-      bgImg.src = opt.dataset.img;
+    row.addEventListener('mouseenter', ()=>{
+      rows.forEach(r => r.classList.toggle('dim', r!==row));
+      bgImg.src = row.dataset.img;
       bgWrap.classList.add('show');
+      thumb.classList.add('expanded');
     });
-  });
-  dropdown.addEventListener('mouseleave', () => {
-    if (!S.tipo) bgWrap.classList.remove('show');
-  });
-
-  // Selección de una opción
-  options.forEach(opt => {
-    opt.addEventListener('click', (e) => {
-      e.stopPropagation();
-      options.forEach(o => o.classList.remove('selected'));
-      opt.classList.add('selected');
-
-      S.tipo      = opt.dataset.id;
-      S.tipoLabel = opt.dataset.label;
-      labelEl.textContent = opt.dataset.label;
-      wrap.classList.add('chosen');
-      wrap.classList.remove('open');
-
-      bgImg.src = opt.dataset.img;
-      bgWrap.classList.add('show');
-
-      // Pre-seleccionar septeto para cine/navijazz
-      if (S.tipo === 'cine' || S.tipo === 'navijazz') { S.formato = 'septeto'; S._preFormat = true; }
-      else { S._preFormat = false; }
+    row.addEventListener('mouseleave', ()=>{
+      rows.forEach(r => r.classList.remove('dim'));
+      thumb.classList.remove('expanded');
+      if (!document.querySelector('.event-row.selected')) bgWrap.classList.remove('show');
+    });
+    row.addEventListener('click', ()=>{
+      rows.forEach(r => r.classList.remove('selected'));
+      row.classList.add('selected');
+      S.tipo = row.dataset.id;
+      S.tipoLabel = row.dataset.label;
+      bgImg.src = row.dataset.img; bgWrap.classList.add('show');
+      // Pre-select septeto for cine/navijazz
+      if (S.tipo==='cine'||S.tipo==='navijazz') { S.formato='septeto'; S._preFormat=true; }
+      else { S._preFormat=false; }
       save();
 
-      // Transición wipe hacia act 3
+      // Wipe transition
       const curtain = document.createElement('div');
       Object.assign(curtain.style, {
-        position:'fixed', inset:'0',
-        background:'rgba(201,168,76,.06)', zIndex:'900',
+        position:'fixed',inset:'0',
+        background:'rgba(201,168,76,.06)',zIndex:'900',
         transformOrigin:'left', transform:'scaleX(0)', pointerEvents:'none',
       });
       document.body.appendChild(curtain);
-      gsap.timeline({ onComplete:()=>{ curtain.remove(); } })
-        .to(curtain, {scaleX:1, duration:.32, ease:'power2.in'})
-        .call(()=>{
-          document.getElementById('act-2').classList.remove('active');
-          const to = document.getElementById('act-3'); to.classList.add('active');
-          gsap.set(to,{opacity:0}); currentAct=3; save(); updateDots(); initAct(3);
-        })
-        .to(curtain, {scaleX:0, transformOrigin:'right', duration:.32, ease:'power2.out'})
-        .to(document.getElementById('act-3'), {opacity:1, duration:.25, ease:'power2.out'}, '-=.2');
+      gsap.timeline({
+        onComplete:()=>{ curtain.remove(); }
+      })
+      .to(curtain,{scaleX:1,duration:.32,ease:'power2.in'})
+      .call(()=>{
+        document.getElementById('act-2').classList.remove('active');
+        const to=document.getElementById('act-3'); to.classList.add('active');
+        gsap.set(to,{opacity:0}); currentAct=3; save(); updateDots(); initAct(3);
+      })
+      .to(curtain,{scaleX:0,transformOrigin:'right',duration:.32,ease:'power2.out'})
+      .to(document.getElementById('act-3'),{opacity:1,duration:.25,ease:'power2.out'},'-=.2');
     });
   });
 }
@@ -727,64 +632,6 @@ function initAct2() {
    ACT 3 — ENSAMBLE
    ============================================================ */
 let ensIdx = 2; // default cuarteto
-
-/* Instrumentación oficial por formato — MASTERDATA Sección 9.1.
-   Cada formato ofrece variantes; la primera es la sugerida por defecto. */
-const INSTRUMENTACION = {
-  duo: [
-    'Voz + Piano',
-    'Voz + Guitarra',
-  ],
-  trio: [
-    'Voz + Piano + Contrabajo',
-    'Voz + Guitarra + Contrabajo',
-    'Voz + Piano + Bajo',
-  ],
-  cuarteto: [
-    'Voz + Piano + Bajo + Batería',
-    'Voz + Guitarra + Bajo + Batería',
-    'Viento (Sax/Trompeta) + Piano + Bajo + Batería',
-  ],
-  quinteto: [
-    'Voz + Piano + Bajo + Batería + Viento',
-    'Voz + Guitarra + Piano + Bajo + Batería',
-    'Voz + Piano + Bajo + Batería + Percusión',
-  ],
-  septeto: [
-    'Voz + Piano + Bajo + Batería + Bronces (Trompeta + Trombón + Sax)',
-    'Voces + Piano + Bajo + Batería + Bronces',
-    'Big Band reducida — Bronces + Sección rítmica + Voz',
-  ],
-};
-
-/* Popula el <select> de instrumentación según el formato activo. */
-function populateInstSelect() {
-  const sel  = document.getElementById('instSelect');
-  if (!sel) return;
-  const opts = INSTRUMENTACION[S.formato] || [];
-  const prev = S.instrumentacion || '';
-  sel.innerHTML = '<option value="">Elige una instrumentación o personalízala abajo</option>';
-  opts.forEach(txt => {
-    const o = document.createElement('option');
-    o.value = txt; o.textContent = txt;
-    sel.appendChild(o);
-  });
-  // Restaurar selección previa si sigue siendo válida para este formato
-  if (prev && opts.includes(prev)) {
-    sel.value = prev;
-  } else {
-    // Sugerir la primera variante del formato por defecto
-    if (opts.length) {
-      sel.value = opts[0];
-      S.instrumentacion = opts[0];
-      S.instrumentacionLabel = opts[0];
-    } else {
-      sel.value = '';
-      S.instrumentacion = '';
-      S.instrumentacionLabel = '';
-    }
-  }
-}
 
 function initAct3() {
   if (S._preFormat && S.formato==='septeto') {
@@ -798,21 +645,19 @@ function initAct3() {
   if (!initAct3._built) { buildEnsembleSlider(); initAct3._built = true; }
   updateEnsemble(ensIdx);
 
-  // Instrumentación: poblar select y restaurar campo libre
-  populateInstSelect();
-  const instSelect = document.getElementById('instSelect');
-  const instCustom = document.getElementById('instCustom');
-  if (instCustom && S.instrumentacionCustom) instCustom.value = S.instrumentacionCustom;
+  // Restaurar instrumentación custom + listeners (una vez)
+  const customInput = document.getElementById('a3-instr-custom');
+  const sel = document.getElementById('a3-instr-select');
+  if (customInput && S.instrumentacionCustom) customInput.value = S.instrumentacionCustom;
 
-  if (!initAct3._instBound) {
-    initAct3._instBound = true;
-    instSelect.addEventListener('change', () => {
-      S.instrumentacion = instSelect.value;
-      S.instrumentacionLabel = instSelect.value;
+  if (!initAct3._bound) {
+    initAct3._bound = true;
+    if (sel) sel.addEventListener('change', () => {
+      S.instrumentacionSugerida = sel.value || '';
       save();
     });
-    instCustom.addEventListener('input', () => {
-      S.instrumentacionCustom = instCustom.value.trim();
+    if (customInput) customInput.addEventListener('input', () => {
+      S.instrumentacionCustom = customInput.value;
       save();
     });
   }
@@ -862,12 +707,30 @@ function updateEnsemble(idx) {
   document.getElementById('si-ideal').textContent   = d.ideal;
   document.getElementById('si-badge').classList.toggle('show', !!d.best);
 
+  // Repoblar dropdown de instrumentación según el formato
+  const sel = document.getElementById('a3-instr-select');
+  if (sel) {
+    sel.innerHTML = '';
+    const optDefault = document.createElement('option');
+    optDefault.value = '';
+    optDefault.textContent = 'Sugerencia del equipo — ' + d.inst;
+    sel.appendChild(optDefault);
+    (d.options || []).forEach(o => {
+      const op = document.createElement('option');
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    // Restaurar selección previa si coincide con el formato
+    if (S.instrumentacionSugerida && (d.options || []).includes(S.instrumentacionSugerida)) {
+      sel.value = S.instrumentacionSugerida;
+    } else {
+      sel.value = '';
+      S.instrumentacionSugerida = '';
+    }
+  }
+
   // Silhouettes
   updateSilhouettes(d.n);
-
-  // Repoblar instrumentación según el nuevo formato
-  populateInstSelect();
-
   save();
 }
 
@@ -884,9 +747,20 @@ function updateSilhouettes(count) {
 }
 
 /* ============================================================
-   ACT 4 — LUGAR Y MOMENTO  (vertical, pulso dorado, botones)
+   ACT 4 — LUGAR Y MOMENTO
    ============================================================ */
-const MEDELLIN_AREA = ['medellín','medellin','bello','envigado','itagüí','itagui','sabaneta','caldas','la estrella','copacabana','girardota','rionegro'];
+const MEDELLIN = ['medellín','medellin','bello','envigado','itagüí','itaguei','sabaneta','caldas','la estrella','copacabana','girardota','rionegro'];
+const CITY_MAP = {
+  'medellín':{x:95,y:128},'medellin':{x:95,y:128},
+  'bogotá':{x:128,y:148},'bogota':{x:128,y:148},
+  'cali':{x:82,y:162},
+  'cartagena':{x:110,y:38},
+  'barranquilla':{x:124,y:30},
+  'bucaramanga':{x:132,y:108},
+  'manizales':{x:100,y:140},
+  'pereira':{x:93,y:144},
+  'santa marta':{x:130,y:28},
+};
 
 let calYear, calMonth, selDate=null;
 
@@ -902,32 +776,13 @@ function initAct4() {
     calMonth++; if(calMonth>11){calMonth=0;calYear++;} buildCalendar();
   });
 
-  initCityOptions();
-  initAforoOptions();
+  initCitySelect();
+  initAforo();
 
-  // Restore ciudad
-  if (S.ciudadKey) {
-    document.querySelectorAll('.city-option').forEach(o=>{
-      o.classList.toggle('on', o.dataset.city === S.ciudadKey);
-    });
-    if (S.ciudadKey === 'otra') {
-      document.getElementById('cityOtherWrap').classList.add('show');
-      const inp = document.getElementById('cityInput');
-      if (S.ciudad && S.ciudad !== 'Otra ciudad') inp.value = S.ciudad;
-    }
-    _updateCityNote();
-  }
-  // Restore fecha
   if (S.fecha) {
     selDate = new Date(S.fecha+'T00:00:00');
     calYear=selDate.getFullYear(); calMonth=selDate.getMonth();
     buildCalendar();
-  }
-  // Restore aforo
-  if (S.aforo) {
-    document.querySelectorAll('.aforo-option').forEach(o=>{
-      o.classList.toggle('on', o.dataset.aforo === S.aforo);
-    });
   }
 
   document.getElementById('act4-continue').onclick = ()=>goTo(5);
@@ -935,65 +790,69 @@ function initAct4() {
 }
 
 function checkAct4Ready() {
-  const ok = !!S.ciudadKey && !!S.fecha && !!S.aforo;
+  const ok = (S.ciudad && S.ciudad.length > 1) && S.fecha && S.aforo;
   const btn = document.getElementById('act4-continue');
   btn.classList.toggle('disabled', !ok);
   btn.disabled = !ok;
 }
 
-function _updateCityNote() {
-  const note = document.getElementById('cityNote');
-  if (!note) return;
-  if (S.ciudadKey === 'medellín') {
-    note.className = 'city-note local';
-    note.textContent = '✓ Área base. Sin costo logístico adicional.';
-  } else if (S.ciudadKey === 'bogotá') {
-    note.className = 'city-note remote';
-    note.textContent = 'Operación nacional. Logística considerada en el cálculo.';
-  } else if (S.ciudadKey === 'otra') {
-    note.className = 'city-note remote';
-    note.textContent = 'Logística extendida considerada en el cálculo.';
-  } else {
-    note.className = 'city-note';
-    note.textContent = '';
+function initCitySelect() {
+  const radios = document.querySelectorAll('.city-radio');
+  const input  = document.getElementById('cityInput');
+  const note   = document.getElementById('cityNote');
+
+  function applyCity(label, isLocal, isCustom) {
+    S.ciudad = label;
+    S.fueraMedellin = !isLocal && label.length > 1;
+    note.className = 'city-note ' + (isLocal ? 'local' : label.length > 1 ? 'remote' : '');
+    note.textContent = isLocal
+      ? '✓ Área base. Sin costo logístico adicional.'
+      : isCustom && label.length > 1 ? 'Logística extendida considerada en el cálculo.'
+      : '';
+    save(); checkAct4Ready();
   }
-}
 
-function initCityOptions() {
-  const opts = document.querySelectorAll('.city-option');
-  const otherWrap = document.getElementById('cityOtherWrap');
-  const cityInput = document.getElementById('cityInput');
-
-  opts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      opts.forEach(o => o.classList.remove('on'));
-      opt.classList.add('on');
-
-      S.ciudadKey = opt.dataset.city;
-
-      if (S.ciudadKey === 'otra') {
-        otherWrap.classList.add('show');
-        S.ciudad = cityInput.value.trim() || 'Otra ciudad';
-        S.fueraMedellin = true;
-        setTimeout(()=>cityInput.focus(), 250);
-      } else {
-        otherWrap.classList.remove('show');
-        S.ciudad = opt.dataset.label;
-        S.fueraMedellin = (S.ciudadKey !== 'medellín');
+  radios.forEach(r => {
+    r.addEventListener('click', () => {
+      radios.forEach(x => x.classList.remove('on'));
+      r.classList.add('on');
+      const c = r.dataset.city;
+      if (c === 'medellin') {
+        input.classList.remove('show'); input.value = '';
+        applyCity('Medellín', true, false);
+      } else if (c === 'bogota') {
+        input.classList.remove('show'); input.value = '';
+        applyCity('Bogotá', false, false);
+      } else { // otro
+        input.classList.add('show');
+        setTimeout(()=>input.focus(), 80);
+        if (input.value.trim()) applyCity(input.value.trim(), false, true);
+        else applyCity('', false, true);
       }
-      _updateCityNote();
-      save(); checkAct4Ready();
     });
   });
 
-  cityInput.addEventListener('input', () => {
-    const v = cityInput.value.trim();
-    S.ciudad = v || 'Otra ciudad';
-    // Si por casualidad escriben una ciudad del área de Medellín, lo detectamos
-    const local = MEDELLIN_AREA.some(c => v.toLowerCase().includes(c));
-    S.fueraMedellin = !local;
-    save(); checkAct4Ready();
+  input.addEventListener('input', () => {
+    const v = input.value.trim();
+    const lower = v.toLowerCase();
+    const local = MEDELLIN.some(c=>lower.includes(c));
+    applyCity(v, local, true);
   });
+
+  // Restore from saved state
+  if (S.ciudad) {
+    const lc = S.ciudad.toLowerCase();
+    if (/medell[íi]n/.test(lc)) {
+      document.querySelector('.city-radio[data-city="medellin"]').click();
+    } else if (/bogot[áa]/.test(lc)) {
+      document.querySelector('.city-radio[data-city="bogota"]').click();
+    } else {
+      document.querySelector('.city-radio[data-city="otro"]').classList.add('on');
+      input.classList.add('show');
+      input.value = S.ciudad;
+      applyCity(S.ciudad, false, true);
+    }
+  }
 }
 
 function buildCalendar() {
@@ -1026,96 +885,105 @@ function buildCalendar() {
   }
 }
 
-function initAforoOptions() {
-  const opts = document.querySelectorAll('.aforo-option');
-  opts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      opts.forEach(o => o.classList.remove('on'));
-      opt.classList.add('on');
-      S.aforo = opt.dataset.aforo;
-      const sub = opt.querySelector('.ao-sub');
-      S.aforoLabel = opt.dataset.label + (sub ? ' ('+sub.textContent.trim()+')' : '');
-      save(); checkAct4Ready();
+function initAforo() {
+  const opts = document.querySelectorAll('.aforo-opt');
+  // Restore visual state
+  opts.forEach(o => o.classList.toggle('on', o.dataset.id === S.aforo));
+
+  if (initAforo._bound) return;
+  initAforo._bound = true;
+
+  opts.forEach(o => {
+    o.addEventListener('click', () => {
+      opts.forEach(x => x.classList.remove('on'));
+      o.classList.add('on');
+      const d = AFORO.find(a => a.id === o.dataset.id);
+      if (d) {
+        S.aforo = d.id;
+        S.aforoLabel = d.label + ' (' + d.sub + ')';
+        save(); checkAct4Ready();
+      }
     });
   });
 }
 
 /* ============================================================
-   ACT 5 — DURACIÓN Y PRODUCCIÓN TÉCNICA
+   ACT 5 — DURACIÓN + PRODUCCIÓN TÉCNICA
    ============================================================ */
 function initAct5() {
-  const durOpts  = document.querySelectorAll('.dur-option');
-  const techOpts = document.querySelectorAll('.tech-option');
-  const durCustomWrap = document.getElementById('durCustomWrap');
-  const durCustom     = document.getElementById('durCustom');
-  const btn = document.getElementById('act5-continue');
+  const durRows  = document.querySelectorAll('#dur-list .opt-row');
+  const prodRows = document.querySelectorAll('#prod-list .opt-row');
+  const durCustom = document.getElementById('dur-custom');
+  const continueBtn = document.getElementById('act5-continue');
 
-  // Restaurar selección de duración
-  durOpts.forEach(o => o.classList.toggle('on', o.dataset.dur === S.duracion));
-  if (S.duracion === 'otra') {
-    durCustomWrap.classList.add('show');
-    if (S.duracionCustom) durCustom.value = S.duracionCustom;
-  } else {
-    durCustomWrap.classList.remove('show');
+  // Restore state
+  durRows.forEach(r => r.classList.toggle('on', r.dataset.id === S.duracion));
+  prodRows.forEach(r => r.classList.toggle('on', r.dataset.id === S.produccionTecnica));
+  if (S.duracion === 'otro') { durCustom.classList.add('show'); durCustom.value = S.duracionCustom || ''; }
+  else { durCustom.classList.remove('show'); }
+
+  // Map nivel legacy → duración por defecto si venía de versión previa guardada
+  if (!S.duracion && S.nivel) {
+    const map = { esencial:'set60', b2b:'set2x45', premium:'set3x45' };
+    const d = map[S.nivel];
+    if (d) {
+      const r = document.querySelector(`#dur-list .opt-row[data-id="${d}"]`);
+      if (r) { S.duracion = d; S.duracionLabel = r.dataset.label; r.classList.add('on'); }
+    }
   }
-  // Restaurar selección de producción técnica
-  techOpts.forEach(o => o.classList.toggle('on', o.dataset.tech === S.produccion_tecnica));
 
-  checkAct5Ready();
+  function checkReady() {
+    const ok = !!S.duracion && !!S.produccionTecnica;
+    continueBtn.classList.toggle('disabled', !ok);
+    continueBtn.disabled = !ok;
+  }
+  checkReady();
 
   if (initAct5._bound) return;
   initAct5._bound = true;
 
-  durOpts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      durOpts.forEach(o => o.classList.remove('on'));
-      opt.classList.add('on');
-      S.duracion      = opt.dataset.dur;
-      S.duracionLabel = opt.dataset.label;
-      if (S.duracion === 'otra') {
-        durCustomWrap.classList.add('show');
-        setTimeout(()=>durCustom.focus(), 250);
+  durRows.forEach(row => {
+    row.addEventListener('click', () => {
+      durRows.forEach(r => r.classList.remove('on'));
+      row.classList.add('on');
+      S.duracion = row.dataset.id;
+      S.duracionLabel = row.dataset.label;
+      if (S.duracion === 'otro') {
+        durCustom.classList.add('show');
+        setTimeout(() => durCustom.focus(), 80);
       } else {
-        durCustomWrap.classList.remove('show');
+        durCustom.classList.remove('show');
         S.duracionCustom = '';
-        durCustom.value = '';
       }
-      // Derivar nivel legacy
-      const niv = _derivarNivel();
-      S.nivel = niv.id; S.nivelLabel = niv.label;
-      save(); checkAct5Ready();
+      save(); checkReady();
     });
   });
 
   durCustom.addEventListener('input', () => {
-    S.duracionCustom = durCustom.value.trim();
+    S.duracionCustom = durCustom.value;
+    if (durCustom.value.trim()) S.duracionLabel = 'Otra duración: ' + durCustom.value.trim();
     save();
   });
 
-  techOpts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      techOpts.forEach(o => o.classList.remove('on'));
-      opt.classList.add('on');
-      S.produccion_tecnica      = opt.dataset.tech;
-      S.produccionTecnicaLabel  = opt.dataset.label;
-      // Derivar nivel legacy
-      const niv = _derivarNivel();
-      S.nivel = niv.id; S.nivelLabel = niv.label;
-      save(); checkAct5Ready();
+  prodRows.forEach(row => {
+    row.addEventListener('click', () => {
+      prodRows.forEach(r => r.classList.remove('on'));
+      row.classList.add('on');
+      S.produccionTecnica = row.dataset.id;
+      S.produccionTecnicaLabel = row.dataset.label;
+      save(); checkReady();
     });
   });
 
-  btn.onclick = () => {
-    if (S.duracion && S.produccion_tecnica) goTo(6);
+  continueBtn.onclick = () => {
+    if (!S.duracion || !S.produccionTecnica) return;
+    // Compatibilidad con sistema viejo: deriva un "nivel" para el envío
+    const nivelDerivado = ({set40:'esencial', set60:'esencial', set2x45:'b2b', set3x45:'premium', otro:'b2b'})[S.duracion] || 'b2b';
+    S.nivel = nivelDerivado;
+    S.nivelLabel = ({esencial:'Esencial', b2b:'Curado', premium:'Premium'})[nivelDerivado];
+    save();
+    goTo(6);
   };
-}
-
-function checkAct5Ready() {
-  const ok = !!S.duracion && !!S.produccion_tecnica;
-  const btn = document.getElementById('act5-continue');
-  if (!btn) return;
-  btn.classList.toggle('disabled', !ok);
-  btn.disabled = !ok;
 }
 
 /* ============================================================
@@ -1245,26 +1113,16 @@ function populatePropCard() {
   const today = new Date();
   const todayStr = today.getDate()+'.'+String(today.getMonth()+1).padStart(2,'0')+'.'+today.getFullYear();
 
-  // Instrumentación: priorizar el texto libre si existe
-  const instTxt = S.instrumentacionCustom
-    ? S.instrumentacionCustom
-    : (S.instrumentacionLabel || '');
-  // Duración: añadir el detalle libre si la opción es "otra"
-  const durTxt = S.duracionCustom
-    ? S.duracionLabel + ' — ' + S.duracionCustom
-    : (S.duracionLabel || '');
+  const durStr = S.duracion==='otro' && S.duracionCustom ? S.duracionCustom : (S.duracionLabel || '—');
+  const instStr = S.instrumentacionCustom ? S.instrumentacionCustom : (S.instrumentacionSugerida || 'Sugerencia del equipo');
 
-  document.getElementById('pc-tipo').textContent    = S.tipoLabel||S.tipo;
-  document.getElementById('pc-formato').textContent = S.formatoLabel;
-
-  const instRow = document.getElementById('pc-inst');
-  if (instTxt) { instRow.textContent = instTxt; instRow.style.display = ''; }
-  else { instRow.style.display = 'none'; }
-
+  document.getElementById('pc-tipo').textContent     = S.tipoLabel||S.tipo;
+  document.getElementById('pc-formato').textContent  = S.formatoLabel;
+  document.getElementById('pc-instr').textContent    = 'Instrumentación: ' + instStr;
   document.getElementById('pc-lugar').textContent    = (S.ciudad||'Ciudad')+' · '+dateStr;
-  document.getElementById('pc-aforo').textContent    = S.aforoLabel || '';
-  document.getElementById('pc-duracion').textContent = durTxt;
-  document.getElementById('pc-tecnica').textContent  = S.produccionTecnicaLabel || '';
+  document.getElementById('pc-aforo').textContent    = 'Aforo: ' + S.aforoLabel;
+  document.getElementById('pc-duracion').textContent = 'Duración: ' + durStr;
+  document.getElementById('pc-prod').textContent     = 'Producción técnica: ' + (S.produccionTecnicaLabel || '—');
   document.getElementById('pc-extras').innerHTML     = S.extrasLabels.map(e=>'<div>+ '+e+'</div>').join('');
   document.getElementById('pc-footer').textContent   = leadId+' · '+todayStr;
 

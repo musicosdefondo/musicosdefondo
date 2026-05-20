@@ -44,32 +44,29 @@ const HEADERS = [
   'formato',
   'formato_label',
 
-  // Instrumentación (nuevo — slide 3)
-  'instrumentacion',
-  'instrumentacion_label',
-  'instrumentacion_custom',
-
   // Lugar y momento
   'ciudad',
-  'ciudad_key',
   'fecha_evento',
   'aforo',
   'aforo_label',
   'urgencia',
   'fuera_medellin',
 
-  // Duración + Producción técnica (nuevo — reemplazo del slide "Nivel")
+  // Nivel y extras (legacy — se mantiene por compatibilidad)
+  'nivel',
+  'nivel_label',
+
+  // Programa (duración + producción técnica)
   'duracion',
   'duracion_label',
   'duracion_custom',
   'produccion_tecnica',
   'produccion_tecnica_label',
 
-  // Nivel (legacy — derivado automáticamente para compatibilidad histórica)
-  'nivel',
-  'nivel_label',
+  // Instrumentación
+  'instrumentacion_sugerida',
+  'instrumentacion_custom',
 
-  // Extras
   'extras',
   'extras_labels',
 
@@ -139,45 +136,23 @@ function _getOrCreateSheet_() {
     sheet = ss.insertSheet(SHEET_NAME);
   }
 
-  // Lee la fila 1 actual (tan ancha como HEADERS para comparar).
+  // Si la hoja está vacía o tiene headers desalineados, los escribe.
   const firstRow = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
-  const isEmpty = firstRow.every(function (c) { return c === '' || c === null; });
+  const needsHeaders = firstRow.every(function (c) { return c === '' || c === null; });
 
-  // ¿Los headers actuales coinciden EXACTAMENTE con los esperados?
-  let headersMatch = !isEmpty;
-  if (!isEmpty) {
-    for (var i = 0; i < HEADERS.length; i++) {
-      if (String(firstRow[i]).trim() !== HEADERS[i]) { headersMatch = false; break; }
-    }
-  }
-
-  // Caso 1: hoja vacía → escribir headers desde cero.
-  if (isEmpty) {
-    _writeHeaders_(sheet);
+  if (needsHeaders) {
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+    sheet.getRange(1, 1, 1, HEADERS.length)
+      .setFontWeight('bold')
+      .setBackground('#0A0907')
+      .setFontColor('#C9A84C')
+      .setHorizontalAlignment('left');
     sheet.setFrozenRows(1);
+    // Anchura razonable de la primera columna (timestamp).
     sheet.setColumnWidth(1, 160);
-    return sheet;
-  }
-
-  // Caso 2: hoja con datos pero headers desactualizados (versión vieja
-  // del cotizador). Reescribimos SOLO la fila 1 para alinear las
-  // columnas nuevas. Los datos históricos no se tocan: las filas
-  // viejas simplemente quedarán vacías en las columnas nuevas.
-  if (!headersMatch) {
-    _writeHeaders_(sheet);
   }
 
   return sheet;
-}
-
-// Escribe (o reescribe) la fila de encabezados con su formato.
-function _writeHeaders_(sheet) {
-  sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
-  sheet.getRange(1, 1, 1, HEADERS.length)
-    .setFontWeight('bold')
-    .setBackground('#0A0907')
-    .setFontColor('#C9A84C')
-    .setHorizontalAlignment('left');
 }
 
 function _json_(obj) {
@@ -204,23 +179,12 @@ function test_() {
         tipo_label: 'Experiencia 360° HORECA',
         formato: 'cuarteto',
         formato_label: 'Cuarteto · 4 músicos',
-        instrumentacion: 'Voz + Piano + Bajo + Batería',
-        instrumentacion_label: 'Voz + Piano + Bajo + Batería',
-        instrumentacion_custom: '',
         ciudad: 'Medellín',
-        ciudad_key: 'medellín',
         fecha_evento: '2026-06-15',
         aforo: 'mediano',
         aforo_label: 'Mediano (30–100)',
-        urgencia: 'No',
-        fuera_medellin: 'No',
-        duracion: 'sets2x45',
-        duracion_label: '2 sets × 45 min (estándar)',
-        duracion_custom: '',
-        produccion_tecnica: 'completa',
-        produccion_tecnica_label: 'Llave en mano · Producción completa',
         nivel: 'b2b',
-        nivel_label: 'Curado (derivado)',
+        nivel_label: 'Curado',
         extras: 'repertorio_custom',
         extras_labels: 'Repertorio bespoke',
         rango_min: 8500000,

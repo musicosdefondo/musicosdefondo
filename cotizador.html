@@ -51,7 +51,6 @@
     <div class="a0-overlay"></div>
     <div class="a0-vignette"></div>
   </div>
-  <a href="/" class="a0-back micro" style="position:absolute;top:24px;left:40px;z-index:20;opacity:.5">← VOLVER A LA WEB</a>
   <div class="a0-content">
     <img class="a0-logo" src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo" data-grow>
     <p class="eyebrow a0-eyebrow">EL COTIZADOR · MÚSICOS DE FONDO</p>
@@ -60,9 +59,12 @@
     <div class="scroll-hint" data-grow>
       <div class="scroll-line"></div>
       <div class="scroll-dot"></div>
-      <p class="micro">DESLIZA O HAZ CLICK</p>
+      <p class="micro">DESLIZA O HAZ CLICK PARA EMPEZAR</p>
     </div>
-    <a href="/" class="a0-landing-btn" data-grow onclick="event.stopPropagation()">← VOLVER AL SITIO PRINCIPAL</a>
+    <a href="../" class="a0-back-big" data-grow onclick="event.stopPropagation()">
+      <span class="a0-back-arrow">←</span>
+      <span class="a0-back-text">Volver a Músicos de Fondo</span>
+    </a>
   </div>
 </section>
 
@@ -74,7 +76,7 @@
   <div class="a1-left">
     <p class="eyebrow">01 / ACCESO</p>
     <h1>Antes de entrar,<br>déjanos un <em>correo.</em></h1>
-    <p class="lead-italic">Te enviamos el resumen completo de tu cotización por email. Sin spam. Sin newsletters. Solo tu propuesta.</p>
+    <p class="lead-italic" style="font-size:16px">Te enviamos el resumen completo de tu cotización por email. Sin spam. Sin newsletters. Solo tu propuesta.</p>
     <div class="a1-bullets">
       <div class="a1-bullet">RESUMEN PERSONALIZADO POR EMAIL</div>
       <div class="a1-bullet">RESPUESTA DE MARLON EN &lt;24H</div>
@@ -129,7 +131,7 @@
 
 
 <!-- ══════════════════════════════════════════
-     ACT 2 — ATMÓSFERA
+     ACT 2 — ATMÓSFERA (dropdown interactivo)
 ═══════════════════════════════════════════ -->
 <section class="scene" id="act-2">
   <div class="a2-bg">
@@ -137,86 +139,90 @@
     <div class="a2-bg-veil"></div>
   </div>
 
-  <div class="a2-content">
+  <div class="a2-head">
     <p class="eyebrow">02 / ATMÓSFERA</p>
     <h1>¿Qué historia<br>quieres <em>contar?</em></h1>
-    <p class="lead-italic a2-lead">Cada producto es un universo sonoro distinto. Elige el que mejor describe tu evento.</p>
+    <p class="lead-italic">Cada producto es un universo sonoro distinto. Elige el que mejor encaje con tu evento.</p>
+  </div>
 
-    <!-- Select premium -->
-    <div class="exp-select" id="expSelect" data-grow>
-      <button class="exp-select-btn" id="expSelectBtn" type="button">
-        <span class="exp-select-label" id="expSelectLabel">Selecciona el tipo de experiencia</span>
-        <span class="exp-select-arrow">▾</span>
-      </button>
+  <div class="a2-dropdown">
+    <button class="a2-trigger" id="a2-trigger" data-grow>
+      <span class="a2-trig-label" id="a2-trig-label">
+        <span class="micro-tag">Tipo de evento</span>
+        Selecciona una experiencia
+      </span>
+      <span class="a2-chev">▾</span>
+    </button>
 
-      <div class="exp-select-dropdown" id="expSelectDropdown">
-        <div class="exp-option" data-id="horeca" data-label="Experiencia 360° HORECA" data-img="uploads/singercloseup.jpg" data-grow>
-          <span class="exp-num">01</span>
-          <div class="exp-info">
-            <div class="exp-name">Experiencia 360° <em>HORECA</em></div>
-            <div class="exp-persona">Restaurantes · Hoteles Fine Dining</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/singercloseup.jpg" alt=""></div>
+    <div class="a2-panel" id="a2-panel">
+      <div class="event-row" data-id="horeca" data-label="Experiencia 360° HORECA" data-img="uploads/singercloseup.jpg">
+        <span class="event-num">01</span>
+        <div class="event-info">
+          <div class="event-name">Experiencia 360° <em>HORECA</em></div>
+          <div class="event-persona">Restaurantes · Hoteles</div>
         </div>
-        <div class="exp-option" data-id="cine" data-label="Cine-Conciertos" data-img="uploads/cineconciertos.jpg" data-grow>
-          <span class="exp-num">02</span>
-          <div class="exp-info">
-            <div class="exp-name"><em>Cine-Conciertos</em></div>
-            <div class="exp-persona">Teatros · Programación Cultural</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/cineconciertos.jpg" alt=""></div>
+        <div class="event-thumb"><img src="uploads/singercloseup.jpg" alt=""></div>
+      </div>
+      <div class="event-row" data-id="cine" data-label="Cine-Conciertos" data-img="uploads/cineconciertos.jpg">
+        <span class="event-num">02</span>
+        <div class="event-info">
+          <div class="event-name"><em>Cine-Conciertos</em></div>
+          <div class="event-persona">Teatros · Cultura</div>
         </div>
-        <div class="exp-option" data-id="navijazz" data-label="NaviJazz" data-img="uploads/bandperformance1.jpg" data-grow>
-          <span class="exp-num">03</span>
-          <div class="exp-info">
-            <div class="exp-name"><em>NaviJazz</em></div>
-            <div class="exp-persona">Fin de Año · Retail · Corporativo</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/bandperformance1.jpg" alt=""></div>
+        <div class="event-thumb"><img src="uploads/cineconciertos.jpg" alt=""></div>
+      </div>
+      <div class="event-row" data-id="navijazz" data-label="NaviJazz" data-img="uploads/bandperformance1.jpg">
+        <span class="event-num">03</span>
+        <div class="event-info">
+          <div class="event-name"><em>NaviJazz</em></div>
+          <div class="event-persona">Fin de Año · Retail</div>
         </div>
-        <div class="exp-option" data-id="itinerante" data-label="Música Itinerante" data-img="uploads/bandperformance.jpg" data-grow>
-          <span class="exp-num">04</span>
-          <div class="exp-info">
-            <div class="exp-name">Música <em>Itinerante</em></div>
-            <div class="exp-persona">Centros Comerciales · Activaciones</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/bandperformance.jpg" alt=""></div>
+        <div class="event-thumb"><img src="uploads/bandperformance1.jpg" alt=""></div>
+      </div>
+      <div class="event-row" data-id="itinerante" data-label="Música Itinerante" data-img="uploads/bandperformance.jpg">
+        <span class="event-num">04</span>
+        <div class="event-info">
+          <div class="event-name">Música <em>Itinerante</em></div>
+          <div class="event-persona">Centros Comerciales</div>
         </div>
-        <div class="exp-option" data-id="boda" data-label="Bodas Simbólicas" data-img="uploads/trumpetcloseup.jpg" data-grow>
-          <span class="exp-num">05</span>
-          <div class="exp-info">
-            <div class="exp-name">Bodas <em>Simbólicas</em></div>
-            <div class="exp-persona">Wedding Premium · Ceremonias</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/trumpetcloseup.jpg" alt=""></div>
+        <div class="event-thumb"><img src="uploads/bandperformance.jpg" alt=""></div>
+      </div>
+      <div class="event-row" data-id="boda" data-label="Bodas Simbólicas" data-img="uploads/trumpetcloseup.jpg">
+        <span class="event-num">05</span>
+        <div class="event-info">
+          <div class="event-name">Bodas <em>Simbólicas</em></div>
+          <div class="event-persona">Wedding Premium</div>
         </div>
-        <div class="exp-option" data-id="corporativo" data-label="Pulso Corporativo" data-img="uploads/pianistcloseup.jpg" data-grow>
-          <span class="exp-num">06</span>
-          <div class="exp-info">
-            <div class="exp-name">Pulso <em>Corporativo</em></div>
-            <div class="exp-persona">RRHH · Bienestar · Team Building</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/pianistcloseup.jpg" alt=""></div>
+        <div class="event-thumb"><img src="uploads/trumpetcloseup.jpg" alt=""></div>
+      </div>
+      <div class="event-row" data-id="corporativo" data-label="Pulso Corporativo" data-img="uploads/pianistcloseup.jpg">
+        <span class="event-num">06</span>
+        <div class="event-info">
+          <div class="event-name">Pulso <em>Corporativo</em></div>
+          <div class="event-persona">RRHH · Bienestar</div>
         </div>
-        <div class="exp-option" data-id="paginas" data-label="Páginas Sonoras" data-img="uploads/saxophonecloseup.jpg" data-grow>
-          <span class="exp-num">07</span>
-          <div class="exp-info">
-            <div class="exp-name">Páginas <em>Sonoras</em></div>
-            <div class="exp-persona">Literatura · Librerías · Cultura</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/saxophonecloseup.jpg" alt=""></div>
+        <div class="event-thumb"><img src="uploads/pianistcloseup.jpg" alt=""></div>
+      </div>
+      <div class="event-row" data-id="paginas" data-label="Páginas Sonoras" data-img="uploads/saxophonecloseup.jpg">
+        <span class="event-num">07</span>
+        <div class="event-info">
+          <div class="event-name">Páginas <em>Sonoras</em></div>
+          <div class="event-persona">Literatura · Cultura</div>
         </div>
-        <div class="exp-option" data-id="custom" data-label="Personalizado" data-img="uploads/studio.jpg" data-grow>
-          <span class="exp-num">08</span>
-          <div class="exp-info">
-            <div class="exp-name">Otro / <em>Personalizado</em></div>
-            <div class="exp-persona">Cuéntanos tu idea — la diseñamos</div>
-          </div>
-          <div class="exp-thumb"><img src="uploads/studio.jpg" alt=""></div>
+        <div class="event-thumb"><img src="uploads/saxophonecloseup.jpg" alt=""></div>
+      </div>
+      <div class="event-row" data-id="custom" data-label="Personalizado" data-img="uploads/studio.jpg">
+        <span class="event-num">08</span>
+        <div class="event-info">
+          <div class="event-name">Otro / <em>Personalizado</em></div>
+          <div class="event-persona">Cuéntanos tu idea</div>
         </div>
+        <div class="event-thumb"><img src="uploads/studio.jpg" alt=""></div>
       </div>
     </div>
   </div>
+
+  <button class="btn-pill a2-continue" id="a2-continue" data-grow>CONTINUAR →</button>
 </section>
 
 
@@ -383,16 +389,11 @@
     </div>
   </div>
 
-  <!-- NUEVO: Selector de instrumentación + campo libre -->
-  <div class="instrument-block">
-    <p class="eyebrow ib-eyebrow">INSTRUMENTACIÓN SUGERIDA</p>
-    <div class="inst-select-wrap">
-      <select class="inst-select" id="instSelect">
-        <option value="">Elige una instrumentación o personalízala abajo</option>
-      </select>
-    </div>
-    <p class="eyebrow ib-eyebrow ib-or">O ESCRIBE LA INSTRUMENTACIÓN QUE IMAGINAS</p>
-    <input class="inst-custom" id="instCustom" type="text" placeholder="Ej. Voz + Saxofón + Contrabajo + Percusión">
+  <div class="a3-instr">
+    <span class="a3-instr-label">INSTRUMENTACIÓN SUGERIDA</span>
+    <select class="a3-instr-select" id="a3-instr-select" data-grow></select>
+    <span class="a3-instr-label" style="margin-top:6px">¿PREFIERES UNA INSTRUMENTACIÓN ESPECÍFICA? <span style="color:var(--cream-dim);font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></span>
+    <input class="a3-instr-input" id="a3-instr-custom" type="text" placeholder="Ej: piano + saxo + violín, banda de jazz tradicional…" data-grow>
   </div>
 
   <button class="btn-pill show" id="act3-continue" data-grow>CONTINUAR →</button>
@@ -400,91 +401,71 @@
 
 
 <!-- ══════════════════════════════════════════
-     ACT 4 — LUGAR Y MOMENTO
+     ACT 4 — LUGAR Y MOMENTO (vertical)
 ═══════════════════════════════════════════ -->
 <section class="scene" id="act-4">
-  <!-- ── DÓNDE SUCEDE ── -->
-  <div class="a4-block">
-    <p class="eyebrow">04 / EL LUGAR</p>
-    <h2>¿Dónde <em>sucede?</em></h2>
+  <div class="a4-stack">
 
-    <!-- Pulso dorado animado -->
-    <div class="city-pulse-wrap">
-      <div class="city-pulse">
-        <span class="cp-ring cp-ring-1"></span>
-        <span class="cp-ring cp-ring-2"></span>
-        <span class="cp-ring cp-ring-3"></span>
-        <span class="cp-dot"></span>
+    <div class="a4-block">
+      <p class="eyebrow">04 / EL LUGAR</p>
+      <h2>¿Dónde <em>sucede?</em></h2>
+      <div class="city-select-wrap">
+        <div class="city-radio-group" id="city-radio-group">
+          <button class="city-radio" data-city="medellin" data-grow>Medellín</button>
+          <button class="city-radio" data-city="bogota" data-grow>Bogotá</button>
+          <button class="city-radio" data-city="otro" data-grow>Otra ciudad</button>
+        </div>
+        <input class="city-input" id="cityInput" type="text" placeholder="Escribe el nombre de la ciudad" autocomplete="off">
+        <p class="city-note" id="cityNote"></p>
       </div>
     </div>
 
-    <!-- Selector de ciudad: Medellín · Bogotá · Otra -->
-    <div class="city-options">
-      <div class="city-option" data-city="medellín" data-label="Medellín" data-grow>
-        <span class="city-opt-name">Medellín</span>
-        <span class="city-opt-sub">Área base · Sin costo logístico</span>
+    <div class="a4-block">
+      <p class="eyebrow">04 / EL MOMENTO</p>
+      <h2>¿Cuándo <em>sucede?</em></h2>
+      <div class="calendar">
+        <div class="cal-head">
+          <button class="cal-nav" id="cal-prev" data-grow>←</button>
+          <span class="cal-month" id="cal-month">Mayo 2026</span>
+          <button class="cal-nav" id="cal-next" data-grow>→</button>
+        </div>
+        <div class="cal-dow">
+          <span>DO</span><span>LU</span><span>MA</span><span>MI</span><span>JU</span><span>VI</span><span>SÁ</span>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
       </div>
-      <div class="city-option" data-city="bogotá" data-label="Bogotá" data-grow>
-        <span class="city-opt-name">Bogotá</span>
-        <span class="city-opt-sub">Operación nacional activa</span>
-      </div>
-      <div class="city-option" data-city="otra" data-label="Otra ciudad" data-grow>
-        <span class="city-opt-name">Otra ciudad</span>
-        <span class="city-opt-sub">Logística extendida</span>
-      </div>
+      <p class="urgency-note" id="urgency-note">URGENCIA: tu fecha está cerca. Lo consideramos en el cálculo.</p>
     </div>
 
-    <!-- Input que aparece solo si elige "Otra" -->
-    <div class="city-other-wrap" id="cityOtherWrap">
-      <input class="city-input" id="cityInput" type="text" placeholder="Escribe la ciudad del evento" autocomplete="off">
-    </div>
-    <p class="city-note" id="cityNote"></p>
-  </div>
-
-  <!-- ── CUÁNDO SUCEDE ── -->
-  <div class="a4-block">
-    <p class="eyebrow">04 / EL MOMENTO</p>
-    <h2>¿Cuándo <em>sucede?</em></h2>
-    <div class="calendar">
-      <div class="cal-head">
-        <button class="cal-nav" id="cal-prev">←</button>
-        <span class="cal-month" id="cal-month">Mayo 2026</span>
-        <button class="cal-nav" id="cal-next">→</button>
-      </div>
-      <div class="cal-dow">
-        <span>DO</span><span>LU</span><span>MA</span><span>MI</span><span>JU</span><span>VI</span><span>SÁ</span>
-      </div>
-      <div class="cal-grid" id="cal-grid"></div>
-    </div>
-    <p class="urgency-note" id="urgency-note">URGENCIA: Tu fecha está cerca. Lo consideramos en el cálculo.</p>
-  </div>
-
-  <!-- ── AFORO ESTIMADO ── -->
-  <div class="a4-block">
-    <p class="eyebrow">04 / AFORO ESTIMADO</p>
-    <h2>¿Cuánta <em>gente?</em></h2>
-
-    <!-- Aforo estilo lista (similar al selector de atmósfera) -->
-    <div class="aforo-options">
-      <div class="aforo-option" data-aforo="intimo" data-label="Íntimo" data-grow>
-        <span class="ao-name">Íntimo</span>
-        <span class="ao-sub">hasta 30 personas</span>
-      </div>
-      <div class="aforo-option on" data-aforo="mediano" data-label="Mediano" data-grow>
-        <span class="ao-name">Mediano</span>
-        <span class="ao-sub">30 a 100 personas</span>
-      </div>
-      <div class="aforo-option" data-aforo="grande" data-label="Grande" data-grow>
-        <span class="ao-name">Grande</span>
-        <span class="ao-sub">100 a 300 personas</span>
-      </div>
-      <div class="aforo-option" data-aforo="masivo" data-label="Masivo" data-grow>
-        <span class="ao-name">Masivo</span>
-        <span class="ao-sub">300 a 800 personas</span>
-      </div>
-      <div class="aforo-option" data-aforo="mayor" data-label="Mayor" data-grow>
-        <span class="ao-name">Mayor</span>
-        <span class="ao-sub">más de 800 personas</span>
+    <div class="a4-block">
+      <p class="eyebrow">04 / AFORO ESTIMADO</p>
+      <h2>¿Cuántas <em>personas?</em></h2>
+      <div class="aforo-list" id="aforo-list">
+        <button class="aforo-opt" data-id="intimo" data-grow>
+          <span class="aforo-opt-mark"></span>
+          <span class="aforo-opt-name">Íntimo</span>
+          <span class="aforo-opt-sub">hasta 30</span>
+        </button>
+        <button class="aforo-opt" data-id="mediano" data-grow>
+          <span class="aforo-opt-mark"></span>
+          <span class="aforo-opt-name">Mediano</span>
+          <span class="aforo-opt-sub">30–100</span>
+        </button>
+        <button class="aforo-opt" data-id="grande" data-grow>
+          <span class="aforo-opt-mark"></span>
+          <span class="aforo-opt-name">Grande</span>
+          <span class="aforo-opt-sub">100–300</span>
+        </button>
+        <button class="aforo-opt" data-id="masivo" data-grow>
+          <span class="aforo-opt-mark"></span>
+          <span class="aforo-opt-name">Masivo</span>
+          <span class="aforo-opt-sub">300–800</span>
+        </button>
+        <button class="aforo-opt" data-id="mayor" data-grow>
+          <span class="aforo-opt-mark"></span>
+          <span class="aforo-opt-name">Mayor</span>
+          <span class="aforo-opt-sub">+800</span>
+        </button>
       </div>
     </div>
 
@@ -494,66 +475,90 @@
 
 
 <!-- ══════════════════════════════════════════
-     ACT 5 — DURACIÓN Y PRODUCCIÓN TÉCNICA
+     ACT 5 — DURACIÓN + PRODUCCIÓN TÉCNICA
 ═══════════════════════════════════════════ -->
 <section class="scene" id="act-5">
-  <div class="a5-header">
-    <p class="eyebrow">05 / DURACIÓN Y PRODUCCIÓN</p>
-    <h1>Define el <em>alcance.</em></h1>
-    <p class="lead-italic a5-lead">Duración del show y producción técnica son las dos variables que más afinan tu cotización.</p>
-  </div>
+  <div class="a5-stack">
+    <div class="a5-header">
+      <p class="eyebrow">05 / EL PROGRAMA</p>
+      <h1>Cuánto dura<br>y qué <em>incluye.</em></h1>
+      <p class="lead-italic a5-lead">Define la duración del show y si nosotros llevamos la producción técnica.</p>
+    </div>
 
-  <!-- ── DURACIÓN ── -->
-  <div class="a5-block">
-    <p class="eyebrow a5-block-eyebrow">DURACIÓN DEL SHOW</p>
-    <div class="duration-options">
-      <div class="dur-option" data-dur="set40" data-label="Set base · 40 min" data-grow>
-        <span class="dur-name">Set base · <em>40 min</em></span>
-        <span class="dur-sub">Una intervención corta y potente</span>
+    <div class="a5-block">
+      <p class="eyebrow">DURACIÓN DEL SHOW</p>
+      <h2>¿Cuánto <em>tiempo?</em></h2>
+      <div class="opt-list" id="dur-list">
+        <button class="opt-row" data-id="set40" data-label="Un set de 40 minutos" data-mult="0.78" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Un set de 40 minutos</span>
+            <span class="opt-desc">Show base · ideal para activaciones cortas y cocteles</span>
+          </span>
+        </button>
+        <button class="opt-row" data-id="set60" data-label="Un set de 60 minutos" data-mult="0.92" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Un set de 60 minutos</span>
+            <span class="opt-desc">Show extendido · cenas y experiencias completas</span>
+          </span>
+        </button>
+        <button class="opt-row" data-id="set2x45" data-label="Dos sets de 45 minutos" data-mult="1.10" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Dos sets de 45 minutos</span>
+            <span class="opt-desc">Formato clásico · eventos largos con receso</span>
+          </span>
+        </button>
+        <button class="opt-row" data-id="set3x45" data-label="Tres sets de 45 minutos" data-mult="1.45" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Tres sets de 45 minutos</span>
+            <span class="opt-desc">Programa completo · noches enteras de música</span>
+          </span>
+        </button>
+        <button class="opt-row" data-id="otro" data-label="Otra duración" data-mult="1.10" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Otra duración</span>
+            <span class="opt-desc">Cuéntanos cuánto tiempo necesitas</span>
+          </span>
+        </button>
       </div>
-      <div class="dur-option" data-dur="hora1" data-label="1 hora continua" data-grow>
-        <span class="dur-name">1 hora <em>continua</em></span>
-        <span class="dur-sub">Ideal para cócteles o recepciones</span>
-      </div>
-      <div class="dur-option on" data-dur="sets2x45" data-label="2 sets × 45 min (estándar)" data-grow>
-        <span class="dur-name">2 sets × <em>45 min</em> <span class="dur-tag">ESTÁNDAR</span></span>
-        <span class="dur-sub">Formato clásico para eventos completos</span>
-      </div>
-      <div class="dur-option" data-dur="sets3x45" data-label="3 sets × 45 min" data-grow>
-        <span class="dur-name">3 sets × <em>45 min</em></span>
-        <span class="dur-sub">Eventos extensos o de jornada completa</span>
-      </div>
-      <div class="dur-option" data-dur="otra" data-label="Otra duración" data-grow>
-        <span class="dur-name">Otra <em>duración</em></span>
-        <span class="dur-sub">Cuéntanos qué necesitas</span>
+      <input class="opt-custom" id="dur-custom" type="text" placeholder="Escribe la duración que necesitas (ej: 3 horas continuas)" data-grow>
+    </div>
+
+    <div class="a5-block">
+      <p class="eyebrow">PRODUCCIÓN TÉCNICA</p>
+      <h2>¿La <em>llevamos?</em></h2>
+      <p class="a5-help">Sonido profesional, tarima, luces básicas, microfonía y backline. Lo que se necesita para que la música suene impecable.</p>
+      <div class="opt-list" id="prod-list">
+        <button class="opt-row" data-id="completa" data-label="Llevamos la producción técnica completa" data-mult="1.00" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Sí, llevamos producción</span>
+            <span class="opt-desc">Sonido, tarima, luces básicas, microfonía y backline incluidos</span>
+          </span>
+        </button>
+        <button class="opt-row" data-id="parcial" data-label="Solo backline y microfonía" data-mult="0.92" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Solo backline y microfonía</span>
+            <span class="opt-desc">Tú cuentas con sonido y tarima en el lugar</span>
+          </span>
+        </button>
+        <button class="opt-row" data-id="cliente" data-label="El cliente provee toda la producción" data-mult="0.84" data-grow>
+          <span class="opt-mark"></span>
+          <span class="opt-body">
+            <span class="opt-name">Ya tengo todo</span>
+            <span class="opt-desc">Sonido, tarima, luces y backline corren por tu cuenta</span>
+          </span>
+        </button>
       </div>
     </div>
-    <div class="dur-custom-wrap" id="durCustomWrap">
-      <input class="dur-custom" id="durCustom" type="text" placeholder="Ej. 2 horas con dos descansos, o ceremonia + cóctel">
-    </div>
-  </div>
 
-  <!-- ── PRODUCCIÓN TÉCNICA ── -->
-  <div class="a5-block">
-    <p class="eyebrow a5-block-eyebrow">PRODUCCIÓN TÉCNICA</p>
-    <p class="lead-italic a5-tech-lead">Sonido, tarima, luces, microfonía, monitores y todo el backline necesario para una operación impecable.</p>
-    <div class="tech-options">
-      <div class="tech-option" data-tech="completa" data-label="Llave en mano · Producción completa" data-grow>
-        <span class="tech-name">Sí, necesito producción técnica <em>completa</em></span>
-        <span class="tech-sub">Sonido, tarima, luces, microfonía y backline incluidos. Cero fricción logística.</span>
-      </div>
-      <div class="tech-option" data-tech="venue" data-label="El venue provee la técnica" data-grow>
-        <span class="tech-name">No, ya cuento con la producción del <em>lugar</em></span>
-        <span class="tech-sub">Enviaremos contra-rider para aprobación previa del equipo técnico.</span>
-      </div>
-      <div class="tech-option" data-tech="asesoria" data-label="Necesito asesoría" data-grow>
-        <span class="tech-name">No estoy seguro, <em>asesórenme</em></span>
-        <span class="tech-sub">Lo definimos juntos cuando hablemos del evento.</span>
-      </div>
-    </div>
+    <button class="btn-pill disabled" id="act5-continue" disabled data-grow>CONTINUAR →</button>
   </div>
-
-  <button class="btn-pill disabled" id="act5-continue" disabled data-grow>CONTINUAR →</button>
 </section>
 
 
@@ -561,16 +566,17 @@
      ACT 6 — DETALLES
 ═══════════════════════════════════════════ -->
 <section class="scene" id="act-6">
+  <div class="a6-stack">
   <div class="a6-block">
     <p class="eyebrow">06 / DETALLES</p>
     <h2>¿Algo <em>más?</em></h2>
-    <p class="lead-italic">Selecciona lo que quieras sumar a tu propuesta. Opcional.</p>
+    <p class="lead-italic">Selecciona lo que aplique. Opcional.</p>
     <div class="extras-list">
       <div class="extra-row" data-id="repertorio_custom" data-grow>
         <div class="extra-chk"></div>
         <div class="extra-info">
           <div class="extra-name">Repertorio bespoke</div>
-          <div class="extra-desc">Composición o arreglo exclusivo para tu evento</div>
+          <div class="extra-desc">Composición exclusiva para tu evento</div>
         </div>
         <div class="extra-price">+$1.500.000</div>
       </div>
@@ -578,7 +584,7 @@
         <div class="extra-chk"></div>
         <div class="extra-info">
           <div class="extra-name">Gestión de derechos</div>
-          <div class="extra-desc">Clearing legal EGEDA/MPLC de exhibición pública</div>
+          <div class="extra-desc">Clearing de derechos de exhibición</div>
         </div>
         <div class="extra-price">+$1.200.000</div>
       </div>
@@ -586,7 +592,7 @@
         <div class="extra-chk"></div>
         <div class="extra-info">
           <div class="extra-name">Vestuario temático</div>
-          <div class="extra-desc">Alineado a la identidad de tu marca o evento</div>
+          <div class="extra-desc">Alineado a la identidad de tu marca</div>
         </div>
         <div class="extra-price">+$600.000</div>
       </div>
@@ -594,7 +600,7 @@
         <div class="extra-chk"></div>
         <div class="extra-info">
           <div class="extra-name">Set adicional</div>
-          <div class="extra-desc">Más de 2 sets de 45 minutos de programa</div>
+          <div class="extra-desc">Más de 2×45 min de programa</div>
         </div>
         <div class="extra-price">+$900.000</div>
       </div>
@@ -602,7 +608,7 @@
         <div class="extra-chk"></div>
         <div class="extra-info">
           <div class="extra-name">Compañía de marionetas</div>
-          <div class="extra-desc">Espectáculo visual complementario para NaviJazz</div>
+          <div class="extra-desc">Espectáculo visual complementario</div>
         </div>
         <div class="extra-price">+$2.500.000</div>
       </div>
@@ -610,7 +616,7 @@
         <div class="extra-chk"></div>
         <div class="extra-info">
           <div class="extra-name">Cobertura AV extendida</div>
-          <div class="extra-desc">Paquete audiovisual ampliado más allá del registro base</div>
+          <div class="extra-desc">Paquete audiovisual ampliado</div>
         </div>
         <div class="extra-price">+$1.800.000</div>
       </div>
@@ -639,6 +645,7 @@
       </div>
       <button class="act6-cta" id="act6-cta" data-grow>VER MI INVERSIÓN →</button>
     </div>
+  </div>
   </div>
 </section>
 
@@ -671,11 +678,11 @@
       <div class="pc-hd">PROPUESTA · MÚSICOS DE FONDO</div>
       <div class="pc-title" id="pc-tipo"></div>
       <div class="pc-row" id="pc-formato"></div>
-      <div class="pc-row" id="pc-inst"></div>
+      <div class="pc-row" id="pc-instr"></div>
       <div class="pc-row" id="pc-lugar"></div>
       <div class="pc-row" id="pc-aforo"></div>
       <div class="pc-row" id="pc-duracion"></div>
-      <div class="pc-row" id="pc-tecnica"></div>
+      <div class="pc-row" id="pc-prod"></div>
       <div class="pc-extras" id="pc-extras"></div>
       <div class="pc-ft" id="pc-footer"></div>
     </div>
@@ -690,7 +697,7 @@
   <div id="superp-screen" class="superp" style="display:none">
     <img class="r-logo" src="uploads/isotipomusicosdefondo.png" alt="">
     <h1>Tu evento es una <em>obra mayor.</em></h1>
-    <p class="lead-italic" style="max-width:520px;text-align:center">Por el alcance que describiste, esto entra en categoría de superproducción. Tu propuesta se diseña directamente con nuestro equipo.</p>
+    <p class="lead-italic" style="max-width:480px;text-align:center;font-size:17px">Por el alcance que describiste, esto entra en categoría de superproducción. Tu propuesta se diseña directamente con nuestro equipo.</p>
     <button class="btn-pill" onclick="window.open('https://wa.me/573003033436','_blank')" data-grow>HABLAR CON EL EQUIPO →</button>
   </div>
 </section>
