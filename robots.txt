@@ -1,0 +1,12 @@
+# robots.txt — musicosdefondo.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://musicosdefondo.com/sitemap.xml
+
+# Bloquear carpetas que no necesitan indexarse
+Disallow: /uploads/*.jpg$
+Disallow: /uploads/*.png$
+Disallow: /uploads/*.jpeg$

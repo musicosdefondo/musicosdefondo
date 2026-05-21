@@ -3,7 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Músicos de Fondo — Boutique de Diseño Sonoro</title>
+<title>Músicos de Fondo — Música en Vivo para Eventos en Medellín | Diseño Sonoro</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="Músicos de Fondo: música en vivo profesional para eventos corporativos, hoteles, restaurantes y bodas en Medellín. Jazz, Latin, Funk y más. Producción llave en mano con +10 años de experiencia. Solicita tu propuesta.">
+<meta name="keywords" content="música en vivo Medellín, músicos Medellín, música para eventos Medellín, jazz en vivo Medellín, banda para eventos, música en vivo para restaurantes, música para bodas Medellín, diseño sonoro, músicos de fondo, eventos corporativos Medellín">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://musicosdefondo.com/">
+<meta name="geo.region" content="CO-ANT">
+<meta name="geo.placename" content="Medellín">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://musicosdefondo.com/">
+<meta property="og:title" content="Músicos de Fondo — Música en Vivo para Eventos en Medellín">
+<meta property="og:description" content="Diseño sonoro a la medida para hoteles, restaurantes, eventos corporativos y bodas. Jazz, Latin, Funk y más. Producción llave en mano en Medellín, Colombia.">
+<meta property="og:image" content="https://musicosdefondo.com/uploads/bandperformancejazzclub.jpg">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Músicos de Fondo">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Músicos de Fondo — Música en Vivo para Eventos en Medellín">
+<meta name="twitter:description" content="Diseño sonoro a la medida para hoteles, restaurantes, eventos corporativos y bodas en Medellín. Solicita tu propuesta.">
+<meta name="twitter:image" content="https://musicosdefondo.com/uploads/bandperformancejazzclub.jpg">
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <meta name="ext-resource-dependency" content="uploads/singercloseup.jpg" data-resource-id="svc0" />
 <meta name="ext-resource-dependency" content="uploads/cineconciertos.jpg" data-resource-id="svc1" />
 <meta name="ext-resource-dependency" content="uploads/bandperformance1.jpg" data-resource-id="svc2" />
@@ -216,6 +244,9 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 /* ── GSAP ── */
 .gs{opacity:0;transform:translateY(40px)}
 
+/* ── SR-ONLY (visible to crawlers, invisible on screen) ── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
 /* ── MOBILE MENU ── */
 .mobile-menu{position:fixed;top:0;right:-100%;width:300px;height:100vh;background:rgba(10,9,7,.95);backdrop-filter:blur(20px);z-index:1000;padding:100px 40px;display:flex;flex-direction:column;gap:28px;transition:right .5s cubic-bezier(.22,1,.36,1)}
 .mobile-menu.open{right:0}
@@ -255,6 +286,107 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   .svc-modal-hero{height:200px}
 }
 </style>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "MusicGroup"],
+  "name": "Músicos de Fondo",
+  "alternateName": "Musicos de Fondo",
+  "description": "Boutique de diseño sonoro en Medellín. Música en vivo profesional para eventos corporativos, hoteles, restaurantes, bodas y activaciones de marca. Jazz, Latin, Funk, Blues y más.",
+  "url": "https://musicosdefondo.com/",
+  "telephone": "+573003033436",
+  "email": "marlon.zapata@falsoidolo.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Medellín",
+    "addressRegion": "Antioquia",
+    "addressCountry": "CO"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 6.2442,
+    "longitude": -75.5812
+  },
+  "areaServed": [
+    {"@type": "City", "name": "Medellín"},
+    {"@type": "AdministrativeArea", "name": "Antioquia"},
+    {"@type": "Country", "name": "Colombia"}
+  ],
+  "foundingDate": "2017",
+  "numberOfEmployees": {"@type": "QuantitativeValue", "minValue": 5, "maxValue": 15},
+  "parentOrganization": {"@type": "Organization", "name": "Falso Ídolo"},
+  "genre": ["Jazz", "Latin Jazz", "Funk", "Blues", "Son Cubano", "Pop"],
+  "sameAs": [
+    "https://www.instagram.com/musicosdefondo/"
+  ],
+  "image": "https://musicosdefondo.com/uploads/bandperformancejazzclub.jpg",
+  "priceRange": "$$$$",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de Música en Vivo",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Experiencia 360°",
+          "description": "Música en vivo para hoteles y restaurantes en Medellín. Maridaje sonoro inmersivo con cena, coctelería y narrativa histórica. Residencias semanales o mensuales."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Cine-Conciertos",
+          "description": "Live Scoring en vivo de películas icónicas. Banda en vivo sincronizada con proyección cinematográfica. Gestión de derechos de exhibición incluida."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "NaviJazz",
+          "description": "Espectáculo navideño con Small Big Band y marionetas de gran formato. Villancicos clásicos estilo Sinatra y Ella Fitzgerald para centros comerciales y eventos corporativos."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Música Itinerante",
+          "description": "Música en vivo acústica itinerante para centros comerciales y activaciones de marca en Medellín. Solistas, dúos y tríos sin tarima ni cables."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Bodas Simbólicas",
+          "description": "Música en vivo para bodas premium en Medellín. Live Scoring ceremonial con improvisación reactiva a los votos. Composiciones exclusivas para la pareja."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Pulso Corporativo",
+          "description": "Talleres de team building y bienestar corporativo con música en vivo. Laboratorios experienciales para empresas en Medellín."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Páginas Sonoras",
+          "description": "Live Scoring para literatura. Musicalización en vivo de biografías, crónicas y novelas en alianza con Diego Londoño."
+        }
+      }
+    ]
+  }
+}
+</script>
 </head>
 <body>
 
@@ -307,13 +439,13 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 
 <!-- ─── HERO ─── -->
 <header class="hero">
-  <div class="hero-bg"><img src="uploads/bandperformancejazzclub.jpg" alt="Jazz club performance"></div>
+  <div class="hero-bg"><img src="uploads/bandperformancejazzclub.jpg" alt="Músicos de Fondo — banda de jazz en vivo en club nocturno de Medellín"></div>
   <div class="hero-overlay"></div>
   <div class="hero-aura"></div>
   <div class="hero-content">
-    <img src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo" class="hero-logo gs">
+    <img src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo — música en vivo para eventos en Medellín" class="hero-logo gs">
     <p class="hero-eyebrow gs">Boutique de Diseño Sonoro · Medellín</p>
-    <h1 class="hero-title gs">El lenguaje sonoro<br>de tu <em>marca.</em></h1>
+    <h1 class="hero-title gs">El lenguaje sonoro<br>de tu <em>marca.</em> <span class="sr-only">— Música en vivo para eventos en Medellín, Colombia. Músicos profesionales de jazz, latin, funk y blues.</span></h1>
     <p class="hero-sub gs">Traducimos marcas, espacios y momentos al lenguaje de la música en vivo. Llave en mano. ROI demostrable.</p>
     <div class="hero-ctas gs">
       <a href="#servicios" class="link">Ver servicios →</a>
@@ -350,70 +482,94 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
     <p class="lead gs">Cada servicio es un producto cerrado, con propuesta de valor y modelo de negocio propios.</p>
     <div class="bento gs">
       <div class="bento-card b1" data-svc="0" onclick="openSvcModal(0)">
-        <div class="card-img"><img src="uploads/singercloseup.jpg" alt="Experiencia 360°"></div>
+        <div class="card-img"><img src="uploads/singercloseup.jpg" alt="Experiencia 360° — música en vivo para restaurantes y hoteles en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">01</span><span class="card-tag">HORECA · Hoteles · Restaurantes</span><h3 class="card-name">Experiencia <em>360°</em></h3><p class="card-desc">Maridaje sonoro inmersivo donde la gastronomía y la historia dialogan con la música.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b2" data-svc="1" onclick="openSvcModal(1)">
-        <div class="card-img"><img src="uploads/cineconciertos.jpg" alt="Cine-Conciertos"></div>
+        <div class="card-img"><img src="uploads/cineconciertos.jpg" alt="Cine-Conciertos — live scoring de películas con banda en vivo en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">02</span><span class="card-tag">Cultura · Teatros · Instituciones</span><h3 class="card-name">Cine <em>Conciertos</em></h3><p class="card-desc">Live Scoring en vivo de obras cinematográficas icónicas. Gestión de derechos de exhibición incluida.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b3" data-svc="2" onclick="openSvcModal(2)">
-        <div class="card-img"><img src="uploads/bandperformance1.jpg" alt="NaviJazz"></div>
+        <div class="card-img"><img src="uploads/bandperformance1.jpg" alt="NaviJazz — espectáculo navideño con Small Big Band en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">03</span><span class="card-tag">Temporada · Fin de año · Retail</span><h3 class="card-name">Navi<em>Jazz</em></h3><p class="card-desc">Small Big Band + marionetas. El villancico clásico transformado en espectáculo internacional.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b4" data-svc="3" onclick="openSvcModal(3)">
-        <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Música Itinerante"></div>
+        <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Música Itinerante — músicos en vivo para centros comerciales y activaciones en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">04</span><span class="card-tag">Centros Comerciales · Activaciones</span><h3 class="card-name">Música <em>Itinerante</em></h3><p class="card-desc">Música en vivo de altísima calidad llevada exactamente donde está tu cliente.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b5" data-svc="4" onclick="openSvcModal(4)">
-        <div class="card-img"><img src="uploads/trumpetcloseup.jpg" alt="Bodas Simbólicas"></div>
+        <div class="card-img"><img src="uploads/trumpetcloseup.jpg" alt="Bodas Simbólicas — música en vivo para bodas premium en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">05</span><span class="card-tag">Ultra-Premium · Wedding Planners</span><h3 class="card-name">Bodas <em>Simbólicas</em></h3><p class="card-desc">Live Scoring nupcial. El soundtrack de tu historia, interpretado en vivo.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b6" data-svc="5" onclick="openSvcModal(5)">
-        <div class="card-img"><img src="uploads/pianistcloseup.jpg" alt="Pulso Corporativo"></div>
+        <div class="card-img"><img src="uploads/pianistcloseup.jpg" alt="Pulso Corporativo — team building con música en vivo para empresas en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">06</span><span class="card-tag">RRHH · Bienestar · Team Building</span><h3 class="card-name">Pulso <em>Corporativo</em></h3><p class="card-desc">Laboratorios experienciales con música en vivo para resolver dolores corporativos reales.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b7" data-svc="6" onclick="openSvcModal(6)">
-        <div class="card-img"><img src="uploads/saxophonecloseup.jpg" alt="Páginas Sonoras"></div>
+        <div class="card-img"><img src="uploads/saxophonecloseup.jpg" alt="Páginas Sonoras — musicalización en vivo de literatura en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">07</span><span class="card-tag">Literatura · Librerías · Ferias</span><h3 class="card-name">Páginas <em>Sonoras</em></h3><p class="card-desc">Live Scoring para literatura. La narrativa se convierte en experiencia multisensorial.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
     </div>
+
+    <!-- SEO: Contenido indexable de servicios (invisible en pantalla, legible por crawlers) -->
+    <div class="sr-only" role="complementary" aria-label="Descripción detallada de servicios de música en vivo en Medellín">
+      <h3>Experiencia 360° — Música en vivo para restaurantes y hoteles en Medellín</h3>
+      <p>Experiencia inmersiva donde la gastronomía, la coctelería y la historia dialogan con la música en vivo. Los clientes HORECA se asocian con Músicos de Fondo para crear eventos de destino dentro de su local en Medellín. Ofrecemos tres niveles: The Jazz Route (cena maridaje 6 tiempos con narrativa histórica guiada), Noches de Inmersión (eventos bimensuales temáticos como Havana Night o Prohibition Era) y Residencias Sonoras (dúos o tríos bajo suscripción mensual para la identidad sonora del venue). Incluye producción técnica llave en mano y registro audiovisual con 2 Reels y 20 fotos HD por evento.</p>
+
+      <h3>Cine-Conciertos — Live Scoring de películas con banda en vivo</h3>
+      <p>Live Scoring en vivo de obras cinematográficas icónicas. Reinterpretamos bandas sonoras sincronizando música en vivo con la proyección. Gestión de derechos de exhibición EGEDA y MPLC incluida. Repertorio: Animación y Fantasía (El Viaje de Chihiro, WALL-E), Estética y Culto (El Gran Hotel Budapest), Era Dorada (Tiempos Modernos). Formato septeto o Small Big Band. Sin competencia directa en Colombia.</p>
+
+      <h3>NaviJazz — Espectáculo navideño con Big Band y marionetas en Medellín</h3>
+      <p>Superproducción inmersiva navideña que transforma el villancico clásico en un espectáculo con Small Big Band de 8 músicos y marionetas de gran formato. Tres niveles: El Cuento de Invierno (show familiar 45-60 min), Holiday Swing Gala (gala de etiqueta con Swing y Mambo) y White Christmas (cuarteto de jazz para retail de lujo). Ideal para centros comerciales, eventos corporativos y teatros.</p>
+
+      <h3>Música Itinerante — Músicos en vivo para centros comerciales y activaciones de marca</h3>
+      <p>Música en vivo de altísima calidad llevada exactamente donde está el cliente. Solistas, dúos o tríos que dinamizan espacios comerciales en Medellín. 100% acústico o con amplificación portátil invisible. Sin tarimas, sin cables, sin bloqueos de pasillos. Tres formatos: Conciertos Itinerantes (solistas móviles), Puntos Acústicos (dúos fijos en plazoletas) y Activaciones de Marca (música a la medida con vestuario alineado a la marca).</p>
+
+      <h3>Bodas Simbólicas — Música en vivo para bodas premium en Medellín</h3>
+      <p>Live Scoring nupcial. Modelo B2B2C en alianza con Wedding Planners y Officiantes. Improvisación reactiva a los votos, musicalización de proyecciones sorpresa y producción técnica invisible. Niveles: El Ritual Cinematográfico (Live Scoring ceremonial), El Viaje Sonoro (ceremonia más Sunset Cocktail con Swing y Latin Jazz) y La Obra Maestra (composición exclusiva de la canción de la pareja).</p>
+
+      <h3>Pulso Corporativo — Team building y bienestar con música en vivo para empresas</h3>
+      <p>Talleres experienciales que usan principios de la música en vivo (improvisación, escucha activa, ensamble) para resolver dolores corporativos: estrés, comunicación, burnout y pertenencia. Tres modalidades: La Metáfora del Jazz (liderazgo y trabajo en equipo), Pausa Activa Premium (bienestar y salud mental con SoundHealing) y Co-creación del Himno (los empleados componen la canción de la empresa). Facturable bajo Capacitación y SST. De 60 a 120 minutos, adaptable.</p>
+
+      <h3>Páginas Sonoras — Musicalización en vivo de literatura</h3>
+      <p>Live Scoring para literatura en alianza con el periodista Diego Londoño. Narramos y musicalizamos en tiempo real biografías, crónicas y novelas. Tres niveles: Crónicas y Acordes (biografías musicales con Jazz y Blues), Literatura Noir (novela negra con contrabajo y Bebop) y Realismo Mágico (literatura colombiana y latinoamericana con Son Cubano y Bolero). Formato dúo o cuarteto. Experiencia validada con Librería Lerner.</p>
+    </div>
+
   </div>
 </section>
 
 <hr class="sep">
 
-<!-- ─── GALERÍA MARQUEE ─── -->
 <section class="marquee-section" id="galeria">
   <div class="wrap">
     <p class="micro gs">El ensamble</p>
     <h2 class="gs" style="margin-bottom:48px">Música en vivo,<br><em>sin sustitutos.</em></h2>
   </div>
   <div class="marquee-track">
-    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Trompetista"></div>
-    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Vocalista"></div>
-    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista"></div>
-    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista"></div>
-    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista"></div>
-    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Trompetista"></div>
-    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Vocalista"></div>
-    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista"></div>
-    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista"></div>
-    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista"></div>
+    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Trompetista de jazz en vivo — Músicos de Fondo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Vocalista de jazz en evento en vivo — Músicos de Fondo"></div>
+    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista en presentación en vivo — Músicos de Fondo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista de jazz en evento corporativo — Músicos de Fondo"></div>
+    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista en concierto de jazz — Músicos de Fondo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Músico de trompeta en vivo — eventos Medellín"></div>
+    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Cantante de jazz en restaurante — música en vivo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista jazz — música para eventos en Medellín"></div>
+    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista en evento — música en vivo para hoteles Medellín"></div>
+    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista jazz en vivo — Músicos de Fondo Colombia"></div>
   </div>
 </section>
 
@@ -473,10 +629,11 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 <hr class="sep">
 
 <!-- ─── CLIENTES ─── -->
-<section class="sect">
+<section class="sect" id="clientes">
   <div class="wrap">
     <p class="micro gs">Confianza</p>
     <h2 class="gs">Han confiado<br>en <em>nosotros.</em></h2>
+    <p class="sr-only">Clientes que han contratado música en vivo con Músicos de Fondo en Medellín para hoteles, restaurantes, centros comerciales y eventos corporativos.</p>
     <div class="clients-wrap gs">
       <span class="cl-tag">Z Bar Jazz Club</span><span class="cl-tag">Hotel Marquee</span><span class="cl-tag">Hotel Intercontinental</span><span class="cl-tag">Victoria Regia</span><span class="cl-tag">Alambique</span><span class="cl-tag">Finca la Comadreja</span><span class="cl-tag">Elemental Marinilla</span><span class="cl-tag">Grupo Carmen</span><span class="cl-tag">Casa El Ramal</span><span class="cl-tag">CC El Tesoro</span><span class="cl-tag">CC Oviedo</span><span class="cl-tag">Inexmoda</span><span class="cl-tag">Colombo Americano</span><span class="cl-tag">Comfenalco Antioquia</span><span class="cl-tag">Comfama</span><span class="cl-tag">Librería Lerner</span><span class="cl-tag">Bellas Artes Medellín</span>
     </div>
@@ -487,7 +644,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 
 <!-- ─── CTA FINAL ─── -->
 <section class="cta-section" id="contacto">
-  <div class="cta-bg"><img src="uploads/studio.jpg" alt="Estudio"></div>
+  <div class="cta-bg"><img src="uploads/studio.jpg" alt="Estudio de grabación Músicos de Fondo — producción musical en Medellín"></div>
   <div class="cta-overlay"></div>
   <div class="cta-inner">
     <p class="cta-big gs">¿Cuál es tu<br>próximo <em>evento?</em></p>
@@ -502,7 +659,18 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 <!-- ─── FOOTER ─── -->
 <footer>
   <p>Músicos de Fondo — Boutique de Diseño Sonoro · Medellín, Colombia · 2026</p>
-  <img src="uploads/isotipomusicosdefondo.png" alt="Isotipo" class="footer-iso">
+  <address class="sr-only" itemscope itemtype="https://schema.org/LocalBusiness">
+    <span itemprop="name">Músicos de Fondo</span> —
+    Música en vivo profesional para eventos en
+    <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+      <span itemprop="addressLocality">Medellín</span>,
+      <span itemprop="addressRegion">Antioquia</span>,
+      <span itemprop="addressCountry">Colombia</span>
+    </span>.
+    Teléfono: <a href="tel:+573003033436" itemprop="telephone">+57 300 303 3436</a>.
+    Email: <a href="mailto:marlon.zapata@falsoidolo.com" itemprop="email">marlon.zapata@falsoidolo.com</a>.
+  </address>
+  <img src="uploads/isotipomusicosdefondo.png" alt="Isotipo Músicos de Fondo — música en vivo Medellín" class="footer-iso">
   <span class="sello">Un proyecto de Falso Ídolo</span>
 </footer>
 
