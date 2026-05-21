@@ -271,7 +271,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
     <a href="#trayectoria">Trayectoria</a>
     <a href="#contacto">Contacto</a>
   </div>
-  <div class="nav-cta-wrap"><a href="#contacto" class="nav-cta">Solicitar propuesta</a></div>
+  <div class="nav-cta-wrap"><a href="cotizador.html" class="nav-cta">Solicitar propuesta</a></div>
   <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
     <span></span><span></span><span></span>
   </div>
@@ -285,7 +285,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   <a href="#formatos" onclick="this.parentElement.classList.remove('open')">Formatos</a>
   <a href="#trayectoria" onclick="this.parentElement.classList.remove('open')">Trayectoria</a>
   <a href="#contacto" onclick="this.parentElement.classList.remove('open')">Contacto</a>
-  <a href="#contacto" class="nav-cta" style="text-align:center;margin-top:20px" onclick="this.parentElement.classList.remove('open')">Solicitar propuesta</a>
+  <a href="cotizador.html" class="nav-cta" style="text-align:center;margin-top:20px" onclick="this.parentElement.classList.remove('open')">Solicitar propuesta</a>
 </div>
 
 <!-- ─── SERVICE MODAL ─── -->
@@ -317,7 +317,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
     <p class="hero-sub gs">Traducimos marcas, espacios y momentos al lenguaje de la música en vivo. Llave en mano. ROI demostrable.</p>
     <div class="hero-ctas gs">
       <a href="#servicios" class="link">Ver servicios →</a>
-      <a href="#contacto" class="pill">Solicitar propuesta</a>
+      <a href="cotizador.html" class="pill">Solicitar propuesta</a>
     </div>
     <div class="hero-line gs"></div>
   </div>
@@ -492,7 +492,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   <div class="cta-inner">
     <p class="cta-big gs">¿Cuál es tu<br>próximo <em>evento?</em></p>
     <div class="cta-links gs">
-      <a href="/cdn-cgi/l/email-protection#3a574f49535955495e5f5c55545e557a5d575b535614595557" class="cta-link primary">Solicitar propuesta</a>
+      <a href="cotizador.html" class="cta-link primary">Solicitar propuesta</a>
       <a href="https://wa.me/573003033436" target="_blank" class="cta-link">WhatsApp →</a>
       <a href="https://www.instagram.com/musicosdefondo/" target="_blank" class="cta-link">@musicosdefondo</a>
     </div>
@@ -506,7 +506,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   <span class="sello">Un proyecto de Falso Ídolo</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── SERVICE DATA ── */
 const SVC_DATA = [
   {
@@ -614,7 +614,7 @@ function openSvcModal(i) {
     html += '<div class="modal-bullet"><div class="modal-bullet-dot"></div><div class="modal-bullet-text">' + b + '</div></div>';
   });
   html += '</div>';
-  html += '<div class="modal-cta-row"><a href="#contacto" onclick="closeSvcModal()">Solicitar propuesta →</a></div>';
+  html += '<div class="modal-cta-row"><a href="cotizador.html">Solicitar propuesta →</a></div>';
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('svcModalInner').scrollTop = 0;
   modal.classList.add('open');
