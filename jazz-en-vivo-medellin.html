@@ -206,7 +206,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: url('assets/enj-hero.jpg');
+      background-image: url('uploads/enj-hero.jpg');
       background-size: cover;
       background-position: center;
       filter: grayscale(1) contrast(1.05) brightness(0.55);
@@ -584,9 +584,9 @@
       line-height: 1.5;
     }
     .video-frame {
-      max-width: 420px;
+      max-width: 800px;
       margin: 0 auto;
-      aspect-ratio: 9 / 16;
+      aspect-ratio: 16 / 9;
       background: var(--bg-elevated);
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -595,6 +595,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      position: absolute;
+      inset: 0;
     }
     .video-frame::before {
       content: '';
@@ -929,7 +936,7 @@
             <p class="formato-desc">El pulso mecánico y orgánico a la vez. El groove que no viene de un archivo.</p>
           </div>
           <!-- REEMPLAZAR: foto baterista 800x800 -->
-          <div class="formato-portrait" style="background-image:url('assets/enj-drummer.jpg')" aria-hidden="true"></div>
+          <div class="formato-portrait" style="background-image:url('uploads/enj-drummer.jpg')" role="img" aria-label="Baterista de jazz en vivo con drum machine y sintetizadores — Electro Nu Jazz Medellín"></div>
         </article>
 
         <!-- 02 Keys -->
@@ -941,7 +948,7 @@
             <p class="formato-desc">La armonía que muta en tiempo real. Texturas que respiran.</p>
           </div>
           <!-- REEMPLAZAR: foto teclista 800x800 -->
-          <div class="formato-portrait" style="background-image:url('assets/enj-keys.jpg')" aria-hidden="true"></div>
+          <div class="formato-portrait" style="background-image:url('uploads/enj-keys.jpg')" role="img" aria-label="Teclista de jazz contemporáneo con sintetizadores — Electro Nu Jazz Medellín"></div>
         </article>
 
         <!-- 03 Guitar -->
@@ -953,7 +960,7 @@
             <p class="formato-desc">La textura que distorsiona el espacio. Del jazz limpio al noise controlado.</p>
           </div>
           <!-- REEMPLAZAR: foto guitarrista 800x800 -->
-          <div class="formato-portrait" style="background-image:url('assets/enj-guitar.jpg')" aria-hidden="true"></div>
+          <div class="formato-portrait" style="background-image:url('uploads/enj-guitar.jpg')" role="img" aria-label="Guitarrista con synth FX en show de jazz en vivo — Electro Nu Jazz Medellín"></div>
         </article>
 
         <!-- 04 Bass -->
@@ -965,7 +972,7 @@
             <p class="formato-desc">La raíz que ancla el caos. El centro gravitacional del cuarteto.</p>
           </div>
           <!-- REEMPLAZAR: foto bajista 800x800 -->
-          <div class="formato-portrait" style="background-image:url('assets/enj-bass.jpg')" aria-hidden="true"></div>
+          <div class="formato-portrait" style="background-image:url('uploads/enj-bass.jpg')" role="img" aria-label="Bajista de jazz en vivo — Electro Nu Jazz Medellín"></div>
         </article>
       </div>
 
@@ -987,16 +994,16 @@
       <p class="video-intro reveal">Sin editar. Sin corregir. Sin repetir.</p>
 
       <div class="video-frame reveal" data-stagger="1">
-        <!-- REEMPLAZAR: Pegar aquí el embed de Instagram Reel
-             URL del Reel: https://www.instagram.com/reel/DYf8PjEPy5q/?igsh=eGVrN3EyaWdmdW5n -->
-        <a class="video-placeholder" href="https://www.instagram.com/reel/DYf8PjEPy5q/" target="_blank" rel="noopener" aria-label="Ver Reel del show en Instagram">
-          <span class="play-icon" aria-hidden="true">
-            <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="3,1.5 16,9 3,16.5" fill="#c8ff00"/>
-            </svg>
-          </span>
-          <span class="video-label">[ Video del show en vivo ]</span>
-        </a>
+        <iframe 
+          width="560" height="315" 
+          src="https://www.youtube.com/embed/aSztTdYAGjg?si=CkddPRBEdt_aFibL&rel=0&modestbranding=1" 
+          title="Jazz en vivo en Medellín — Electro Nu Jazz dawless live show en Galería Zehn" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen
+          loading="lazy">
+        </iframe>
       </div>
 
       <p class="video-caption reveal" data-stagger="2">
