@@ -16,6 +16,20 @@ const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbws2ReBeaHOJ4
    'https://script.google.com/macros/s/AKfycbx.../exec'
    ════════════════════════════════════════════════════════════ */
 
+/* ════════════════════════════════════════════════════════════
+   📧 EMAILJS — CONFIGURACIÓN DE ENVÍO DE CORREO
+   ────────────────────────────────────────────────────────────
+   Sigue la GUIA_EMAILJS_SETUP.md para obtener estos valores.
+   Si dejas los placeholders, el cotizador funciona normal
+   pero NO envía correos (modo offline).
+   ════════════════════════════════════════════════════════════ */
+const EMAILJS_PUBLIC_KEY       = 'BNPpCHam_pjQWE7_H';
+const EMAILJS_SERVICE_ID       = 'service_dz9im8s';
+const EMAILJS_TEMPLATE_CLIENTE = 'template_c4fhu7j';
+const EMAILJS_TEMPLATE_INTERNO = 'template_63izjnv';
+const EMAIL_COPIA_INTERNA      = 'marlon.zapata@falsoidolo.com';
+/* ════════════════════════════════════════════════════════════ */
+
 const WHATSAPP = '573003033436';
 
 /* ── State ── */
@@ -435,6 +449,246 @@ Acabo de cotizar en el sitio web:
 Estimado: ${S.rangoDisplay}
 
 Me gustaría conversar para afinar la propuesta.`;
+}
+
+/* ============================================================
+   📧 EMAIL — Generación y envío de correos
+   ============================================================ */
+function _isEmailConfigured() {
+  return EMAILJS_PUBLIC_KEY &&
+         !EMAILJS_PUBLIC_KEY.startsWith('PEGA_AQUI') &&
+         EMAILJS_SERVICE_ID &&
+         !EMAILJS_SERVICE_ID.startsWith('PEGA_AQUI');
+}
+
+function _emailDateStr() {
+  return new Date().toLocaleDateString('es-CO', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+
+function _eventDateStr() {
+  if (!S.fecha) return 'Por definir';
+  return new Date(S.fecha + 'T00:00:00').toLocaleDateString('es-CO', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+
+function _instrStr() {
+  return S.instrumentacionCustom || S.instrumentacionSugerida || 'Sugerencia del equipo';
+}
+
+function _durStr() {
+  return (S.duracion === 'otro' && S.duracionCustom) ? S.duracionCustom : (S.duracionLabel || '—');
+}
+
+/* ── Email HTML para el CLIENTE ── */
+function buildEmailCliente() {
+  const extrasHtml = S.extrasLabels.length
+    ? S.extrasLabels.map(e => `
+        <tr><td style="padding:6px 16px;font-family:'Montserrat',Helvetica,Arial,sans-serif;font-size:13px;color:#C9A84C;border-bottom:1px solid rgba(201,168,76,0.12);">+ ${e}</td></tr>
+      `).join('')
+    : '';
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#050403;font-family:'Montserrat',Helvetica,Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#050403;padding:40px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#0A0907;border:1px solid rgba(201,168,76,0.16);border-radius:4px;">
+
+  <!-- Header -->
+  <tr><td style="padding:40px 40px 20px;text-align:center;">
+    <p style="margin:0;font-size:11px;letter-spacing:0.25em;color:#C9A84C;font-weight:600;text-transform:uppercase;">MÚSICOS DE FONDO</p>
+  </td></tr>
+
+  <!-- Headline -->
+  <tr><td style="padding:10px 40px 8px;text-align:center;">
+    <h1 style="margin:0;font-family:'Georgia','Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#F2EDE4;line-height:1.3;">
+      Tu propuesta musical,<br><em style="color:#C9A84C;font-style:italic;">lista.</em>
+    </h1>
+  </td></tr>
+
+  <!-- Subline -->
+  <tr><td style="padding:8px 40px 30px;text-align:center;">
+    <p style="margin:0;font-size:14px;color:rgba(242,237,228,0.55);line-height:1.6;">
+      ${S.nombre}, aquí tienes el resumen de lo que diseñaste en el cotizador. Marlon te escribirá personalmente en las próximas horas hábiles para afinar los detalles.
+    </p>
+  </td></tr>
+
+  <!-- Divider -->
+  <tr><td style="padding:0 40px;"><div style="border-top:1px solid rgba(201,168,76,0.16);"></div></td></tr>
+
+  <!-- Price Block -->
+  <tr><td style="padding:30px 40px;text-align:center;">
+    <p style="margin:0 0 8px;font-size:11px;letter-spacing:0.2em;color:rgba(242,237,228,0.38);text-transform:uppercase;">Rango estimado de inversión</p>
+    <p style="margin:0;font-family:'Georgia','Cormorant Garamond',serif;font-size:36px;color:#F2EDE4;font-weight:300;letter-spacing:-0.02em;">
+      ${cop(S.rangoMin)} <span style="color:rgba(201,168,76,0.4);margin:0 4px;">—</span> ${cop(S.rangoMax)}
+    </p>
+    <p style="margin:6px 0 0;font-size:11px;letter-spacing:0.15em;color:#C9A84C;font-weight:500;">COP</p>
+    <p style="margin:10px 0 0;font-size:11px;color:rgba(242,237,228,0.35);line-height:1.5;">
+      Exento de IVA · Sujeto a retenciones de ley vigentes
+    </p>
+  </td></tr>
+
+  <!-- Divider -->
+  <tr><td style="padding:0 40px;"><div style="border-top:1px solid rgba(201,168,76,0.16);"></div></td></tr>
+
+  <!-- Proposal Card -->
+  <tr><td style="padding:30px 40px 10px;">
+    <p style="margin:0 0 16px;font-size:11px;letter-spacing:0.2em;color:#C9A84C;font-weight:600;text-transform:uppercase;">DETALLE DE TU PROPUESTA</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(18,16,13,0.6);border:1px solid rgba(201,168,76,0.12);border-radius:4px;">
+      <tr><td style="padding:12px 16px;font-family:'Montserrat',Helvetica,Arial,sans-serif;font-size:16px;font-weight:600;color:#F2EDE4;border-bottom:1px solid rgba(201,168,76,0.12);">${S.tipoLabel || S.tipo}</td></tr>
+      <tr><td style="padding:8px 16px;font-size:13px;color:rgba(242,237,228,0.65);border-bottom:1px solid rgba(201,168,76,0.08);">Formato: ${S.formatoLabel}</td></tr>
+      <tr><td style="padding:8px 16px;font-size:13px;color:rgba(242,237,228,0.65);border-bottom:1px solid rgba(201,168,76,0.08);">Instrumentación: ${_instrStr()}</td></tr>
+      <tr><td style="padding:8px 16px;font-size:13px;color:rgba(242,237,228,0.65);border-bottom:1px solid rgba(201,168,76,0.08);">${S.ciudad || 'Ciudad por definir'} · ${_eventDateStr()}</td></tr>
+      <tr><td style="padding:8px 16px;font-size:13px;color:rgba(242,237,228,0.65);border-bottom:1px solid rgba(201,168,76,0.08);">Aforo: ${S.aforoLabel}</td></tr>
+      <tr><td style="padding:8px 16px;font-size:13px;color:rgba(242,237,228,0.65);border-bottom:1px solid rgba(201,168,76,0.08);">Duración: ${_durStr()}</td></tr>
+      <tr><td style="padding:8px 16px;font-size:13px;color:rgba(242,237,228,0.65);${S.extrasLabels.length ? 'border-bottom:1px solid rgba(201,168,76,0.12);' : ''}">Producción técnica: ${S.produccionTecnicaLabel || '—'}</td></tr>
+      ${extrasHtml}
+    </table>
+  </td></tr>
+
+  <!-- CTA WhatsApp -->
+  <tr><td style="padding:30px 40px;text-align:center;">
+    <a href="https://wa.me/573003033436?text=${encodeURIComponent(buildWA())}" target="_blank"
+       style="display:inline-block;padding:14px 36px;background:#C9A84C;color:#050403;font-family:'Montserrat',Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-decoration:none;border-radius:40px;text-transform:uppercase;">
+      HABLAR CON MARLON →
+    </a>
+    <p style="margin:14px 0 0;font-size:12px;color:rgba(242,237,228,0.35);">
+      O escríbenos a <a href="mailto:musicosdefondo@gmail.com" style="color:#C9A84C;text-decoration:none;">musicosdefondo@gmail.com</a>
+    </p>
+  </td></tr>
+
+  <!-- Divider -->
+  <tr><td style="padding:0 40px;"><div style="border-top:1px solid rgba(201,168,76,0.1);"></div></td></tr>
+
+  <!-- Footer -->
+  <tr><td style="padding:24px 40px 32px;text-align:center;">
+    <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.15em;color:rgba(242,237,228,0.25);text-transform:uppercase;">Músicos de Fondo · Falso Ídolo</p>
+    <p style="margin:0 0 4px;font-size:11px;color:rgba(242,237,228,0.2);">Medellín, Colombia · +57 300 303 3436</p>
+    <p style="margin:0;font-size:10px;color:rgba(242,237,228,0.15);">${leadId} · ${_emailDateStr()}</p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>`;
+}
+
+/* ── Email HTML para COPIA INTERNA ── */
+function buildEmailInterno() {
+  const extStr = S.extrasLabels.length ? S.extrasLabels.join(', ') : 'Ninguno';
+  const durSesion = Math.round((Date.now() - S.startTime) / 1000);
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#050403;font-family:'Montserrat',Helvetica,Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#050403;padding:30px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#0A0907;border:1px solid rgba(201,168,76,0.16);border-radius:4px;">
+
+  <tr><td style="padding:30px 30px 15px;">
+    <p style="margin:0;font-size:11px;letter-spacing:0.2em;color:#C9A84C;font-weight:600;">NUEVO LEAD · COTIZADOR</p>
+    <h2 style="margin:8px 0 0;font-size:22px;color:#F2EDE4;font-weight:400;">${S.nombre} <span style="color:rgba(242,237,228,0.4);">·</span> ${S.empresa}</h2>
+  </td></tr>
+
+  <tr><td style="padding:0 30px;"><div style="border-top:1px solid rgba(201,168,76,0.12);"></div></td></tr>
+
+  <tr><td style="padding:20px 30px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="font-size:13px;color:rgba(242,237,228,0.65);">
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;width:160px;">Email</td><td style="padding:4px 0;">${S.email}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">WhatsApp</td><td style="padding:4px 0;">${S.whatsapp}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Rol</td><td style="padding:4px 0;">${S.rol || '—'}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Fuente</td><td style="padding:4px 0;">${S.fuente || '—'}</td></tr>
+      <tr><td colspan="2" style="padding:10px 0 4px;"><div style="border-top:1px solid rgba(201,168,76,0.08);"></div></td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Tipo</td><td style="padding:4px 0;">${S.tipoLabel}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Formato</td><td style="padding:4px 0;">${S.formatoLabel}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Instrumentación</td><td style="padding:4px 0;">${_instrStr()}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Ciudad</td><td style="padding:4px 0;">${S.ciudad || '—'} ${S.fueraMedellin ? '(fuera de Medellín)' : ''}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Fecha</td><td style="padding:4px 0;">${_eventDateStr()} ${S.urgencia ? '⚡ URGENTE' : ''}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Aforo</td><td style="padding:4px 0;">${S.aforoLabel}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Duración</td><td style="padding:4px 0;">${_durStr()}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Producción</td><td style="padding:4px 0;">${S.produccionTecnicaLabel || '—'}</td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:600;">Extras</td><td style="padding:4px 0;">${extStr}</td></tr>
+      <tr><td colspan="2" style="padding:10px 0 4px;"><div style="border-top:1px solid rgba(201,168,76,0.08);"></div></td></tr>
+      <tr><td style="padding:4px 0;color:#C9A84C;font-weight:700;">RANGO</td><td style="padding:4px 0;color:#F2EDE4;font-weight:600;font-size:15px;">${S.rangoDisplay}</td></tr>
+    </table>
+  </td></tr>
+
+  <tr><td style="padding:0 30px;"><div style="border-top:1px solid rgba(201,168,76,0.12);"></div></td></tr>
+
+  <tr><td style="padding:16px 30px 24px;">
+    <p style="margin:0;font-size:10px;color:rgba(242,237,228,0.25);">
+      ${leadId} · ${_emailDateStr()} · Sesión: ${durSesion}s · Referrer: ${document.referrer || 'directo'}
+    </p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>`;
+}
+
+/* ── Enviar correos ── */
+let _emailEnviado = false;
+
+async function enviarEmailCotizacion() {
+  if (_emailEnviado) {
+    toast('<div class="toast-text">✓ El resumen ya fue enviado a ' + S.email + '</div>', 3500);
+    return true;
+  }
+  if (!_isEmailConfigured()) {
+    console.warn('[Cotizador] EmailJS no configurado. Omitiendo envío de correo.');
+    toast('<div class="toast-text">⚠ El envío de email no está configurado aún.</div>', 4000);
+    return false;
+  }
+  if (!S.email) {
+    toast('<div class="toast-text">⚠ No hay email de destino.</div>', 3500);
+    return false;
+  }
+
+  toast('<div class="toast-text">⟳ Enviando resumen a ' + S.email + '…</div>', 12000);
+
+  try {
+    // Inicializar EmailJS (idempotente)
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    // 1. Correo al cliente
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CLIENTE, {
+      to_email:  S.email,
+      lead_id:   leadId,
+      html_body: buildEmailCliente(),
+    });
+
+    // 2. Copia interna (best-effort, no bloquea)
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_INTERNO, {
+      lead_id:        leadId,
+      cliente_nombre: S.nombre,
+      tipo_evento:    S.tipoLabel,
+      html_body_interno: buildEmailInterno(),
+    }).catch(err => console.warn('[Cotizador] Error enviando copia interna:', err));
+
+    _emailEnviado = true;
+    toast('<div class="toast-text">✓ Resumen enviado a ' + S.email + '</div>', 4500);
+    return true;
+
+  } catch (err) {
+    console.error('[Cotizador] Error enviando email:', err);
+    toast(
+      '<div class="toast-text">⚠ No pudimos enviar el correo. Intenta de nuevo.</div>' +
+      '<div class="toast-btns">' +
+        '<button class="toast-btn yes" onclick="enviarEmailCotizacion()">REINTENTAR</button>' +
+        '<button class="toast-btn no" onclick="dismissToast()">CERRAR</button>' +
+      '</div>',
+      12000
+    );
+    return false;
+  }
 }
 
 /* ============================================================
@@ -1184,7 +1438,7 @@ function populatePropCard() {
     setTimeout(()=>goTo(8),500);
   };
   document.getElementById('r-cta-email').onclick = ()=>{
-    toast('<div class="toast-text">Resumen enviado a '+S.email+'</div>',4000);
+    enviarEmailCotizacion();
   };
   document.getElementById('r-cta-reset').onclick = ()=>{
     try { sessionStorage.removeItem('mdf_q1'); } catch(e){}
