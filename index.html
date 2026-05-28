@@ -35,8 +35,8 @@
 <meta name="ext-resource-dependency" content="uploads/singercloseup.jpg" data-resource-id="svc0" />
 <meta name="ext-resource-dependency" content="uploads/cineconciertos.jpg" data-resource-id="svc1" />
 <meta name="ext-resource-dependency" content="uploads/bandperformance1.jpg" data-resource-id="svc2" />
-<meta name="ext-resource-dependency" content="uploads/bandperformance.jpg" data-resource-id="svc3" />
-<meta name="ext-resource-dependency" content="uploads/trumpetcloseup.jpg" data-resource-id="svc4" />
+<meta name="ext-resource-dependency" content="uploads/trumpetcloseup.jpg" data-resource-id="svc3" />
+<meta name="ext-resource-dependency" content="uploads/bandperformance.jpg" data-resource-id="svc4" />
 <meta name="ext-resource-dependency" content="uploads/pianistcloseup.jpg" data-resource-id="svc5" />
 <meta name="ext-resource-dependency" content="uploads/saxophonecloseup.jpg" data-resource-id="svc6" />
 <template id="__bundler_thumbnail" data-bg-color="#0A0907">
@@ -62,18 +62,19 @@
   --serif:'Cormorant Garamond',Georgia,serif;--sans:'Montserrat',sans-serif;--mono:'Inconsolata',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:17px}
-body{background:var(--ink);color:var(--cream);font-family:var(--sans);font-weight:400;line-height:1.7;overflow-x:hidden;font-size:16px}
+html{font-size:18px}
+body{background:var(--ink);color:var(--cream);font-family:var(--sans);font-weight:400;line-height:1.7;overflow-x:hidden;font-size:18px}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjU2IDI1NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC44NSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIgb3BhY2l0eT0iMC4wNCIvPjwvc3ZnPg==");pointer-events:none;z-index:9999;opacity:.45}
 ::selection{background:var(--gold);color:var(--ink)}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 em{font-style:italic;color:var(--gold)}
-.micro{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.micro{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
 .micro::after{content:'';display:inline-block;width:40px;height:.5px;background:var(--gold);opacity:.35;vertical-align:middle;margin-left:14px}
-h2{font-family:var(--serif);font-size:clamp(38px,5.4vw,68px);font-weight:300;line-height:1.08;letter-spacing:-.01em;margin-bottom:24px}
-p.lead{font-size:clamp(18px,1.55vw,21px);color:rgba(242,237,228,.65);max-width:620px;font-family:var(--sans);font-weight:400;line-height:1.55;margin-bottom:18px}
-p.body-text{font-size:17px;color:rgba(242,237,228,.6);max-width:640px;line-height:1.75;font-family:var(--sans);font-weight:400}
+h2{font-family:var(--sans);font-size:clamp(34px,4.6vw,56px);font-weight:300;line-height:1.12;letter-spacing:-.02em;margin-bottom:26px;color:var(--cream)}
+h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--gold)}
+p.lead{font-size:clamp(19px,1.55vw,22px);color:rgba(242,237,228,.7);max-width:660px;font-family:var(--sans);font-weight:400;line-height:1.55;margin-bottom:18px}
+p.body-text{font-size:18px;color:rgba(242,237,228,.65);max-width:680px;line-height:1.75;font-family:var(--sans);font-weight:400}
 .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
 .sect{padding:120px 0}
 hr.sep{border:none;border-top:.5px solid var(--gold-dim);max-width:1200px;margin:0 auto}
@@ -105,8 +106,9 @@ nav.scrolled{padding:14px 40px}
 .hero-content{position:relative;z-index:2;padding:140px 40px 100px;max-width:1200px;margin:0 auto;width:100%}
 .hero-logo{height:72px;margin-bottom:40px;opacity:.9}
 .hero-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
-.hero-title{font-family:var(--serif);font-size:clamp(52px,8.4vw,118px);font-weight:300;line-height:.92;letter-spacing:-.02em}
-.hero-sub{font-family:var(--sans);font-size:clamp(17px,1.55vw,21px);font-weight:400;color:rgba(242,237,228,.7);max-width:580px;margin:30px 0 0;line-height:1.55}
+.hero-title{font-family:var(--sans);font-size:clamp(46px,7.2vw,98px);font-weight:300;line-height:.98;letter-spacing:-.03em}
+.hero-title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--gold)}
+.hero-sub{font-family:var(--sans);font-size:clamp(18px,1.55vw,22px);font-weight:400;color:rgba(242,237,228,.75);max-width:600px;margin:30px 0 0;line-height:1.55}
 .hero-ctas{display:flex;align-items:center;gap:28px;margin-top:40px;flex-wrap:wrap}
 .hero-ctas .pill{font-family:var(--sans);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:15px 34px;border:.5px solid var(--gold);border-radius:100px;color:var(--cream);transition:all .4s;cursor:pointer;background:transparent}
 .hero-ctas .pill:hover{background:var(--gold);color:var(--ink)}
@@ -115,15 +117,15 @@ nav.scrolled{padding:14px 40px}
 .hero-line{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);margin-top:56px}
 
 /* ── MANIFEST GRID ── */
-.manifest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gold-dim);margin-top:56px}
-.m-cell{background:var(--ink);padding:40px 32px;transition:background .4s}
+.manifest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--gold-dim);margin:56px auto 0;max-width:920px;border:.5px solid var(--gold-dim)}
+.m-cell{background:var(--ink);padding:44px 36px;transition:background .4s}
 .m-cell:hover{background:var(--gold-glow)}
-.m-cell .num{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.18em;margin-bottom:18px;opacity:.7}
-.m-cell h3{font-family:var(--sans);font-size:22px;font-weight:500;letter-spacing:-.01em;margin-bottom:12px;color:var(--cream)}
-.m-cell p{font-size:15px;color:rgba(242,237,228,.6);line-height:1.7;font-family:var(--sans);font-weight:400}
+.m-cell .num{font-family:var(--mono);font-size:13px;color:var(--gold);letter-spacing:.18em;margin-bottom:18px;opacity:.75}
+.m-cell h3{font-family:var(--sans);font-size:24px;font-weight:500;letter-spacing:-.01em;margin-bottom:14px;color:var(--cream)}
+.m-cell p{font-size:17px;color:rgba(242,237,228,.65);line-height:1.7;font-family:var(--sans);font-weight:400}
 
 /* ── BENTO SERVICES ── */
-.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:340px 340px 280px 320px;gap:12px;margin-top:56px}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:320px 320px 260px 300px;gap:12px;margin-top:56px}
 .bento-card{position:relative;border-radius:20px;overflow:hidden;border:.5px solid var(--border);background:var(--ink-card);cursor:pointer;transition:transform .6s cubic-bezier(.22,1,.36,1),border-color .6s}
 .bento-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.3)}
 .bento-card .card-img{position:absolute;inset:0}
@@ -134,9 +136,10 @@ nav.scrolled{padding:14px 40px}
 .bento-card .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,7,.9) 0%,rgba(10,9,7,.35) 45%,rgba(10,9,7,.1) 100%);z-index:1}
 .bento-card .card-content{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;height:100%}
 .bento-card .card-num{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.18em;opacity:.75;margin-bottom:auto}
-.bento-card .card-name{font-family:var(--serif);font-size:clamp(24px,2.4vw,32px);font-weight:300;margin-bottom:8px;line-height:1.05}
-.bento-card .card-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin-bottom:10px}
-.bento-card .card-desc{font-size:15px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.7);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bento-card .card-name{font-family:var(--sans);font-size:clamp(22px,2vw,28px);font-weight:500;margin-bottom:8px;line-height:1.15;letter-spacing:-.01em}
+.bento-card .card-name em{font-family:var(--serif);font-style:italic;font-weight:400}
+.bento-card .card-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin-bottom:10px}
+.bento-card .card-desc{font-size:16px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.75);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .bento-card .card-arrow{position:absolute;top:28px;right:28px;font-size:18px;color:var(--gold);opacity:0;transform:translateX(-4px);transition:all .5s;z-index:2}
 .bento-card:hover .card-arrow{opacity:1;transform:translateX(0)}
 .bento-card .card-cta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:0;transition:opacity .5s}
@@ -151,34 +154,35 @@ nav.scrolled{padding:14px 40px}
 .b7{grid-column:2/4;grid-row:4}
 
 /* ── SERVICE MODAL ── */
-.svc-modal-backdrop{position:fixed;inset:0;z-index:2000;background:rgba(10,9,7,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;justify-content:center;padding:40px}
+.svc-modal-backdrop{position:fixed;inset:0;z-index:2000;background:rgba(10,9,7,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;justify-content:center;padding:24px}
 .svc-modal-backdrop.open{opacity:1;pointer-events:all}
-.svc-modal{max-width:900px;width:100%;max-height:85vh;overflow-y:auto;position:relative;border-radius:20px;border:.5px solid var(--border);background:var(--ink-card);scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.2) transparent}
+.svc-modal{max-width:1040px;width:100%;max-height:92vh;overflow-y:auto;position:relative;border-radius:20px;border:.5px solid var(--border);background:var(--ink-card);scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.2) transparent}
 .svc-modal::-webkit-scrollbar{width:4px}
 .svc-modal::-webkit-scrollbar-track{background:transparent}
 .svc-modal::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
-.svc-modal-hero{position:relative;height:280px;overflow:hidden}
+.svc-modal-hero{position:relative;height:200px;overflow:hidden}
 .svc-modal-hero img{width:100%;height:100%;object-fit:cover;filter:brightness(0.5) contrast(1.1) saturate(0.8)}
 .svc-modal-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--ink-card) 0%,rgba(18,16,13,.4) 50%,rgba(18,16,13,.2) 100%)}
-.svc-modal-hero-content{position:absolute;bottom:0;left:0;right:0;padding:32px 40px;z-index:2}
-.svc-modal-hero-content .modal-num{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.18em;opacity:.7;display:block;margin-bottom:10px}
-.svc-modal-hero-content .modal-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);display:block;margin-bottom:10px}
-.svc-modal-hero-content h3{font-family:var(--serif);font-size:clamp(32px,4vw,46px);font-weight:300;line-height:1.05}
+.svc-modal-hero-content{position:absolute;bottom:0;left:0;right:0;padding:24px 36px;z-index:2}
+.svc-modal-hero-content .modal-num{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.18em;opacity:.75;display:block;margin-bottom:8px}
+.svc-modal-hero-content .modal-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);display:block;margin-bottom:8px}
+.svc-modal-hero-content h3{font-family:var(--sans);font-size:clamp(28px,3vw,38px);font-weight:500;line-height:1.1;letter-spacing:-.015em}
+.svc-modal-hero-content h3 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--gold)}
 .svc-modal-close{position:absolute;top:20px;right:20px;z-index:10;width:40px;height:40px;border-radius:50%;border:.5px solid var(--border);background:rgba(10,9,7,.7);backdrop-filter:blur(8px);color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
 .svc-modal-close:hover{border-color:var(--gold);color:var(--gold)}
-.svc-modal-body{padding:40px}
-.svc-modal-body .modal-tagline{font-family:var(--sans);font-size:clamp(18px,1.7vw,22px);font-weight:500;color:var(--gold);margin-bottom:22px;line-height:1.45;letter-spacing:-.005em}
-.svc-modal-body .modal-desc{font-size:16px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.7);line-height:1.75;margin-bottom:36px}
-.modal-levels{margin-bottom:36px}
-.modal-levels h4{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
-.modal-level{border-top:.5px solid var(--border);padding:22px 0;display:grid;grid-template-columns:170px 1fr;gap:24px;align-items:start}
+.svc-modal-body{padding:32px 36px 36px}
+.svc-modal-body .modal-tagline{font-family:var(--sans);font-size:clamp(17px,1.5vw,20px);font-weight:500;color:var(--gold);margin-bottom:18px;line-height:1.45;letter-spacing:-.005em}
+.svc-modal-body .modal-desc{font-size:16px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.75);line-height:1.7;margin-bottom:28px}
+.modal-levels{margin-bottom:28px}
+.modal-levels h4{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.modal-level{border-top:.5px solid var(--border);padding:18px 0;display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:start}
 .modal-level:last-child{border-bottom:.5px solid var(--border)}
 .modal-level-name{font-family:var(--sans);font-size:16px;font-weight:600;color:var(--cream);letter-spacing:-.005em}
-.modal-level-desc{font-size:15px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.6);line-height:1.65}
-.modal-bullets{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.modal-level-desc{font-size:15px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.7);line-height:1.6}
+.modal-bullets{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
 .modal-bullet{display:flex;gap:12px;align-items:flex-start}
-.modal-bullet-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:8px;flex-shrink:0;opacity:.5}
-.modal-bullet-text{font-size:15px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.65);line-height:1.6}
+.modal-bullet-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:8px;flex-shrink:0;opacity:.6}
+.modal-bullet-text{font-size:15px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.72);line-height:1.55}
 .modal-cta-row{display:flex;gap:20px;align-items:center;margin-top:8px}
 .modal-cta-row a{font-family:var(--sans);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--gold);border:.5px solid var(--gold);padding:13px 30px;border-radius:100px;transition:all .4s}
 .modal-cta-row a:hover{background:var(--gold);color:var(--ink)}
@@ -195,17 +199,17 @@ nav.scrolled{padding:14px 40px}
 .formats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--gold-dim);margin-top:56px}
 .fmt{background:var(--ink);padding:36px 24px;text-align:center;transition:background .3s}
 .fmt:hover{background:var(--gold-glow)}
-.fmt-name{font-family:var(--sans);font-size:22px;font-weight:500;letter-spacing:-.01em;margin-bottom:6px;color:var(--cream)}
-.fmt-count{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.16em;margin-bottom:14px}
-.fmt-desc{font-size:14px;color:rgba(242,237,228,.55);line-height:1.6;font-family:var(--sans);font-weight:400}
+.fmt-name{font-family:var(--sans);font-size:23px;font-weight:500;letter-spacing:-.01em;margin-bottom:6px;color:var(--cream)}
+.fmt-count{font-family:var(--mono);font-size:13px;color:var(--gold);letter-spacing:.16em;margin-bottom:14px}
+.fmt-desc{font-size:15px;color:rgba(242,237,228,.6);line-height:1.6;font-family:var(--sans);font-weight:400}
 .fmt-badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:.5px solid var(--gold-dim);padding:4px 12px;border-radius:100px;margin-top:14px}
 
 /* ── VALUE GRID ── */
-.value-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--gold-dim);margin-top:56px}
-.val{background:var(--ink);padding:40px 32px;transition:background .35s}
+.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gold-dim);margin-top:56px;border:.5px solid var(--gold-dim)}
+.val{background:var(--ink);padding:36px 28px;transition:background .35s}
 .val:hover{background:var(--gold-glow)}
-.val h4{font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px;color:var(--cream)}
-.val p{font-size:15px;color:rgba(242,237,228,.6);line-height:1.65;font-family:var(--sans);font-weight:400}
+.val h4{font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:-.01em;margin-bottom:12px;color:var(--cream);line-height:1.25}
+.val p{font-size:16px;color:rgba(242,237,228,.65);line-height:1.6;font-family:var(--sans);font-weight:400}
 
 /* ── TIMELINE ── */
 .timeline{margin-top:56px;position:relative;padding-left:40px}
@@ -215,11 +219,11 @@ nav.scrolled{padding:14px 40px}
 .tl-dot{position:absolute;left:-40px;top:6px;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--gold);background:var(--ink);transition:background .3s}
 .tl-item:hover .tl-dot{background:var(--gold)}
 .tl-year{font-family:var(--mono);font-size:13px;color:var(--gold);letter-spacing:.16em;margin-bottom:10px}
-.tl-text{font-size:17px;color:rgba(242,237,228,.7);font-family:var(--sans);font-weight:400;line-height:1.55}
+.tl-text{font-size:18px;color:rgba(242,237,228,.75);font-family:var(--sans);font-weight:400;line-height:1.55}
 
 /* ── CLIENTS ── */
 .clients-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
-.cl-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:.5px solid rgba(201,168,76,.18);color:rgba(242,237,228,.55);padding:11px 20px;transition:all .25s}
+.cl-tag{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;border:.5px solid rgba(201,168,76,.18);color:rgba(242,237,228,.65);padding:12px 22px;transition:all .25s}
 .cl-tag:hover{border-color:rgba(201,168,76,.45);color:var(--cream)}
 
 /* ── CTA ── */
@@ -228,7 +232,8 @@ nav.scrolled{padding:14px 40px}
 .cta-section .cta-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(0.25) contrast(1.1) saturate(0.7)}
 .cta-section .cta-overlay{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,var(--gold-glow),transparent 70%)}
 .cta-section .cta-inner{position:relative;z-index:2}
-.cta-big{font-family:var(--serif);font-size:clamp(48px,7.4vw,108px);font-weight:300;font-style:italic;line-height:1;margin-bottom:44px;letter-spacing:-.02em}
+.cta-big{font-family:var(--sans);font-size:clamp(40px,6vw,82px);font-weight:300;line-height:1.05;margin-bottom:44px;letter-spacing:-.025em}
+.cta-big em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--gold)}
 .cta-links{display:flex;justify-content:center;align-items:center;gap:32px;flex-wrap:wrap}
 .cta-link{font-family:var(--sans);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:rgba(242,237,228,.6);transition:color .25s}
 .cta-link:hover{color:var(--gold)}
@@ -262,7 +267,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   .b7{grid-column:1/3;grid-row:5}
   .value-grid{grid-template-columns:1fr 1fr}
   .formats-grid{grid-template-columns:repeat(3,1fr)}
-  .modal-level{grid-template-columns:1fr}
+  .modal-level{grid-template-columns:1fr;gap:6px}
 }
 @media(max-width:768px){
   .wrap{padding:0 24px}
@@ -347,8 +352,8 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "NaviJazz",
-          "description": "Espectáculo navideño con Small Big Band y marionetas de gran formato. Villancicos clásicos estilo Sinatra y Ella Fitzgerald para centros comerciales y eventos corporativos."
+          "name": "Christmas Jazz",
+          "description": "Show inmersivo navideño con Small Big Band y marionetas de gran formato. Villancicos clásicos estilo Sinatra y Ella Fitzgerald para centros comerciales y eventos corporativos."
         }
       },
       {
@@ -371,7 +376,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Pulso Corporativo",
+          "name": "Servicios Corporativos",
           "description": "Talleres de team building y bienestar corporativo con música en vivo. Laboratorios experienciales para empresas en Medellín."
         }
       },
@@ -443,10 +448,10 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   <div class="hero-overlay"></div>
   <div class="hero-aura"></div>
   <div class="hero-content">
-    <img src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo — música en vivo para eventos en Medellín" class="hero-logo gs">
+    <img src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo — música en vivo para eventos en Medellín" class="hero-logo gs" style="width: 350px; height: 350px; margin: 0px 0px 40px">
     <p class="hero-eyebrow gs">Boutique de Diseño Sonoro · Medellín</p>
     <h1 class="hero-title gs">El lenguaje sonoro<br>de tu <em>marca.</em> <span class="sr-only">— Música en vivo para eventos en Medellín, Colombia. Músicos profesionales de jazz, latin, funk y blues.</span></h1>
-    <p class="hero-sub gs">Traducimos marcas, espacios y momentos al lenguaje de la música en vivo. Llave en mano. ROI demostrable.</p>
+    <p class="hero-sub gs">Traducimos marcas, espacios y momentos al lenguaje de la música en vivo. Cada show garantiza un alto estándar musical y un registro audiovisual para la difusión de su evento.</p>
     <div class="hero-ctas gs">
       <a href="#servicios" class="link">Ver servicios →</a>
       <a href="cotizador.html" class="pill">Solicitar propuesta</a>
@@ -461,13 +466,12 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 <section class="sect" id="manifiesto">
   <div class="wrap">
     <p class="micro gs">La promesa</p>
-    <h2 class="gs">No amenizamos.<br>Diseñamos <em>atmósferas.</em></h2>
-    <p class="lead gs">Bespoke Soundtrack — música a la medida, donde tú decides el género, el formato y el nivel de protagonismo.</p>
-    <p class="body-text gs">Partimos del Jazz y lo fusionamos con Latin, Son Cubano, Funk, Blues y Pop. Operamos desde solistas íntimos hasta Small Big Bands, con producción técnica y registro audiovisual incluidos.</p>
+    <h2 class="gs">Diseñamos <em>atmósferas.</em></h2>
+    <p class="lead gs">Hecho a la medida — donde tú decides el género, el formato y el nivel de protagonismo.</p>
+    <p class="body-text gs">Partimos del Jazz y lo fusionamos con Latin, Son Cubano, Funk, Blues y Pop. Operamos desde solistas íntimos hasta Small Big Bands. Entregamos un registro audiovisual para la difusión y comunicación de su evento.</p>
     <div class="manifest-grid gs">
       <div class="m-cell"><div class="num">01</div><h3>Partner, no proveedor</h3><p>Nuestro éxito depende de que tu negocio facture más. Entendemos rotación de mesas, perfiles de consumidor y momentos de servicio.</p></div>
-      <div class="m-cell"><div class="num">02</div><h3>Cero fricción</h3><p>Operación llave en mano: rider técnico estandarizado, puntualidad corporativa y ecosistema B2B. Tú no resuelves nada.</p></div>
-      <div class="m-cell"><div class="num">03</div><h3>ROI medible</h3><p>Elevamos el ticket promedio, aumentamos la permanencia y convertimos días valle en eventos de destino rentables.</p></div>
+      <div class="m-cell"><div class="num">02</div><h3>Cero fricción</h3><p>Nuestro equipo se encarga de la coordinación técnica y operativa del show, con procesos claros para integrarse correctamente a la dinámica de su evento.</p></div>
     </div>
   </div>
 </section>
@@ -479,7 +483,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   <div class="wrap">
     <p class="micro gs">Ecosistema de servicios</p>
     <h2 class="gs">Siete maneras de<br>transformar <em>tu espacio.</em></h2>
-    <p class="lead gs">Cada servicio es un producto cerrado, con propuesta de valor y modelo de negocio propios.</p>
+    <p class="lead gs">Cada uno responde a diferentes categorías de servicio. Seleccione el que más se adecúa a su tipo de evento.</p>
     <div class="bento gs">
       <div class="bento-card b1" data-svc="0" onclick="openSvcModal(0)">
         <div class="card-img"><img src="uploads/singercloseup.jpg" alt="Experiencia 360° — música en vivo para restaurantes y hoteles en Medellín"></div>
@@ -494,27 +498,27 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b3" data-svc="2" onclick="openSvcModal(2)">
-        <div class="card-img"><img src="uploads/bandperformance1.jpg" alt="NaviJazz — espectáculo navideño con Small Big Band en Medellín"></div>
+        <div class="card-img"><img src="uploads/bandperformance1.jpg" alt="Christmas Jazz — espectáculo navideño con Small Big Band en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">03</span><span class="card-tag">Temporada · Fin de año · Retail</span><h3 class="card-name">Navi<em>Jazz</em></h3><p class="card-desc">Small Big Band + marionetas. El villancico clásico transformado en espectáculo internacional.</p><span class="card-cta">Ver detalle →</span></div>
+        <div class="card-content"><span class="card-num">03</span><span class="card-tag">Temporada · Fin de año · Retail</span><h3 class="card-name">Christmas <em>Jazz</em></h3><p class="card-desc">Small Big Band + marionetas. El villancico clásico transformado en espectáculo internacional.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b4" data-svc="3" onclick="openSvcModal(3)">
-        <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Música Itinerante — músicos en vivo para centros comerciales y activaciones en Medellín"></div>
+        <div class="card-img"><img src="uploads/trumpetcloseup.jpg" alt="Música Itinerante — músicos en vivo para centros comerciales y activaciones en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content"><span class="card-num">04</span><span class="card-tag">Centros Comerciales · Activaciones</span><h3 class="card-name">Música <em>Itinerante</em></h3><p class="card-desc">Música en vivo de altísima calidad llevada exactamente donde está tu cliente.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b5" data-svc="4" onclick="openSvcModal(4)">
-        <div class="card-img"><img src="uploads/trumpetcloseup.jpg" alt="Bodas Simbólicas — música en vivo para bodas premium en Medellín"></div>
+        <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Bodas Simbólicas — música en vivo para bodas premium en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">05</span><span class="card-tag">Ultra-Premium · Wedding Planners</span><h3 class="card-name">Bodas <em>Simbólicas</em></h3><p class="card-desc">Live Scoring nupcial. El soundtrack de tu historia, interpretado en vivo.</p><span class="card-cta">Ver detalle →</span></div>
+        <div class="card-content"><span class="card-num">05</span><span class="card-tag">Ultra-Premium · Wedding Planners</span><h3 class="card-name">Bodas <em>Simbólicas</em></h3><p class="card-desc">Música en vivo diseñada para cada momento de tu boda.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b6" data-svc="5" onclick="openSvcModal(5)">
-        <div class="card-img"><img src="uploads/pianistcloseup.jpg" alt="Pulso Corporativo — team building con música en vivo para empresas en Medellín"></div>
+        <div class="card-img"><img src="uploads/pianistcloseup.jpg" alt="Servicios Corporativos — team building con música en vivo para empresas en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">06</span><span class="card-tag">RRHH · Bienestar · Team Building</span><h3 class="card-name">Pulso <em>Corporativo</em></h3><p class="card-desc">Laboratorios experienciales con música en vivo para resolver dolores corporativos reales.</p><span class="card-cta">Ver detalle →</span></div>
+        <div class="card-content"><span class="card-num">06</span><span class="card-tag">RRHH · Bienestar · Team Building</span><h3 class="card-name">Servicios <em>Corporativos</em></h3><p class="card-desc">Talleres experienciales con música en vivo para fortalecer equipos de trabajo.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b7" data-svc="6" onclick="openSvcModal(6)">
@@ -528,22 +532,22 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
     <!-- SEO: Contenido indexable de servicios (invisible en pantalla, legible por crawlers) -->
     <div class="sr-only" role="complementary" aria-label="Descripción detallada de servicios de música en vivo en Medellín">
       <h3>Experiencia 360° — Música en vivo para restaurantes y hoteles en Medellín</h3>
-      <p>Experiencia inmersiva donde la gastronomía, la coctelería y la historia dialogan con la música en vivo. Los clientes HORECA se asocian con Músicos de Fondo para crear eventos de destino dentro de su local en Medellín. Ofrecemos tres niveles: The Jazz Route (cena maridaje 6 tiempos con narrativa histórica guiada), Noches de Inmersión (eventos bimensuales temáticos como Havana Night o Prohibition Era) y Residencias Sonoras (dúos o tríos bajo suscripción mensual para la identidad sonora del venue). Incluye producción técnica llave en mano y registro audiovisual con 2 Reels y 20 fotos HD por evento.</p>
+      <p>Experiencia inmersiva donde la gastronomía, la coctelería y la historia dialogan con la música en vivo. Los clientes HORECA se asocian con Músicos de Fondo para crear eventos de destino dentro de su local en Medellín. Ofrecemos tres niveles: The Jazz Route (cena maridaje 6 tiempos con narrativa histórica guiada), Noches de Inmersión (eventos bimensuales temáticos como Havana Night o Prohibition Era) y Residencias Sonoras (dúos o tríos bajo suscripción mensual para la identidad sonora del venue). Incluye producción técnica llave en mano y registro audiovisual con 1 Reel y 5 fotos HD por evento.</p>
 
       <h3>Cine-Conciertos — Live Scoring de películas con banda en vivo</h3>
       <p>Live Scoring en vivo de obras cinematográficas icónicas. Reinterpretamos bandas sonoras sincronizando música en vivo con la proyección. Gestión de derechos de exhibición EGEDA y MPLC incluida. Repertorio: Animación y Fantasía (El Viaje de Chihiro, WALL-E), Estética y Culto (El Gran Hotel Budapest), Era Dorada (Tiempos Modernos). Formato septeto o Small Big Band. Sin competencia directa en Colombia.</p>
 
-      <h3>NaviJazz — Espectáculo navideño con Big Band y marionetas en Medellín</h3>
-      <p>Superproducción inmersiva navideña que transforma el villancico clásico en un espectáculo con Small Big Band de 8 músicos y marionetas de gran formato. Tres niveles: El Cuento de Invierno (show familiar 45-60 min), Holiday Swing Gala (gala de etiqueta con Swing y Mambo) y White Christmas (cuarteto de jazz para retail de lujo). Ideal para centros comerciales, eventos corporativos y teatros.</p>
+      <h3>Christmas Jazz — Espectáculo navideño con Big Band y marionetas en Medellín</h3>
+      <p>Show inmersivo navideño que transforma el villancico clásico en un espectáculo con Small Big Band de 8 músicos y marionetas de gran formato. Dos niveles: El Cuento de Invierno (show familiar 45-60 min) y Holiday Swing Gala (gala de etiqueta con Swing y Mambo). Ideal para centros comerciales, eventos corporativos y teatros.</p>
 
       <h3>Música Itinerante — Músicos en vivo para centros comerciales y activaciones de marca</h3>
       <p>Música en vivo de altísima calidad llevada exactamente donde está el cliente. Solistas, dúos o tríos que dinamizan espacios comerciales en Medellín. 100% acústico o con amplificación portátil invisible. Sin tarimas, sin cables, sin bloqueos de pasillos. Tres formatos: Conciertos Itinerantes (solistas móviles), Puntos Acústicos (dúos fijos en plazoletas) y Activaciones de Marca (música a la medida con vestuario alineado a la marca).</p>
 
       <h3>Bodas Simbólicas — Música en vivo para bodas premium en Medellín</h3>
-      <p>Live Scoring nupcial. Modelo B2B2C en alianza con Wedding Planners y Officiantes. Improvisación reactiva a los votos, musicalización de proyecciones sorpresa y producción técnica invisible. Niveles: El Ritual Cinematográfico (Live Scoring ceremonial), El Viaje Sonoro (ceremonia más Sunset Cocktail con Swing y Latin Jazz) y La Obra Maestra (composición exclusiva de la canción de la pareja).</p>
+      <p>Música en vivo diseñada para cada momento de tu boda. Live Scoring reactivo para votos, musicalización de proyecciones sorpresa y producción técnica invisible. Niveles: El Ritual Cinematográfico (Live Scoring ceremonial), El Viaje Sonoro (ceremonia más Sunset Cocktail con Swing y Latin Jazz) y La Obra Maestra (composición exclusiva de la canción de la pareja).</p>
 
-      <h3>Pulso Corporativo — Team building y bienestar con música en vivo para empresas</h3>
-      <p>Talleres experienciales que usan principios de la música en vivo (improvisación, escucha activa, ensamble) para resolver dolores corporativos: estrés, comunicación, burnout y pertenencia. Tres modalidades: La Metáfora del Jazz (liderazgo y trabajo en equipo), Pausa Activa Premium (bienestar y salud mental con SoundHealing) y Co-creación del Himno (los empleados componen la canción de la empresa). Facturable bajo Capacitación y SST. De 60 a 120 minutos, adaptable.</p>
+      <h3>Servicios Corporativos — Talleres experienciales con música en vivo para empresas</h3>
+      <p>Talleres experienciales que usan principios de la música en vivo (improvisación, escucha activa, ensamble) para fortalecer equipos de trabajo. Dos modalidades: Lab de Identidad Sonora (el equipo compone el himno de la empresa con la banda) y Talleres de Composición para liberación creativa. Facturable bajo Capacitación y SST. De 60 a 120 minutos, adaptable.</p>
 
       <h3>Páginas Sonoras — Musicalización en vivo de literatura</h3>
       <p>Live Scoring para literatura en alianza con el periodista Diego Londoño. Narramos y musicalizamos en tiempo real biografías, crónicas y novelas. Tres niveles: Crónicas y Acordes (biografías musicales con Jazz y Blues), Literatura Noir (novela negra con contrabajo y Bebop) y Realismo Mágico (literatura colombiana y latinoamericana con Son Cubano y Bolero). Formato dúo o cuarteto. Experiencia validada con Librería Lerner.</p>
@@ -600,11 +604,9 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
     <h2 class="gs">No cobramos por hora.<br>Diseñamos <em>rentabilidad.</em></h2>
     <div class="value-grid gs">
       <div class="val"><h4>Aumentamos la permanencia</h4><p>Un diseño sonoro curado retiene al cliente: 45 minutos extra son un segundo coctel, un postre y una cuenta más alta.</p></div>
-      <div class="val"><h4>Justificamos precios premium</h4><p>La música en vivo sofisticada asocia el espacio con estatus. Permite cobrar menús degustación sin resistencia.</p></div>
-      <div class="val"><h4>Días valle → eventos de destino</h4><p>Transformamos noches de bajo tráfico en experiencias 360° que atraen público de alto poder adquisitivo.</p></div>
-      <div class="val"><h4>Activos digitales incluidos</h4><p>Cada presentación entrega 2 Reels y 20 fotografías HD del performance. Contenido listo para tus redes.</p></div>
-      <div class="val"><h4>10 años de operación B2B</h4><p>No improvisamos en la logística — solo en el escenario. Rider estandarizado, puntualidad y vestuario impecable.</p></div>
-      <div class="val"><h4>Producción llave en mano</h4><p>Sonido, microfonía, backline e iluminación incluidos. Tú aportas el espacio y la energía eléctrica.</p></div>
+      <div class="val"><h4>Justificamos precios premium</h4><p>La música en vivo sofisticada asocia el espacio con estatus. Permite cobrar menús degustación y tickets de entrada.</p></div>
+      <div class="val"><h4>Activos digitales incluidos</h4><p>Cada presentación entrega 1 Reel y 5 fotografías HD del performance. Contenido listo para tus redes.</p></div>
+      <div class="val"><h4>10 años de operación B2B</h4><p>No improvisamos en la logística — solo en el escenario.</p></div>
     </div>
   </div>
 </section>
@@ -620,7 +622,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2017</div><div class="tl-text">Nacemos como banda residente de Victoria Regia, uno de los venues más emblemáticos de Medellín.</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2017 – 2019</div><div class="tl-text">Consolidación como referente. Eventos privados, bodas y conciertos corporativos.</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2021</div><div class="tl-text">Banda residente y programadores culturales del Hotel Marquee (Z Bar). Se consolida el modelo B2B.</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-text">Cine-Conciertos y NaviJazz validados con taquilla premium. Expansión del catálogo.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-text">Cine-Conciertos y Christmas Jazz validados con taquilla premium. Expansión del catálogo.</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Hoy</div><div class="tl-text">Operación nacional como unidad de negocio de Falso Ídolo. Siete productos activos.</div></div>
     </div>
   </div>
@@ -668,13 +670,13 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
       <span itemprop="addressCountry">Colombia</span>
     </span>.
     Teléfono: <a href="tel:+573003033436" itemprop="telephone">+57 300 303 3436</a>.
-    Email: <a href="mailto:marlon.zapata@falsoidolo.com" itemprop="email">marlon.zapata@falsoidolo.com</a>.
+    Email: <a href="/cdn-cgi/l/email-protection#7f121e0d13101151051e0f1e0b1e3f191e130c10161b101310511c1012" itemprop="email"><span class="__cf_email__" data-cfemail="bad7dbc8d6d5d494c0dbcadbcedbfadcdbd6c9d5d3ded5d6d594d9d5d7">[email&#160;protected]</span></a>.
   </address>
   <img src="uploads/isotipomusicosdefondo.png" alt="Isotipo Músicos de Fondo — música en vivo Medellín" class="footer-iso">
   <span class="sello">Un proyecto de Falso Ídolo</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── SERVICE DATA ── */
 const SVC_DATA = [
   {
@@ -687,7 +689,7 @@ const SVC_DATA = [
       {name:'Noches de Inmersión', desc:'Eventos bimensuales temáticos — “Havana Night”, “Prohibition Era”. Atraen nichos, elevan consumo y generan contenido viral.'},
       {name:'Residencias Sonoras', desc:'Dúos o tríos bajo suscripción mensual. Curación continua de la identidad sonora del venue. Flujo de caja recurrente.'}
     ],
-    bullets:['Residencias semanales o mensuales a la medida','Dúo íntimo para lobby o cuarteto para rooftop','Producción técnica llave en mano','Registro audiovisual: 2 Reels + 20 fotos HD por evento','+10 años de experiencia en programación HORECA']
+    bullets:['Residencias semanales o mensuales a la medida','Dúo íntimo para lobby o cuarteto para rooftop','Producción técnica llave en mano','Registro audiovisual: 1 Reel + 5 fotos HD por evento','+10 años de experiencia en programación HORECA']
   },
   {
     num:'02', tag:'Cultura · Teatros · Instituciones', title:'Cine <em>Conciertos</em>',
@@ -702,20 +704,19 @@ const SVC_DATA = [
     bullets:['Formato septeto / Small Big Band','Clearing legal de derechos de autor incluido','Ideal para teatros, cajas de compensación y galas VIP','Sin competencia directa en Colombia','5 músicos + registro audiovisual']
   },
   {
-    num:'03', tag:'Temporada · Fin de Año · Retail', title:'Navi<em>Jazz</em>',
+    num:'03', tag:'Temporada · Fin de Año · Retail', title:'Christmas <em>Jazz</em>',
     img:'uploads/bandperformance1.jpg',
     tagline:'El villancico clásico transformado en un espectáculo de talla internacional.',
-    desc:'Superproducción inmersiva navideña que transforma el villancico clásico — estilo Sinatra, Bublé, Ella Fitzgerald — en un espectáculo con Small Big Band y marionetas de gran formato. Producto llave en mano para diciembre.',
+    desc:'Show inmersivo navideño que transforma el villancico clásico — estilo Sinatra, Bublé, Ella Fitzgerald — en un espectáculo con Small Big Band y marionetas de gran formato. Producto llave en mano para diciembre.',
     levels:[
       {name:'El Cuento de Invierno', desc:'Show integral 45–60 min: Big Band + marionetas con historia navideña. Familiar, para teatros y centros comerciales.'},
-      {name:'Holiday Swing Gala', desc:'Gala de etiqueta. Swing, Mambo y Jazz. Para baile, cóctel y celebración corporativa adulta.'},
-      {name:'White Christmas', desc:'Cuarteto de Jazz en pasillos o zonas VIP. Intervenciones elegantes decembrinas para retail de lujo.'}
+      {name:'Holiday Swing Gala', desc:'Gala de etiqueta. Swing, Mambo y Jazz. Para baile, cóctel y celebración corporativa adulta.'}
     ],
-    bullets:['Preventa desde mayo — agendas de diciembre se cierran en septiembre','Small Big Band de 8 músicos','Compañía de marionetas aliada como elemento escénico','Para corporativos, centros comerciales y retail de lujo']
+    bullets:['Preventa desde mayo — agendas de diciembre se cierran en septiembre','Small Big Band de 8 músicos','Compañía de marionetas aliada como elemento escénico','Para corporativos, centros comerciales y teatros']
   },
   {
     num:'04', tag:'Centros Comerciales · Activaciones de Marca', title:'Música <em>Itinerante</em>',
-    img:'uploads/bandperformance.jpg',
+    img:'uploads/trumpetcloseup.jpg',
     tagline:'Llevamos la música en vivo exactamente a donde está tu cliente.',
     desc:'Música en vivo de altísima calidad llevada donde está el cliente. Solistas, dúos o tríos que dinamizan espacios comerciales y elevan el prestigio de la marca. Sin tarimas, sin cables, sin bloqueos de pasillos.',
     levels:[
@@ -727,25 +728,24 @@ const SVC_DATA = [
   },
   {
     num:'05', tag:'Ultra-Premium · Wedding Planners', title:'Bodas <em>Simbólicas</em>',
-    img:'uploads/trumpetcloseup.jpg',
-    tagline:'Los directores del soundtrack de tu vida.',
-    desc:'Modelo B2B2C. Nos aliamos con Wedding Planners y Officiantes que ofrecen nuestro servicio como upsell. Live Scoring reactivo para votos, musicalización de proyecciones sorpresa y producción técnica invisible.',
+    img:'uploads/bandperformance.jpg',
+    tagline:'Música en vivo diseñada para cada momento de tu boda.',
+    desc:'Creamos la banda sonora de tu ceremonia y celebración. Live Scoring reactivo para votos, musicalización de proyecciones sorpresa y producción técnica invisible que se integra al flujo del evento.',
     levels:[
       {name:'El Ritual Cinematográfico', desc:'Live Scoring ceremonial. Improvisación reactiva a los votos y musicalización de videos sorpresa.'},
       {name:'El Viaje Sonoro', desc:'Ceremonia + Sunset Cocktail. Transición orgánica de la solemnidad al primer brindis (Swing, Latin Jazz).'},
       {name:'La Obra Maestra', desc:'Composición o arreglo exclusivo de la canción de la pareja para su entrada triunfal. Ultra-Premium.'}
     ],
-    bullets:['Bespoke Soundtrack — pieza compuesta para la pareja','Dúo acústico o ensamble completo','Producción integral sin fricción para el planner','Comisión para aliados (Planner/Officiante): 5%–10%']
+    bullets:['Hecho a la medida — pieza compuesta para la pareja','Dúo acústico o ensamble completo','Producción integral sin fricción para el planner','Comisión para aliados (Planner/Officiante): 5%–10%']
   },
   {
-    num:'06', tag:'RRHH · Bienestar · Team Building', title:'Pulso <em>Corporativo</em>',
+    num:'06', tag:'RRHH · Bienestar · Team Building', title:'Servicios <em>Corporativos</em>',
     img:'uploads/pianistcloseup.jpg',
     tagline:'La música como herramienta de transformación organizacional.',
-    desc:'Talleres experienciales que usan los principios de la música en vivo — improvisación, escucha activa, ensamble — para resolver dolores corporativos: estrés, comunicación, burnout, pertenencia. Facturables bajo Capacitación o Salud Ocupacional.',
+    desc:'Talleres experienciales que usan los principios de la música en vivo — improvisación, escucha activa, ensamble — para fortalecer equipos de trabajo. Facturables bajo Capacitación o Salud Ocupacional.',
     levels:[
-      {name:'La Metáfora del Jazz', desc:'Liderazgo rotativo, comunicación y trabajo en equipo. Jam interactivo con percusión menor para todos.'},
-      {name:'Pausa Activa Premium', desc:'Bienestar y salud mental. Live Scoring + experto en expresión corporal o mindfulness. SoundHealing corporativo.'},
-      {name:'Co-creación del Himno', desc:'Los empleados componen la letra sobre los valores de la empresa; la banda la interpreta en vivo. Entregable: grabación.'}
+      {name:'Lab de Identidad Sonora', desc:'El equipo compone la letra del himno de la empresa sobre una base armónica de la banda. Entregable: grabación profesional.'},
+      {name:'Talleres de Composición', desc:'Sesiones de liberación creativa donde los participantes exploran la composición musical como herramienta de expresión y conexión grupal.'}
     ],
     bullets:['Reduce burnout y mejora clima organizacional','60 a 120 minutos, adaptable','Ideal para empresas de +50 empleados','Facturable bajo Capacitación y SST']
   },
@@ -772,7 +772,7 @@ function openSvcModal(i) {
   document.getElementById('modalTitle').innerHTML = d.title;
   let html = '<p class="modal-tagline">"' + d.tagline + '"</p>';
   html += '<p class="modal-desc">' + d.desc + '</p>';
-  html += '<div class="modal-levels"><h4>Tres niveles de oferta</h4>';
+  html += '<div class="modal-levels"><h4>' + (d.levels.length === 2 ? 'Dos niveles de oferta' : 'Tres niveles de oferta') + '</h4>';
   d.levels.forEach(l => {
     html += '<div class="modal-level"><div class="modal-level-name">' + l.name + '</div><div class="modal-level-desc">' + l.desc + '</div></div>';
   });
