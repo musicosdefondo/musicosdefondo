@@ -94,7 +94,7 @@ const EVENTS = [
   { id:'navijazz',   name:'NaviJazz',          img:'uploads/bandperformance1.jpg',   persona:'Fin de Año · Retail',      desc:'Espectáculo de fin de año con big band y producción premium.' },
   { id:'itinerante', name:'Música Itinerante', img:'uploads/bandperformance.jpg',    persona:'Centros Comerciales',      desc:'Formatos móviles que recorren el espacio sorprendiendo.' },
   { id:'boda',       name:'Bodas Simbólicas',  img:'uploads/trumpetcloseup.jpg',     persona:'Wedding Premium',          desc:'Arreglos orquestales a medida para tu ceremonia.' },
-  { id:'corporativo',name:'Pulso Corporativo', img:'uploads/pianistcloseup.jpg',     persona:'RRHH · Bienestar',         desc:'Laboratorios de arte y bienestar para equipos corporativos.' },
+  { id:'corporativo',name:'Pulso Corporativos', img:'uploads/pianistcloseup.jpg',     persona:'RRHH · Bienestar',         desc:'Laboratorios de arte y bienestar para equipos corporativos.' },
   { id:'paginas',    name:'Páginas Sonoras',   img:'uploads/saxophonecloseup.jpg',   persona:'Literatura · Cultura',     desc:'Diseño sonoro en vivo para presentaciones literarias.' },
   { id:'custom',     name:'Personalizado',     img:'uploads/studio.jpg',             persona:'Tu idea aquí',             desc:'Tu visión, nuestra producción. Diseñamos desde cero.' },
 ];
@@ -750,7 +750,8 @@ function initAct0() {
    ACT 1 — TICKET
    ============================================================ */
 function initAct1() {
-  document.getElementById('t-num').textContent = leadId;
+  const tNum = document.getElementById('t-num');
+  if (tNum) tNum.textContent = leadId;
   bindSpotlight(document.getElementById('act-1'));
 
   const emailEl  = document.getElementById('t-email');
@@ -1392,6 +1393,8 @@ function startReveal() {
       gsap.from(superp.children,{opacity:0,y:18,stagger:.12,duration:.6,ease:'power3.out'});
       // Envía aunque sea superproducción: el lead es valioso.
       enviarCotizacionFinal({ es_superproduccion: 'Sí' });
+      // Envío automático de correos (cliente + copia interna)
+      enviarEmailCotizacion();
     } else {
       S.rangoMin=result.min; S.rangoMax=result.max;
       S.rangoDisplay=cop(result.min)+' – '+cop(result.max)+' COP';
@@ -1408,6 +1411,8 @@ function startReveal() {
 
       // → Envío final a Google Sheets (con UI visible: loading + éxito/error)
       setTimeout(() => enviarCotizacionFinal(), 900);
+      // → Envío automático de correos (cliente + copia interna)
+      setTimeout(() => enviarEmailCotizacion(), 1100);
     }
   },1650);
 }

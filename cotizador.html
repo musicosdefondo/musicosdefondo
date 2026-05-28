@@ -53,10 +53,10 @@
     <div class="a0-vignette"></div>
   </div>
   <div class="a0-content">
-    <img class="a0-logo" src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo" data-grow>
-    <p class="eyebrow a0-eyebrow">EL COTIZADOR · MÚSICOS DE FONDO</p>
-    <h1 class="a0-headline">Tu evento,<br>en <em>tres minutos.</em></h1>
-    <p class="a0-sub">Una conversación visual para diseñar tu propuesta musical. Sin formularios largos. Sin promesas vacías. Solo el rango exacto de inversión que necesitas para empezar.</p>
+    <img class="a0-logo" src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo" data-grow style="width: 200px; height: 200px; object-fit: cover">
+    <p class="eyebrow a0-eyebrow" style="font-size: 25px">COTIZADOR</p>
+    <h1 class="a0-headline" style="font-size: 70px">Tu evento,<br>en <em>pocos pasos.</em></h1>
+    <p class="a0-sub">Una experiencia interactiva para diseñar tu propuesta musical. Sin formularios largos. Sin promesas vacías. Solo el rango exacto de inversión que necesitas para empezar.</p>
     <div class="scroll-hint" data-grow>
       <div class="scroll-line"></div>
       <div class="scroll-dot"></div>
@@ -75,26 +75,13 @@
 ═══════════════════════════════════════════ -->
 <section class="scene" id="act-1">
   <div class="a1-left">
-    <p class="eyebrow">01 / ACCESO</p>
-    <h1>Antes de entrar,<br>déjanos un <em>correo.</em></h1>
-    <p class="lead-italic" style="font-size:16px">Te enviamos el resumen completo de tu cotización por email. Sin spam. Sin newsletters. Solo tu propuesta.</p>
-    <div class="a1-bullets">
-      <div class="a1-bullet">RESUMEN PERSONALIZADO POR EMAIL</div>
-      <div class="a1-bullet">RESPUESTA DE MARLON EN &lt;24H</div>
-      <div class="a1-bullet">CERO COMUNICACIONES MASIVAS</div>
-    </div>
+    <p class="eyebrow" style="font-size: 25px">01 / ACCESO</p>
   </div>
 
   <div class="a1-right">
     <div class="ticket-wrapper">
       <div class="ticket" data-grow>
         <div class="ticket-warm"></div>
-        <div class="ticket-header">
-          <span class="micro" style="color:var(--gold)">MÚSICOS DE FONDO · ADMIT ONE</span>
-          <span class="micro" id="t-num" style="color:var(--gold)">N° 00001</span>
-        </div>
-
-        <div class="ticket-title">Acceso al Cotizador</div>
 
         <div class="ticket-field-wrap">
           <label class="ticket-field-label" for="t-email">TU CORREO ELECTRÓNICO</label>
@@ -117,13 +104,13 @@
         </div>
 
         <div class="ticket-footer">
-          <span class="micro">VÁLIDO POR UNA SESIÓN</span>
-          <span class="micro">MEDELLÍN · COLOMBIA</span>
+          <span class="micro">
+</span>
         </div>
       </div>
     </div>
 
-    <div class="t-error" id="t-error">Necesitamos un email válido para continuar</div>
+    <div class="t-error" id="t-error"></div>
 
     <button class="btn-pill disabled" id="btnEnter" disabled data-grow>ENTRAR AL COTIZADOR →</button>
     <button class="btn-ghost" style="font-size:8px;letter-spacing:.15em">Tu privacidad nos importa → sin spam, sin datos de terceros</button>
@@ -141,7 +128,7 @@
   </div>
 
   <div class="a2-head">
-    <p class="eyebrow">02 / ATMÓSFERA</p>
+    <p class="eyebrow" style="font-size: 20px">02 / ATMÓSFERA</p>
     <h1>¿Qué historia<br>quieres <em>contar?</em></h1>
     <p class="lead-italic">Cada producto es un universo sonoro distinto. Elige el que mejor encaje con tu evento.</p>
   </div>
@@ -175,7 +162,7 @@
       <div class="event-row" data-id="navijazz" data-label="NaviJazz" data-img="uploads/bandperformance1.jpg">
         <span class="event-num">03</span>
         <div class="event-info">
-          <div class="event-name"><em>NaviJazz</em></div>
+          <div class="event-name"><em>ChristmasJazz</em></div>
           <div class="event-persona">Fin de Año · Retail</div>
         </div>
         <div class="event-thumb"><img src="uploads/bandperformance1.jpg" alt=""></div>
@@ -196,10 +183,10 @@
         </div>
         <div class="event-thumb"><img src="uploads/trumpetcloseup.jpg" alt=""></div>
       </div>
-      <div class="event-row" data-id="corporativo" data-label="Pulso Corporativo" data-img="uploads/pianistcloseup.jpg">
+      <div class="event-row" data-id="corporativo" data-label="Pulso Corporativos" data-img="uploads/pianistcloseup.jpg">
         <span class="event-num">06</span>
         <div class="event-info">
-          <div class="event-name">Pulso <em>Corporativo</em></div>
+          <div class="event-name">Servicios Corporativos</div>
           <div class="event-persona">RRHH · Bienestar</div>
         </div>
         <div class="event-thumb"><img src="uploads/pianistcloseup.jpg" alt=""></div>
@@ -232,9 +219,9 @@
 ═══════════════════════════════════════════ -->
 <section class="scene" id="act-3">
   <div class="a3-header">
-    <p class="eyebrow">03 / ENSAMBLE</p>
+    <p class="eyebrow" style="font-size: 20px">03 / ENSAMBLE</p>
     <h1>Construye<br>tu <em>ensamble.</em></h1>
-    <p class="lead-italic a3-lead">Desliza para elegir el tamaño de la banda.</p>
+    <p class="lead-italic a3-lead">Define el tamaño de la banda según tus necesidades</p>
   </div>
 
   <div class="stage-wrap">
@@ -350,6 +337,27 @@
       </svg>
     </div>
 
+    <div class="ensemble-slider">
+      <div class="slider-track" id="ens-track">
+        <div class="slider-fill" id="ens-fill" style="width:50%"></div>
+        <div class="slider-stops">
+          <button type="button" class="s-stop on" style="left:0%" aria-label="Dúo"><span class="s-stop-core"></span></button>
+          <button type="button" class="s-stop on" style="left:25%" aria-label="Trío"><span class="s-stop-core"></span></button>
+          <button type="button" class="s-stop on" style="left:50%" aria-label="Cuarteto"><span class="s-stop-core"></span></button>
+          <button type="button" class="s-stop" style="left:75%" aria-label="Quinteto"><span class="s-stop-core"></span></button>
+          <button type="button" class="s-stop" style="left:100%" aria-label="Septeto"><span class="s-stop-core"></span></button>
+        </div>
+        <div class="slider-thumb" id="ens-thumb" style="left:50%" data-grow></div>
+      </div>
+      <div class="slider-labels">
+        <span class="sl-label" style="left:0%">Dúo</span>
+        <span class="sl-label" style="left:25%">Trío</span>
+        <span class="sl-label on" style="left:50%">Cuarteto</span>
+        <span class="sl-label" style="left:75%">Quinteto</span>
+        <span class="sl-label" style="left:100%">Septeto</span>
+      </div>
+    </div>
+
     <div class="stage-info">
       <div class="si-badge" id="si-badge">BEST-SELLER</div>
       <div class="si-row">
@@ -366,27 +374,6 @@
         <div class="si-label">IDEAL PARA</div>
         <div class="si-val" id="si-ideal" style="font-size:13px">Corporativos, fine dining</div>
       </div>
-    </div>
-  </div>
-
-  <div class="ensemble-slider">
-    <div class="slider-track" id="ens-track">
-      <div class="slider-fill" id="ens-fill" style="width:50%"></div>
-      <div class="slider-stops">
-        <div class="s-stop on" style="left:0%"></div>
-        <div class="s-stop on" style="left:25%"></div>
-        <div class="s-stop on" style="left:50%"></div>
-        <div class="s-stop" style="left:75%"></div>
-        <div class="s-stop" style="left:100%"></div>
-      </div>
-      <div class="slider-thumb" id="ens-thumb" style="left:50%" data-grow></div>
-    </div>
-    <div class="slider-labels">
-      <span class="sl-label">Dúo</span>
-      <span class="sl-label">Trío</span>
-      <span class="sl-label on">Cuarteto</span>
-      <span class="sl-label">Quinteto</span>
-      <span class="sl-label">Septeto</span>
     </div>
   </div>
 
@@ -408,8 +395,8 @@
   <div class="a4-stack">
 
     <div class="a4-block">
-      <p class="eyebrow">04 / EL LUGAR</p>
-      <h2>¿Dónde <em>sucede?</em></h2>
+      <p class="eyebrow" style="font-size: 20px">04 / EL LUGAR</p>
+      <h2 style="font-size: 40px">¿Dónde <em>es tu evento?</em></h2>
       <div class="city-select-wrap">
         <div class="city-radio-group" id="city-radio-group">
           <button class="city-radio" data-city="medellin" data-grow>Medellín</button>
@@ -422,8 +409,8 @@
     </div>
 
     <div class="a4-block">
-      <p class="eyebrow">04 / EL MOMENTO</p>
-      <h2>¿Cuándo <em>sucede?</em></h2>
+      <p class="eyebrow" style="font-size: 20px">04 / EL MOMENTO</p>
+      <h2 style="font-size: 40px">¿Cuándo <em>es tu evento?</em></h2>
       <div class="calendar">
         <div class="cal-head">
           <button class="cal-nav" id="cal-prev" data-grow>←</button>
@@ -481,9 +468,9 @@
 <section class="scene" id="act-5">
   <div class="a5-stack">
     <div class="a5-header">
-      <p class="eyebrow">05 / EL PROGRAMA</p>
-      <h1>Cuánto dura<br>y qué <em>incluye.</em></h1>
-      <p class="lead-italic a5-lead">Define la duración del show y si nosotros llevamos la producción técnica.</p>
+      <p class="eyebrow" style="font-size: 20px">05 / EL PROGRAMA</p>
+      <h1 style="font-size: 40px">Cuánto dura<br>y qué <em>incluye.</em></h1>
+      <p class="lead-italic a5-lead" style="font-size: 15px">Define la duración del show y si nosotros llevamos la producción técnica.</p>
     </div>
 
     <div class="a5-block">
@@ -576,7 +563,7 @@
       <div class="extra-row" data-id="repertorio_custom" data-grow>
         <div class="extra-chk"></div>
         <div class="extra-info">
-          <div class="extra-name">Repertorio bespoke</div>
+          <div class="extra-name">Repertorio Personalizado</div>
           <div class="extra-desc">Composición exclusiva para tu evento</div>
         </div>
         <div class="extra-price">+$1.500.000</div>
@@ -665,8 +652,9 @@
   <!-- Reveal -->
   <div id="reveal-screen" class="reveal-screen" style="display:none;opacity:0">
     <img class="r-logo" src="uploads/isotipomusicosdefondo.png" alt="">
-    <p class="eyebrow">TU PROPUESTA</p>
-    <p class="r-headline">Tu evento sonoro, en <em>un rango.</em></p>
+    <p class="eyebrow" style="font-size: 20px">TU PROPUESTA ECONÓMICA</p>
+    <p class="r-headline">
+</p>
     <div class="price-block">
       <span class="price-n" id="price-min">$0</span>
       <div class="price-dash">—</div>
@@ -687,9 +675,9 @@
       <div class="pc-extras" id="pc-extras"></div>
       <div class="pc-ft" id="pc-footer"></div>
     </div>
-    <button class="r-cta-primary" id="r-cta-wa" data-grow>HABLAR CON MARLON POR WHATSAPP →</button>
+    <button class="r-cta-primary" id="r-cta-wa" data-grow style="text-align: center">Hablemos por WhatsApp</button>
     <div class="r-ctas-sec">
-      <button class="btn-ghost" id="r-cta-email">Enviar resumen a mi email</button>
+      <button class="btn-ghost" id="r-cta-email">Reenviar email</button>
       <button class="btn-ghost" id="r-cta-reset">Empezar de nuevo</button>
     </div>
   </div>
@@ -708,15 +696,14 @@
      ACT 8 — CONFIRMACIÓN
 ═══════════════════════════════════════════ -->
 <section class="scene" id="act-8">
-  <img class="a8-iso" src="uploads/isotipomusicosdefondo.png" alt="">
+  <img class="a8-iso" src="uploads/logomusicosdefondo.png" alt="" style="height: 200px; width: 200px">
   <svg class="checkmark-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="30" cy="30" r="26" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
     <path id="ck-path" d="M 14,30 L 24,43 L 46,17" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
-  <h1 class="a8-h1">Listo.<br><em>Te escribimos.</em></h1>
-  <p class="a8-lead">Marlon recibió tu solicitud y te responderá personalmente en las próximas horas hábiles. Mientras tanto, ya abrimos WhatsApp por si quieres adelantarte.</p>
+  <h1 class="a8-h1">Listo.<br><em style="font-size: 50px">A pocos pasos de hacer realidad tu evento</em></h1>
+  <p class="a8-lead">Hemos recibido tu solicitud y pronto te daremos respuesta de manera personalizada por un ser humano. </p>
   <div class="a8-ctas">
-    <button class="btn-pill" id="a8-wa" data-grow>ABRIR WHATSAPP AHORA →</button>
     <button class="btn-ghost" id="a8-share">Compartir esta experiencia ↗</button>
     <a href="/" class="btn-ghost">← Volver a musicosdefondo.com</a>
   </div>
