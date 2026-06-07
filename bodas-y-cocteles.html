@@ -673,29 +673,7 @@ section.video{
   border:1px solid var(--hairline-gold);
   background:linear-gradient(155deg, #1F1216 0%, #0A0A0A 100%);
   overflow:hidden;
-  cursor:pointer;
 }
-.video-frame::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 4px);
-}
-.video-play{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:88px;height:88px;border-radius:50%;
-  border:1px solid var(--gold);background:rgba(10,10,10,0.4);
-  display:flex;align-items:center;justify-content:center;
-  transition:background .4s ease, transform .4s ease, border-color .4s ease;
-  backdrop-filter:blur(8px);
-}
-.video-frame:hover .video-play{background:var(--burgundy);border-color:var(--burgundy);transform:translate(-50%,-50%) scale(1.06)}
-.video-play svg{width:22px;height:22px;fill:var(--cream);margin-left:4px}
-.video-meta{
-  position:absolute;left:24px;bottom:20px;right:24px;
-  font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--warm-grey);font-weight:500;
-  display:flex;justify-content:space-between;align-items:center;
-}
-.video-meta .tag{color:var(--gold)}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 
 /* ── Final CTA ── */
@@ -828,18 +806,6 @@ footer.site-footer{
       <span class="es">Tres servicios independientes para tres momentos distintos de tu celebración. Dirección musical dedicada, producción técnica incluida y cero fricción operativa.</span>
       <span class="en">Three independent services for three distinct moments of your celebration. Dedicated musical direction, full technical production, and zero operational friction.</span>
     </p>
-    <div class="hero-ctas">
-      <a href="cotizador.html" class="btn btn-primary">
-        <span class="es">Solicitar propuesta</span>
-        <span class="en">Request a proposal</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a href="#servicios" class="btn btn-ghost" data-scroll-to="#manifest">
-        <span class="es">Ver servicios</span>
-        <span class="en">View services</span>
-        <span class="arrow" aria-hidden="true">↓</span>
-      </a>
-    </div>
   </div>
   <div class="scroll-cue" aria-hidden="true">
     <span>scroll</span>
@@ -892,11 +858,6 @@ footer.site-footer{
           <img src="uploads/bodas-warmup-preboda.jpg" alt="Trío de músicos tocando en vivo en terraza — servicio Warm-Up pre-boda en Medellín por Músicos de Fondo" loading="lazy" width="780" height="1040">
           <span class="visual-corner">01</span>
           <span class="visual-corner-r">3 : 4</span>
-          <div class="visual-meta">
-            <span class="tag"><span class="es">Dirección de arte</span><span class="en">Art direction</span></span>
-            <span class="es">Foto: Dúo o trío tocando en welcome party — terraza al atardecer, ambiente íntimo.</span>
-            <span class="en">Photo: Duo or trio performing at welcome party — terrace at sunset, intimate setting.</span>
-          </div>
         </div>
       </div>
     </article>
@@ -929,11 +890,6 @@ footer.site-footer{
           <img src="uploads/bodas-coctel-hora.jpg" alt="Ensamble de Músicos de Fondo tocando durante hora del cóctel en boda elegante en Medellín" loading="lazy" width="780" height="1040">
           <span class="visual-corner">02</span>
           <span class="visual-corner-r">3 : 4</span>
-          <div class="visual-meta">
-            <span class="tag"><span class="es">Dirección de arte</span><span class="en">Art direction</span></span>
-            <span class="es">Foto: Músicos durante hora de cóctel — invitados con copas, ambiente elegante outdoor.</span>
-            <span class="en">Photo: Musicians during cocktail hour — guests with drinks, elegant outdoor setting.</span>
-          </div>
         </div>
       </div>
     </article>
@@ -966,11 +922,6 @@ footer.site-footer{
           <img src="uploads/bodas-composicion-original.jpg" alt="Sesión de estudio y composición original para bodas — piano y producción musical por Músicos de Fondo en Medellín" loading="lazy" width="780" height="1040">
           <span class="visual-corner">03</span>
           <span class="visual-corner-r">3 : 4</span>
-          <div class="visual-meta">
-            <span class="tag"><span class="es">Dirección de arte</span><span class="en">Art direction</span></span>
-            <span class="es">Foto: Momento emotivo — primer baile o votos con músico solista (piano, saxo o guitarra).</span>
-            <span class="en">Photo: Emotional moment — first dance or vows with solo musician (piano, sax, or guitar).</span>
-          </div>
         </div>
       </div>
     </article>
@@ -1060,14 +1011,8 @@ footer.site-footer{
         <span class="en">A glimpse of our ensemble in action.</span>
       </p>
     </div>
-    <div class="video-frame" id="videoFrame" role="button" tabindex="0" aria-label="Play video">
-      <button class="video-play" aria-label="Play">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <div class="video-meta">
-        <span class="tag">REEL · 2026</span>
-        <span><span class="es">Hacé click para reproducir</span><span class="en">Click to play</span></span>
-      </div>
+    <div class="video-frame" id="videoFrame">
+      <iframe src="https://www.youtube.com/embed/videoseries?si=sr9HRIyWjBapYjWc&list=PLP95xm2dFc_wauXAaCngcGFnbA5m7lBfg" title="Músicos de Fondo — Música en vivo para bodas en Medellín" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </section>
@@ -1374,24 +1319,6 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
-
-  /* ──────────────── VIDEO LAZY LOAD ──────────────── */
-  const videoFrame = document.getElementById('videoFrame');
-  const loadVideo = () => {
-    const iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube.com/embed/videoseries?list=PLP95xm2dFc_wauXAaCngcGFnbA5m7lBfg&autoplay=1&rel=0';
-    iframe.title = 'Músicos de Fondo — Música en vivo para bodas en Medellín';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-    iframe.allowFullscreen = true;
-    iframe.loading = 'lazy';
-    videoFrame.innerHTML = '';
-    videoFrame.appendChild(iframe);
-  };
-  videoFrame.addEventListener('click', loadVideo);
-  videoFrame.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadVideo(); }
-  });
 
 });
 </script>
