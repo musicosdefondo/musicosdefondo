@@ -853,63 +853,42 @@ section.testimonials{background:var(--color-bg);overflow:hidden}
   text-wrap:balance;
 }
 
-/* ── Lightbox ─────────────────────────────────────────────── */
-.reel-lightbox{
-  position:fixed;inset:0;z-index:9999;
-  background:rgba(7,7,7,.92);backdrop-filter:blur(14px);
+/* Inline video playback inside the card */
+.reel-card .reel-video{
+  position:absolute;inset:0;z-index:5;
+  width:100%;height:100%;
+  background:#000;object-fit:cover;
+  display:block;
+  opacity:0;transition:opacity .35s var(--ease);
+}
+.reel-card.is-playing{cursor:default}
+.reel-card.is-playing .reel-video{opacity:1}
+.reel-card.is-playing .reel-overlay,
+.reel-card.is-playing .reel-play,
+.reel-card.is-playing .reel-caption{opacity:0;transition:opacity .25s var(--ease);pointer-events:none}
+.reel-card.is-playing .reel-badge{opacity:0;transition:opacity .25s var(--ease)}
+.reel-card .reel-close{
+  position:absolute;top:10px;right:10px;z-index:6;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(10,10,10,.7);backdrop-filter:blur(6px);
+  border:1px solid var(--hairline-gold);
   display:none;align-items:center;justify-content:center;
-  padding:24px;opacity:0;transition:opacity .35s var(--ease);
-}
-.reel-lightbox.is-open{display:flex;opacity:1}
-.reel-lightbox .lb-stage{
-  position:relative;width:100%;max-width:420px;
-  aspect-ratio:9/16;max-height:88vh;
-  background:#000;
-  border:1px solid var(--hairline-gold);
-  transform:translateY(8px);transition:transform .45s var(--ease);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-}
-.reel-lightbox.is-open .lb-stage{transform:translateY(0)}
-.reel-lightbox video{
-  width:100%;height:100%;display:block;
-  background:#000;object-fit:contain;
-}
-.reel-lightbox .lb-loading{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:var(--sans);font-size:10px;letter-spacing:.32em;
-  text-transform:uppercase;color:var(--color-gold);opacity:.55;
-  pointer-events:none;
-}
-.reel-lightbox .lb-error{
-  position:absolute;inset:0;display:none;flex-direction:column;
-  align-items:center;justify-content:center;gap:18px;padding:32px;text-align:center;
-}
-.reel-lightbox .lb-error p{
-  font-family:var(--serif);font-style:italic;font-size:17px;color:var(--color-cream-muted);
-  max-width:280px;line-height:1.5;
-}
-.reel-lightbox .lb-error code{
-  font-family:'SF Mono', Menlo, Monaco, monospace;
-  font-size:10.5px;letter-spacing:.04em;color:var(--color-gold);
-  background:rgba(201,169,110,.06);padding:6px 10px;
-  border:1px solid var(--hairline-gold);
-  word-break:break-all;
-}
-.reel-lightbox .lb-close{
-  position:absolute;top:-44px;right:-2px;
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid var(--hairline-gold);background:rgba(10,10,10,.6);
-  display:flex;align-items:center;justify-content:center;
   color:var(--color-cream);cursor:pointer;
   transition:border-color .3s, color .3s, transform .3s;
 }
-.reel-lightbox .lb-close:hover{border-color:var(--color-gold);color:var(--color-gold);transform:rotate(90deg)}
-.reel-lightbox .lb-close svg{width:14px;height:14px}
-@media(max-width:520px){
-  .reel-lightbox{padding:60px 16px 16px}
-  .reel-lightbox .lb-close{top:-46px;right:0}
+.reel-card.is-playing .reel-close{display:flex}
+.reel-card .reel-close:hover{border-color:var(--color-gold);color:var(--color-gold);transform:rotate(90deg)}
+.reel-card .reel-close svg{width:12px;height:12px}
+.reel-card .reel-error{
+  position:absolute;inset:0;z-index:5;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:20px;text-align:center;
+  background:rgba(10,10,10,.85);
+  font-family:var(--sans);font-size:10px;letter-spacing:.20em;
+  text-transform:uppercase;color:var(--color-cream-muted);
 }
+.reel-card.is-error .reel-error{display:flex}
+
 
 /* ─────────────────────────────────────────────────────────────
    NEXT FLIGHT — Boarding pass treatment
@@ -1887,6 +1866,16 @@ a.footer-logo-link{
             <span class="en">Testimonial · 01</span>
           </span>
         </div>
+        <button class="reel-close" type="button" aria-label="Cerrar video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="5" x2="19" y2="19"></line>
+            <line x1="19" y1="5" x2="5" y2="19"></line>
+          </svg>
+        </button>
+        <div class="reel-error">
+          <span class="es">Video no disponible</span>
+          <span class="en">Video unavailable</span>
+        </div>
       </article>
 
       <!-- ─────────────────────────────────────────────────────────────
@@ -1922,6 +1911,16 @@ a.footer-logo-link{
             <span class="es">Testimonio · 02</span>
             <span class="en">Testimonial · 02</span>
           </span>
+        </div>
+        <button class="reel-close" type="button" aria-label="Cerrar video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="5" x2="19" y2="19"></line>
+            <line x1="19" y1="5" x2="5" y2="19"></line>
+          </svg>
+        </button>
+        <div class="reel-error">
+          <span class="es">Video no disponible</span>
+          <span class="en">Video unavailable</span>
         </div>
       </article>
 
@@ -1959,6 +1958,16 @@ a.footer-logo-link{
             <span class="en">Testimonial · 03</span>
           </span>
         </div>
+        <button class="reel-close" type="button" aria-label="Cerrar video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="5" x2="19" y2="19"></line>
+            <line x1="19" y1="5" x2="5" y2="19"></line>
+          </svg>
+        </button>
+        <div class="reel-error">
+          <span class="es">Video no disponible</span>
+          <span class="en">Video unavailable</span>
+        </div>
       </article>
 
       <!-- ─────────────────────────────────────────────────────────────
@@ -1994,70 +2003,52 @@ a.footer-logo-link{
             <span class="en">Testimonial · 04</span>
           </span>
         </div>
+        <button class="reel-close" type="button" aria-label="Cerrar video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="5" x2="19" y2="19"></line>
+            <line x1="19" y1="5" x2="5" y2="19"></line>
+          </svg>
+        </button>
+        <div class="reel-error">
+          <span class="es">Video no disponible</span>
+          <span class="en">Video unavailable</span>
+        </div>
       </article>
     </div>
   </div>
 
-  <!-- ───────────────────────────────────────────────────────────────
-       LIGHTBOX — reproduce el video nativo en 9:16
-       ─────────────────────────────────────────────────────────────── -->
-  <div class="reel-lightbox" id="reelLightbox" role="dialog" aria-modal="true" aria-label="Reel viewer">
-    <div class="lb-stage">
-      <button class="lb-close" type="button" aria-label="Cerrar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="5" y1="5" x2="19" y2="19"></line>
-          <line x1="19" y1="5" x2="5" y2="19"></line>
-        </svg>
-      </button>
-      <div class="lb-loading">
-        <span class="es">Cargando…</span>
-        <span class="en">Loading…</span>
-      </div>
-      <div class="lb-error">
-        <p>
-          <span class="es">Aún no se ha subido el video.</span>
-          <span class="en">Video hasn’t been uploaded yet.</span>
-        </p>
-        <code id="lbErrorPath"></code>
-        <a class="btn btn-ghost-gold" target="_blank" rel="noopener" id="lbErrorLink">
-          <span class="es">Ver en Instagram</span>
-          <span class="en">View on Instagram</span>
-          <span class="arrow">↗</span>
-        </a>
-      </div>
-    </div>
-  </div>
 </section>
 
 <script>
-  /* Reel lightbox — native <video> playback */
+  /* Reel cards — inline <video> playback inside each card */
   (function(){
-    const lb = document.getElementById('reelLightbox');
-    if(!lb) return;
-    const stage = lb.querySelector('.lb-stage');
-    const closeBtn = lb.querySelector('.lb-close');
-    const loading = lb.querySelector('.lb-loading');
-    const errorBox = lb.querySelector('.lb-error');
-    const errorPath = lb.querySelector('#lbErrorPath');
-    const errorLink = lb.querySelector('#lbErrorLink');
-    let currentVideo = null;
+    let activeCard = null;
 
-    function clearStage(){
-      if(currentVideo){
-        try{ currentVideo.pause(); }catch(_){}
-        currentVideo.remove();
-        currentVideo = null;
+    function stopCard(card){
+      if(!card) return;
+      const video = card.querySelector('video.reel-video');
+      if(video){
+        try{ video.pause(); }catch(_){}
+        video.remove();
       }
-      errorBox.style.display = 'none';
-      loading.style.display = 'flex';
+      card.classList.remove('is-playing','is-error');
+      if(activeCard === card) activeCard = null;
     }
 
-    function open(videoSrc, instagramUrl){
-      clearStage();
-      errorPath.textContent = videoSrc;
-      errorLink.href = instagramUrl || '#';
+    function playCard(card){
+      const videoSrc = card.getAttribute('data-video-src');
+      if(!videoSrc) return;
+
+      // Stop any other card that's currently playing
+      if(activeCard && activeCard !== card) stopCard(activeCard);
+
+      // If this card is already playing, do nothing
+      if(card.classList.contains('is-playing')) return;
+
+      card.classList.remove('is-error');
 
       const video = document.createElement('video');
+      video.className = 'reel-video';
       video.src = videoSrc;
       video.controls = true;
       video.playsInline = true;
@@ -2065,43 +2056,52 @@ a.footer-logo-link{
       video.setAttribute('webkit-playsinline', '');
       video.preload = 'metadata';
 
-      video.addEventListener('loadedmetadata', () => {
-        loading.style.display = 'none';
-        // user-gesture triggered, so play() should be allowed
-        video.play().catch(() => { /* swallow — user can hit play manually */ });
-      });
       video.addEventListener('error', () => {
-        loading.style.display = 'none';
-        if(currentVideo){ currentVideo.remove(); currentVideo = null; }
-        errorBox.style.display = 'flex';
+        try{ video.remove(); }catch(_){}
+        card.classList.add('is-error');
+        card.classList.remove('is-playing');
+      });
+      video.addEventListener('ended', () => {
+        // Snap back to thumbnail state when video finishes
+        stopCard(card);
       });
 
-      stage.appendChild(video);
-      currentVideo = video;
+      card.appendChild(video);
+      card.classList.add('is-playing');
+      activeCard = card;
 
-      lb.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function close(){
-      lb.classList.remove('is-open');
-      document.body.style.overflow = '';
-      setTimeout(clearStage, 380);
+      // User-gesture click -> play() is allowed
+      video.play().catch(() => { /* user can hit play manually */ });
     }
 
     document.querySelectorAll('.reel-card[data-video-src]').forEach(card => {
-      const videoSrc = card.getAttribute('data-video-src');
-      const igUrl = card.getAttribute('data-instagram-url');
-      card.addEventListener('click', () => open(videoSrc, igUrl));
-      card.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(videoSrc, igUrl); }
+      const closeBtn = card.querySelector('.reel-close');
+
+      card.addEventListener('click', (e) => {
+        // Clicks on the close button or on the video controls shouldn't
+        // re-trigger playCard — close handles itself; the video controls
+        // already do what the user wants.
+        if(e.target.closest && e.target.closest('.reel-close')) return;
+        if(e.target.closest && e.target.closest('video')) return;
+        playCard(card);
       });
+
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){
+          if(e.target === card){ e.preventDefault(); playCard(card); }
+        }
+      });
+
+      if(closeBtn){
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          stopCard(card);
+        });
+      }
     });
 
-    closeBtn.addEventListener('click', close);
-    lb.addEventListener('click', (e) => { if(e.target === lb) close(); });
     document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && lb.classList.contains('is-open')) close();
+      if(e.key === 'Escape' && activeCard) stopCard(activeCard);
     });
   })();
 </script>
