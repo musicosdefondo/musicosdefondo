@@ -853,6 +853,19 @@ section.testimonials{background:var(--color-bg);overflow:hidden}
   text-wrap:balance;
 }
 
+/* Auto-generated thumbnail (first frame of the actual video file) */
+.reel-card .reel-thumb-auto{
+  position:absolute;inset:0;z-index:1;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  pointer-events:none;
+  opacity:0;transition:opacity .5s var(--ease);
+  background:transparent;
+}
+.reel-card .reel-thumb-auto.is-loaded{opacity:1}
+.reel-card.is-playing .reel-thumb-auto{opacity:0}
+
 /* Inline video playback inside the card */
 .reel-card .reel-video{
   position:absolute;inset:0;z-index:5;
@@ -2024,6 +2037,62 @@ a.footer-logo-link{
   (function(){
     let activeCard = null;
 
+    /* Build an auto-thumbnail from the first frame of each video file.
+       Adds a muted, non-controlled <video> behind the play overlay; once it
+       has rendered enough data to display its first frame we mark it loaded
+       and fade it in. If the file 404s or errors, we leave the placeholder. */
+    function buildThumb(card){
+      const src = card.getAttribute('data-video-src');
+      if(!src) return;
+      // Avoid duplicates
+      if(card.querySelector('video.reel-thumb-auto')) return;
+
+      // HEAD-check the video before attaching it as a thumbnail. If the file
+      // is missing (e.g. running locally without the .mp4 assets) we skip
+      // silently so the console isn't polluted with resource_error logs.
+      fetch(src, { method: 'HEAD' }).then(r => {
+        if(!r.ok) return;
+        attachThumb(card, src);
+      }).catch(() => { /* offline / blocked — leave placeholder */ });
+    }
+
+    function attachThumb(card, src){
+      if(card.querySelector('video.reel-thumb-auto')) return;
+
+      const thumb = document.createElement('video');
+      thumb.className = 'reel-thumb-auto';
+      // #t=0.1 nudges browsers to render a frame instead of a black canvas
+      thumb.src = src + '#t=0.1';
+      thumb.muted = true;
+      thumb.defaultMuted = true;
+      thumb.playsInline = true;
+      thumb.setAttribute('playsinline','');
+      thumb.setAttribute('webkit-playsinline','');
+      thumb.setAttribute('disablepictureinpicture','');
+      thumb.setAttribute('aria-hidden','true');
+      thumb.preload = 'metadata';
+      thumb.tabIndex = -1;
+
+      const reveal = () => thumb.classList.add('is-loaded');
+      thumb.addEventListener('loadeddata', reveal, { once: true });
+      thumb.addEventListener('canplay', reveal, { once: true });
+      thumb.addEventListener('error', () => {
+        try{ thumb.remove(); }catch(_){}
+      });
+
+      // Insert before the overlay so the gradient + caption sit on top
+      const overlay = card.querySelector('.reel-overlay');
+      if(overlay) card.insertBefore(thumb, overlay);
+      else card.appendChild(thumb);
+
+      // Some browsers (Safari) won't paint the first frame without a seek
+      const trySeek = () => {
+        try{ thumb.currentTime = 0.1; }catch(_){}
+      };
+      if(thumb.readyState >= 1) trySeek();
+      else thumb.addEventListener('loadedmetadata', trySeek, { once: true });
+    }
+
     function stopCard(card){
       if(!card) return;
       const video = card.querySelector('video.reel-video');
@@ -2075,6 +2144,7 @@ a.footer-logo-link{
     }
 
     document.querySelectorAll('.reel-card[data-video-src]').forEach(card => {
+      buildThumb(card);
       const closeBtn = card.querySelector('.reel-close');
 
       card.addEventListener('click', (e) => {
