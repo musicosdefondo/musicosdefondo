@@ -792,6 +792,11 @@ section.testimonials{background:var(--color-bg);overflow:hidden}
   --image-slot-bg:transparent;
   z-index:1;
 }
+/* In production (no omelette host), image-slot becomes read-only and
+   has no business eating clicks meant for the card. */
+.reel-card image-slot:not([data-editable]){
+  pointer-events:none;
+}
 .reel-card .reel-bg-fallback{
   position:absolute;inset:0;z-index:0;
   background:
@@ -2087,15 +2092,7 @@ a.footer-logo-link{
     document.querySelectorAll('.reel-card[data-video-src]').forEach(card => {
       const videoSrc = card.getAttribute('data-video-src');
       const igUrl = card.getAttribute('data-instagram-url');
-      const trigger = (e) => {
-        const slot = e.target.closest && e.target.closest('image-slot');
-        if(slot && e.type === 'click'){
-          const isEmpty = !slot.hasAttribute('data-filled') && !slot.querySelector('img');
-          if(isEmpty) return;
-        }
-        open(videoSrc, igUrl);
-      };
-      card.addEventListener('click', trigger);
+      card.addEventListener('click', () => open(videoSrc, igUrl));
       card.addEventListener('keydown', (e) => {
         if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(videoSrc, igUrl); }
       });
