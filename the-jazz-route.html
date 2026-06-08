@@ -904,7 +904,7 @@ section.testimonials{background:var(--color-bg);overflow:hidden}
 
 
 /* ─────────────────────────────────────────────────────────────
-   NEXT FLIGHT — Boarding pass treatment
+   NEXT FLIGHT — Boarding pass (cream paper, gold header, pinned scrub)
    ───────────────────────────────────────────────────────────── */
 section.next-flight{
   background:var(--color-bg);position:relative;overflow:hidden;
@@ -916,135 +916,397 @@ section.next-flight{
     radial-gradient(ellipse 60% 50% at 50% 100%, rgba(114,47,55,0.18), transparent 65%);
 }
 .next-flight-inner{
-  position:relative;z-index:2;max-width:980px;margin:0 auto;padding:0 24px;
+  position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 24px;
 }
-.next-flight-head{text-align:center;margin-bottom:56px}
+.next-flight-head{text-align:center;margin-bottom:48px}
 .next-flight-head .eyebrow{margin-bottom:32px;justify-content:center}
 .next-flight-head .eyebrow::after{
   content:'';width:32px;height:1px;background:var(--color-gold);opacity:.55;
 }
 
-/* Boarding pass ticket */
-.ticket{
-  background:linear-gradient(155deg, #14110D 0%, #0c0a08 100%);
-  border:1px solid var(--hairline-gold);
+/* Stage — host for the pinned card + envelope */
+.bp-stage{
   position:relative;
-  display:grid;grid-template-columns:1fr;
+  height:620px;
+  perspective:1800px;
+  overflow:hidden;
+  margin-bottom:32px;
 }
-@media(min-width:760px){
-  .ticket{grid-template-columns:2.4fr 1fr}
-}
-.ticket-main{padding:48px 40px}
-@media(min-width:760px){.ticket-main{padding:56px 56px}}
-.ticket-stub{
-  padding:48px 32px;
-  position:relative;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;text-align:center;gap:18px;
-  border-top:1px dashed var(--hairline-gold);
-}
-@media(min-width:760px){
-  .ticket-stub{
-    border-top:none;border-left:1px dashed var(--hairline-gold);
-    padding:56px 32px;
-  }
-}
-/* Perforated punch holes */
-.ticket-stub::before,
-.ticket-stub::after{
-  content:'';position:absolute;
-  width:22px;height:22px;border-radius:50%;
-  background:var(--color-bg);
-}
-@media(min-width:760px){
-  .ticket-stub::before{top:-11px;left:-11px}
-  .ticket-stub::after{bottom:-11px;left:-11px}
-}
-@media(max-width:759px){
-  .ticket-stub::before{top:-11px;left:-11px}
-  .ticket-stub::after{top:-11px;right:-11px}
+@media(max-width:760px){
+  .bp-stage{ height:560px; perspective:1200px }
 }
 
-/* Outer punch holes too */
-.ticket > .punch{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--color-bg);z-index:3}
-.ticket > .punch-tl{top:-11px;left:-11px}
-.ticket > .punch-tr{top:-11px;right:-11px}
-.ticket > .punch-bl{bottom:-11px;left:-11px}
-.ticket > .punch-br{bottom:-11px;right:-11px}
-
-.ticket-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding-bottom:24px;margin-bottom:28px;
-  border-bottom:1px solid var(--hairline-gold);
-  font-family:var(--sans);font-size:10px;letter-spacing:.32em;
-  text-transform:uppercase;color:var(--color-cream-muted);font-weight:500;
+/* Envelope / pocket — sits IN FRONT of the card (front lip of wallet pocket) */
+.bp-envelope{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:min(1020px, 96vw);
+  height:200px;
+  z-index:6;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg, #1f1814 0%, #120d0a 28%, #0a0705 100%);
+  border:1px solid var(--hairline-gold);
+  border-radius:14px 14px 18px 18px;
+  box-shadow:
+    inset 0 14px 32px rgba(0,0,0,0.85),
+    inset 0 1px 0 rgba(201,169,110,0.22),
+    inset 0 -8px 0 rgba(0,0,0,0.4),
+    0 30px 60px rgba(0,0,0,0.55),
+    0 -10px 24px rgba(0,0,0,0.35);
 }
-.ticket-header .gold{color:var(--color-gold)}
-.ticket-date{
-  font-family:var(--serif);font-weight:300;
-  font-size:clamp(48px,7vw,96px);line-height:1;
-  color:var(--color-cream);letter-spacing:-.02em;
-  margin-bottom:14px;text-wrap:balance;
+.bp-envelope::before{
+  /* stitched line near top edge of pocket */
+  content:'';position:absolute;left:24px;right:24px;top:14px;height:1px;
+  background:repeating-linear-gradient(90deg, var(--color-gold) 0 6px, transparent 6px 14px);
+  opacity:.45;
 }
-.ticket-date em{font-style:italic;color:var(--color-gold-light);font-weight:400}
-.ticket-subline{
-  font-family:var(--sans);font-size:13px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--color-cream);font-weight:400;
-  margin-bottom:36px;
+.bp-envelope::after{
+  content:'TJR · MDE · 2026';
+  position:absolute;right:32px;bottom:22px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.36em;
+  color:var(--color-gold);opacity:.55;font-weight:500;
 }
-
-.ticket-rows{
-  display:grid;grid-template-columns:1fr 1fr;gap:24px 32px;
-  margin-bottom:36px;
-}
-.ticket-row .label{
-  font-family:var(--sans);font-size:9.5px;letter-spacing:.32em;
-  text-transform:uppercase;color:var(--color-gold);font-weight:500;
-  margin-bottom:8px;display:block;
-}
-.ticket-row .value{
-  font-family:var(--serif);font-weight:400;font-size:20px;
-  color:var(--color-cream);line-height:1.3;
-}
-.ticket-note{
-  font-family:var(--sans);font-size:12px;letter-spacing:.04em;
-  color:var(--color-cream-muted);font-style:italic;
-  border-top:1px solid var(--hairline-gold);padding-top:20px;
-}
-
-/* Stub */
-.stub-label{
-  font-family:var(--sans);font-size:9.5px;letter-spacing:.32em;
-  text-transform:uppercase;color:var(--color-gold);font-weight:500;
-}
-.stub-seat{
-  font-family:var(--serif);font-weight:300;font-size:64px;
-  line-height:1;color:var(--color-cream);
-}
-.stub-detail{
-  font-family:var(--sans);font-size:10px;letter-spacing:.28em;
-  text-transform:uppercase;color:var(--color-cream-muted);font-weight:400;
-  line-height:1.8;
-}
-
-/* STAMP */
-.stub-stamp{
-  position:relative;width:124px;height:124px;border-radius:50%;
-  border:1.5px solid var(--color-gold);color:var(--color-gold);
-  display:flex;align-items:center;justify-content:center;
-  transform:rotate(-12deg);margin-top:14px;
-  opacity:.88;
-}
-.stub-stamp::before{
-  content:'';position:absolute;inset:6px;border-radius:50%;
-  border:1px solid var(--color-gold);opacity:.5;
-}
-.stub-stamp-text{
-  font-family:var(--sans);font-size:9.5px;letter-spacing:.32em;
-  text-transform:uppercase;font-weight:600;text-align:center;line-height:1.4;
-}
-.stub-stamp-text em{
+.bp-envelope .env-tag{
+  position:absolute;left:32px;bottom:22px;
   font-family:var(--serif);font-style:italic;font-size:14px;
-  letter-spacing:.04em;font-weight:400;display:block;margin:2px 0;
+  color:var(--color-gold-light);opacity:.6;letter-spacing:.04em;
+}
+
+/* Soft halo behind the card (depth cue) */
+.bp-stage::before{
+  content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(900px,92vw);height:420px;border-radius:50%;
+  background:radial-gradient(ellipse at center, rgba(201,169,110,0.18), transparent 65%);
+  z-index:1;pointer-events:none;
+}
+
+/* THE CARD */
+.bp-card{
+  position:absolute;
+  left:50%;
+  top:24px;
+  transform:translateX(-50%);
+  width:min(960px, 92vw);
+  z-index:3;
+  transform-style:preserve-3d;
+  will-change:transform;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,0.6)) drop-shadow(0 10px 20px rgba(0,0,0,0.45));
+}
+@media(max-width:760px){
+  .bp-card{ top:14px }
+}
+.bp-card-inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 320px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 20%, #F6F0E5 0%, #EDE4D2 60%, #DBCEB6 100%);
+  border-radius:6px;
+  overflow:hidden;
+  isolation:isolate;
+  box-shadow:
+    inset 0 0 0 1px rgba(20,17,13,0.08),
+    inset 0 -40px 60px rgba(120,80,30,0.06);
+}
+@media(max-width:760px){
+  .bp-card-inner{ grid-template-columns:1fr }
+}
+
+/* Paper noise + warm vignette overlays */
+.bp-card-inner::before{
+  content:'';position:absolute;inset:0;z-index:6;pointer-events:none;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 30%, rgba(255,255,255,0.35), transparent 70%),
+    radial-gradient(ellipse 120% 80% at 50% 110%, rgba(80,50,15,0.16), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 12% 90%, rgba(80,50,15,0.10), transparent 60%);
+  mix-blend-mode:multiply;
+  opacity:.9;
+}
+.bp-card-inner::after{
+  content:'';position:absolute;inset:0;z-index:7;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.32  0 0 0 0 0.22  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.32;
+  mix-blend-mode:multiply;
+}
+
+/* Horizontal fold crease */
+.bp-fold{
+  position:absolute;left:0;right:0;top:50%;height:14px;
+  transform:translateY(-50%);
+  z-index:5;pointer-events:none;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.45) 40%, rgba(0,0,0,0.10) 52%, transparent 100%);
+  mix-blend-mode:multiply;opacity:.7;
+}
+.bp-fold::after{
+  content:'';position:absolute;left:6%;right:6%;top:50%;height:1px;
+  background:rgba(20,17,13,0.18);
+  box-shadow:0 1px 0 rgba(255,255,255,0.45);
+}
+
+/* Punch holes on the perforation seam */
+.bp-card-inner > .punch{
+  position:absolute;width:18px;height:18px;border-radius:50%;
+  background:var(--color-bg);z-index:9;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.4);
+}
+@media(min-width:761px){
+  .bp-card-inner > .punch-top{ top:-9px; right:320px; transform:translateX(50%) }
+  .bp-card-inner > .punch-bot{ bottom:-9px; right:320px; transform:translateX(50%) }
+}
+@media(max-width:760px){
+  .bp-card-inner > .punch{ display:none }
+}
+
+/* ── MAIN portion ───────────────────────────── */
+.bp-main{
+  position:relative;
+  display:grid;
+  grid-template-columns:42px 1fr;
+  min-height:440px;
+}
+.bp-barcode{
+  position:relative;
+  background:rgba(255,255,255,0.35);
+  border-right:1px solid rgba(20,17,13,0.08);
+}
+.bp-barcode .bars{
+  position:absolute;inset:54px 8px 36px;
+  background-image:repeating-linear-gradient(
+    to bottom,
+    #14110D 0 3px, transparent 3px 5px,
+    #14110D 5px 6px, transparent 6px 10px,
+    #14110D 10px 13px, transparent 13px 15px,
+    #14110D 15px 16px, transparent 16px 20px,
+    #14110D 20px 23px, transparent 23px 26px
+  );
+  opacity:.92;
+}
+.bp-barcode .num{
+  position:absolute;bottom:10px;left:0;right:0;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:'Courier New',monospace;font-size:9px;letter-spacing:.20em;
+  color:#14110D;text-align:center;opacity:.75;
+  white-space:nowrap;
+}
+
+.bp-content{padding:0;position:relative}
+
+/* Gold header band */
+.bp-header{
+  background:
+    linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold) 35%, #A88753 100%);
+  color:#14110D;
+  padding:20px 32px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--sans);font-size:13px;letter-spacing:.34em;
+  text-transform:uppercase;font-weight:600;
+  position:relative;
+}
+.bp-header::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:1px;
+  background:rgba(255,255,255,0.55);
+}
+.bp-header::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:rgba(20,17,13,0.25);
+}
+.bp-header .bp-num{
+  font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;opacity:.85;
+  font-weight:500;
+}
+
+.bp-body{padding:24px 30px 22px}
+
+.bp-top-row{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:24px;
+  margin-bottom:22px;
+}
+.bp-field .bp-label{
+  font-family:var(--sans);font-size:9px;letter-spacing:.34em;
+  text-transform:uppercase;color:#8A7252;font-weight:500;
+  margin-bottom:6px;display:block;
+}
+.bp-field .bp-value{
+  font-family:var(--sans);font-size:15px;font-weight:600;color:#14110D;
+  letter-spacing:.04em;text-transform:uppercase;line-height:1.2;
+}
+.bp-field .bp-value small{
+  display:block;font-size:10px;font-weight:500;
+  color:#5A4830;letter-spacing:.20em;margin-top:3px;
+}
+
+/* FROM ✈ TO row */
+.bp-route{
+  display:grid;grid-template-columns:1fr 110px 1fr;gap:8px;align-items:end;
+  margin-bottom:22px;padding-bottom:18px;
+  border-bottom:1px solid rgba(20,17,13,0.10);
+}
+.bp-route .from-col, .bp-route .to-col{display:flex;flex-direction:column}
+.bp-route .to-col{align-items:flex-end;text-align:right}
+.bp-route .bp-city-label{
+  font-family:var(--sans);font-size:9px;letter-spacing:.34em;
+  text-transform:uppercase;color:#8A7252;font-weight:500;margin-bottom:8px;
+}
+.bp-route .bp-code{
+  font-family:var(--sans);font-weight:700;font-size:48px;line-height:1;
+  color:#14110D;letter-spacing:.01em;
+}
+.bp-route .bp-city-name{
+  font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:#3A2E1F;font-weight:500;margin-top:6px;
+}
+
+/* Plane connector */
+.bp-plane-track{
+  position:relative;height:60px;
+  display:flex;align-items:center;justify-content:center;
+}
+.bp-plane-line{
+  position:absolute;left:4%;right:4%;top:50%;height:0;
+  border-top:2px dashed rgba(20,17,13,0.32);
+}
+.bp-plane{
+  position:relative;z-index:2;
+  width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--color-burgundy);
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,0.18));
+  animation:bpPlaneFly 4.2s cubic-bezier(.65,.05,.35,.95) infinite;
+}
+.bp-plane svg{width:100%;height:100%;display:block}
+@keyframes bpPlaneFly{
+  0%   { transform:translateX(-180%) rotate(-2deg); opacity:0 }
+  10%  { opacity:1 }
+  48%  { transform:translateX(0%) rotate(0deg); opacity:1 }
+  52%  { transform:translateX(0%) rotate(0deg); opacity:1 }
+  90%  { transform:translateX(180%) rotate(2deg); opacity:1 }
+  95%  { opacity:0 }
+  100% { transform:translateX(180%) rotate(2deg); opacity:0 }
+}
+
+/* Bottom data row */
+.bp-bot-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+  margin-bottom:18px;
+}
+
+.bp-note{
+  font-family:var(--sans);font-size:9px;letter-spacing:.30em;
+  text-transform:uppercase;color:#7A6448;font-weight:500;
+  border-top:1px dashed rgba(20,17,13,0.20);
+  padding-top:14px;line-height:1.6;
+}
+
+/* ── STUB portion ───────────────────────────── */
+.bp-stub{
+  position:relative;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 0%, #EDE4D2 0%, #DCCFB6 60%, #C9B998 100%);
+  display:flex;flex-direction:column;
+}
+/* Perforated dashed line at the seam */
+.bp-stub::before{
+  content:'';position:absolute;left:-1px;top:18px;bottom:18px;width:0;
+  border-left:2px dashed rgba(20,17,13,0.45);
+  z-index:8;
+}
+.bp-stub .bp-header{
+  background:linear-gradient(180deg, #B89B66 0%, var(--color-gold) 35%, #97794A 100%);
+  padding:20px 22px;
+  font-size:12px;letter-spacing:.30em;
+}
+.bp-stub-body{padding:22px 24px 18px;flex:1;display:flex;flex-direction:column;gap:14px}
+.bp-stub-row{display:flex;flex-direction:column;gap:4px}
+.bp-stub-row .bp-label{
+  font-family:var(--sans);font-size:8.5px;letter-spacing:.32em;
+  text-transform:uppercase;color:#8A7252;font-weight:500;
+}
+.bp-stub-row .bp-value{
+  font-family:var(--sans);font-size:13px;font-weight:600;color:#14110D;
+  letter-spacing:.04em;text-transform:uppercase;line-height:1.25;
+}
+.bp-stub-row .bp-value small{
+  display:block;font-size:9.5px;font-weight:500;
+  color:#5A4830;letter-spacing:.18em;margin-top:2px;
+}
+
+.bp-stub-mini-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;
+  padding-top:12px;border-top:1px solid rgba(20,17,13,0.14);
+}
+.bp-stub-mini-grid .bp-field .bp-label{font-size:8.5px;margin-bottom:3px}
+.bp-stub-mini-grid .bp-field .bp-value{font-size:12px}
+
+.bp-stub-barcode{margin-top:auto;padding-top:14px}
+.bp-stub-barcode .bars-h{
+  height:42px;
+  background-image:repeating-linear-gradient(
+    to right,
+    #14110D 0 3px, transparent 3px 5px,
+    #14110D 5px 6px, transparent 6px 10px,
+    #14110D 10px 13px, transparent 13px 15px,
+    #14110D 15px 16px, transparent 16px 20px,
+    #14110D 20px 23px, transparent 23px 26px
+  );
+  opacity:.92;
+}
+.bp-stub-barcode .num{
+  font-family:'Courier New',monospace;font-size:9px;letter-spacing:.32em;
+  color:#14110D;text-align:center;margin-top:6px;opacity:.75;
+}
+
+/* Stamp — inked burgundy, sits over both halves */
+.bp-stamp{
+  position:absolute;right:11%;bottom:18%;z-index:8;
+  width:124px;height:124px;border-radius:50%;
+  border:2.5px solid rgba(114,47,55,0.78);
+  color:rgba(114,47,55,0.85);
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-14deg);
+  opacity:.85;
+  pointer-events:none;
+  font-family:var(--sans);font-size:8.5px;letter-spacing:.30em;
+  text-transform:uppercase;font-weight:700;text-align:center;line-height:1.4;
+  mix-blend-mode:multiply;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(114,47,55,0.05), transparent 60%);
+}
+.bp-stamp::before{
+  content:'';position:absolute;inset:6px;border-radius:50%;
+  border:1.5px solid rgba(114,47,55,0.50);
+}
+.bp-stamp::after{
+  /* uneven ink texture */
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.85 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode:lighten;opacity:.55;pointer-events:none;
+}
+.bp-stamp .stamp-inner{position:relative;z-index:2;padding:0 12px}
+.bp-stamp em{
+  font-family:var(--serif);font-style:italic;font-size:17px;font-weight:400;
+  display:block;margin:3px 0;letter-spacing:.04em;
+}
+.bp-stamp .stamp-date{
+  display:block;font-size:8px;letter-spacing:.24em;margin-top:4px;
+  font-family:'Courier New',monospace;opacity:.85;
+}
+
+/* Mobile adjustments */
+@media(max-width:760px){
+  .bp-main{ grid-template-columns:36px 1fr; min-height:auto }
+  .bp-barcode .bars{ inset:48px 6px 28px }
+  .bp-body{ padding:20px 22px 18px }
+  .bp-route .bp-code{ font-size:38px }
+  .bp-route{ grid-template-columns:1fr 70px 1fr; gap:6px }
+  .bp-bot-row{ grid-template-columns:repeat(2,1fr); gap:14px }
+  .bp-top-row{ grid-template-columns:1fr 1fr; gap:14px }
+  .bp-stub{ border-top:1px dashed rgba(20,17,13,0.30) }
+  .bp-stub::before{ display:none }
+  .bp-stamp{ width:96px;height:96px;right:18px;bottom:48% }
+  .bp-stamp em{ font-size:14px }
+  .bp-stub .bp-header{ font-size:11px;padding:16px 20px }
+  .bp-header{ padding:16px 22px;font-size:11px }
 }
 
 .next-cta-wrap{text-align:center;margin-top:48px}
@@ -2192,76 +2454,147 @@ a.footer-logo-link{
     </div>
 
     <!-- ┌──────────────────────────────────────────────────────────┐
-         │  EDITAR ESTE BLOQUE CADA MES PARA EL PRÓXIMO EVENTO     │
-         │  - Fecha (.ticket-date)                                  │
-         │  - Hora / Venue (.ticket-subline)                        │
-         │  - Precio (.ticket-row[data-edit="price"] .value)        │
+         │  EDITAR ESTE BLOQUE CADA MES PARA EL PRÓXIMO EVENTO      │
+         │  - Fecha (.bp-field[data-edit="date"] .bp-value)         │
+         │  - Hora (.bp-field[data-edit="time"] .bp-value)          │
+         │  - Flight # (.bp-field[data-edit="flight"] .bp-value)    │
          │  - URL WhatsApp del CTA (con texto pre-rellenado)        │
          └──────────────────────────────────────────────────────────┘ -->
-    <div class="ticket reveal">
-      <span class="punch punch-tl"></span>
-      <span class="punch punch-tr"></span>
-      <span class="punch punch-bl"></span>
-      <span class="punch punch-br"></span>
-
-      <div class="ticket-main">
-        <div class="ticket-header">
-          <span><span class="es">Boarding Pass</span><span class="en">Boarding Pass</span> · TJR-019</span>
-          <span class="gold">Z BAR · MDE</span>
-        </div>
-
-        <!-- EDITAR: Fecha del próximo evento -->
-        <div class="ticket-date">
-          <span class="es">Viernes <em>19</em> de Junio</span>
-          <span class="en"><em>Friday</em>, June 19th</span>
-        </div>
-        <!-- EDITAR: Sub-línea (hora, venue) -->
-        <div class="ticket-subline">
-          8:00 PM · Z Bar Jazz Club · Hotel Marquee, El Poblado
-        </div>
-
-        <div class="ticket-rows">
-          <div class="ticket-row" data-edit="from">
-            <span class="label"><span class="es">Origen</span><span class="en">From</span></span>
-            <span class="value">New Orleans, LA</span>
-          </div>
-          <div class="ticket-row" data-edit="to">
-            <span class="label"><span class="es">Destino</span><span class="en">To</span></span>
-            <span class="value">Medellín, CO</span>
-          </div>
-          <div class="ticket-row" data-edit="price">
-            <span class="label"><span class="es">Precio</span><span class="en">Price</span></span>
-            <span class="value">
-              <span class="es">Desde COP $380.000</span>
-              <span class="en">From COP $380,000</span>
-            </span>
-          </div>
-          <div class="ticket-row" data-edit="capacity">
-            <span class="label"><span class="es">Cupo</span><span class="en">Capacity</span></span>
-            <span class="value">25 <span style="font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-cream-muted);margin-left:6px"><span class="es">pasajeros</span><span class="en">passengers</span></span></span>
-          </div>
-        </div>
-
-        <p class="ticket-note">
-          <span class="es">Solo con reserva previa. Cupo limitado a 25 personas. Confirmación vía WhatsApp.</span>
-          <span class="en">By reservation only. Limited to 25 guests. Confirmation via WhatsApp.</span>
-        </p>
+    <div class="bp-stage" id="bp-stage">
+      <div class="bp-envelope" aria-hidden="true">
+        <span class="env-tag"><span class="es">Cartera de Viaje</span><span class="en">Travel Wallet</span></span>
       </div>
 
-      <aside class="ticket-stub">
-        <span class="stub-label"><span class="es">Asiento</span><span class="en">Seat</span></span>
-        <span class="stub-seat">VIP</span>
-        <span class="stub-detail">
-          Gate 38<br>
-          20:00<br>
-          19 · 06 · 26
-        </span>
-        <div class="stub-stamp" aria-hidden="true">
-          <div class="stub-stamp-text">
-            The<em>Jazz</em>Route
+      <div class="bp-card" id="bp-card" role="img" aria-label="Boarding pass — The Jazz Route">
+        <div class="bp-card-inner">
+          <span class="punch punch-top" aria-hidden="true"></span>
+          <span class="punch punch-bot" aria-hidden="true"></span>
+          <div class="bp-fold" aria-hidden="true"></div>
+
+          <!-- ── MAIN ── -->
+          <div class="bp-main">
+            <div class="bp-barcode" aria-hidden="true">
+              <div class="bars"></div>
+              <div class="num">TJR · 019 · MDE · 2026</div>
+            </div>
+            <div class="bp-content">
+              <div class="bp-header">
+                <span><span class="es">Boarding Pass</span><span class="en">Boarding Pass</span></span>
+                <span class="bp-num">TJR-019</span>
+              </div>
+              <div class="bp-body">
+                <div class="bp-top-row">
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Pasajero</span><span class="en">Passenger</span></span>
+                    <span class="bp-value">VIP Guest <small><span class="es">25 asientos disponibles</span><span class="en">25 seats available</span></small></span>
+                  </div>
+                  <div class="bp-field" data-edit="date">
+                    <span class="bp-label"><span class="es">Fecha</span><span class="en">Date</span></span>
+                    <span class="bp-value">19 Jun 2026</span>
+                  </div>
+                  <div class="bp-field" data-edit="time">
+                    <span class="bp-label"><span class="es">Hora</span><span class="en">Time</span></span>
+                    <span class="bp-value">8:00 PM</span>
+                  </div>
+                </div>
+
+                <div class="bp-route">
+                  <div class="from-col">
+                    <span class="bp-city-label"><span class="es">Origen</span><span class="en">From</span></span>
+                    <span class="bp-code">NOLA</span>
+                    <span class="bp-city-name">New Orleans</span>
+                  </div>
+                  <div class="bp-plane-track" aria-hidden="true">
+                    <span class="bp-plane-line"></span>
+                    <span class="bp-plane">
+                      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="to-col">
+                    <span class="bp-city-label"><span class="es">Destino</span><span class="en">To</span></span>
+                    <span class="bp-code">MDE</span>
+                    <span class="bp-city-name">Medellín</span>
+                  </div>
+                </div>
+
+                <div class="bp-bot-row">
+                  <div class="bp-field" data-edit="flight">
+                    <span class="bp-label"><span class="es">Vuelo</span><span class="en">Flight</span></span>
+                    <span class="bp-value">TJR 019</span>
+                  </div>
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Puerta</span><span class="en">Gate</span></span>
+                    <span class="bp-value">38</span>
+                  </div>
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Terminal</span><span class="en">Terminal</span></span>
+                    <span class="bp-value">Z Bar</span>
+                  </div>
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Asiento</span><span class="en">Seat</span></span>
+                    <span class="bp-value">VIP</span>
+                  </div>
+                </div>
+
+                <p class="bp-note">
+                  <span class="es">La puerta cierra 30 min antes del despegue · Solo con reserva previa</span>
+                  <span class="en">Gate closes 30 minutes before departure · By reservation only</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── STUB ── -->
+          <aside class="bp-stub">
+            <div class="bp-header">
+              <span><span class="es">Primera Clase</span><span class="en">First Class</span></span>
+              <span class="bp-num">VIP</span>
+            </div>
+            <div class="bp-stub-body">
+              <div class="bp-stub-row">
+                <span class="bp-label"><span class="es">Pasajero</span><span class="en">Passenger</span></span>
+                <span class="bp-value">VIP Guest</span>
+              </div>
+              <div class="bp-stub-row">
+                <span class="bp-label"><span class="es">Ruta</span><span class="en">Route</span></span>
+                <span class="bp-value">NOLA → MDE <small>New Orleans · Medellín</small></span>
+              </div>
+              <div class="bp-stub-mini-grid">
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Fecha</span><span class="en">Date</span></span>
+                  <span class="bp-value">19·06·26</span>
+                </div>
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Hora</span><span class="en">Time</span></span>
+                  <span class="bp-value">20:00</span>
+                </div>
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Vuelo</span><span class="en">Flight</span></span>
+                  <span class="bp-value">TJR 019</span>
+                </div>
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Asiento</span><span class="en">Seat</span></span>
+                  <span class="bp-value">VIP</span>
+                </div>
+              </div>
+              <div class="bp-stub-barcode" aria-hidden="true">
+                <div class="bars-h"></div>
+                <div class="num">TJR · 019 · 19062026</div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Ink stamp -->
+          <div class="bp-stamp" aria-hidden="true">
+            <div class="stamp-inner">
+              The<em>Jazz</em>Route
+              <span class="stamp-date">MDE · 19·06·26</span>
+            </div>
           </div>
         </div>
-      </aside>
+      </div>
     </div>
 
     <div class="next-cta-wrap reveal">
@@ -2463,8 +2796,114 @@ a.footer-logo-link{
       });
     });
 
+    // ── BOARDING PASS: pinned scrub open/close + mouse tilt
+    initBoardingPass();
+
     // Sticky CTA after load
     onScrollSticky();
+  }
+
+  /* ── Boarding pass scroll choreography + 3D tilt ─────────── */
+  function initBoardingPass(){
+    var stage = document.getElementById('bp-stage');
+    var card  = document.getElementById('bp-card');
+    if(!stage || !card) return;
+
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Initial closed state (tucked into envelope, slightly tilted & scaled)
+    gsap.set(card, {
+      yPercent: 110,
+      scale: 0.88,
+      rotate: -2.5,
+      rotationX: 14,
+      transformOrigin: '50% 100%',
+      opacity: 0.85
+    });
+
+    if(prefersReduced){
+      gsap.set(card, { yPercent: 0, scale: 1, rotate: 0, rotationX: 0, opacity: 1 });
+      return;
+    }
+
+    // Master timeline: 0→0.45 open, 0.45→0.6 hold, 0.6→1 close
+    var tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: {
+        trigger: stage,
+        start: 'center center',
+        end: '+=150%',
+        pin: true,
+        pinSpacing: true,
+        scrub: 0.9,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    // Open (lifts up out of envelope)
+    tl.to(card, {
+      yPercent: 0, scale: 1, rotate: 0, rotationX: 0, opacity: 1,
+      duration: 0.42, ease: 'power3.out'
+    }, 0);
+
+    // Subtle float / settle
+    tl.to(card, {
+      yPercent: -1.5,
+      duration: 0.16, ease: 'sine.inOut'
+    }, 0.42);
+
+    // Close (tucks back into envelope, tilts other way)
+    tl.to(card, {
+      yPercent: 110, scale: 0.88, rotate: 2.5, rotationX: 14, opacity: 0.85,
+      duration: 0.42, ease: 'power3.in'
+    }, 0.58);
+
+    /* ── Mouse 3D tilt (applied to .bp-card-inner so it composes with scroll transforms on .bp-card) ────── */
+    var inner = card.querySelector('.bp-card-inner');
+    if(!inner) return;
+    inner.style.transformStyle = 'preserve-3d';
+    inner.style.transition = 'transform 0.18s ease-out';
+    var tiltX = 0, tiltY = 0, rafId = null, active = false;
+    function onMove(e){
+      var rect = card.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      var dx = (e.clientX - cx) / (rect.width / 2);
+      var dy = (e.clientY - cy) / (rect.height / 2);
+      tiltY = Math.max(-1, Math.min(1, dx)) * 5;   // rotateY
+      tiltX = Math.max(-1, Math.min(1, -dy)) * 3.5;// rotateX
+      if(!rafId) rafId = requestAnimationFrame(applyTilt);
+    }
+    function applyTilt(){
+      rafId = null;
+      inner.style.transform = 'perspective(1400px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)';
+    }
+    function onLeave(){
+      tiltX = 0; tiltY = 0;
+      inner.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg)';
+    }
+    function enableTilt(){
+      if(active) return; active = true;
+      stage.addEventListener('mousemove', onMove);
+      stage.addEventListener('mouseleave', onLeave);
+    }
+    function disableTilt(){
+      if(!active) return; active = false;
+      stage.removeEventListener('mousemove', onMove);
+      stage.removeEventListener('mouseleave', onLeave);
+      onLeave();
+    }
+    ScrollTrigger.create({
+      trigger: stage,
+      start: 'center center',
+      end: '+=150%',
+      onUpdate: function(self){
+        // Enable tilt while card is fully open (middle of the timeline)
+        if(self.progress > 0.30 && self.progress < 0.65) enableTilt();
+        else disableTilt();
+      }
+    });
   }
   if(document.readyState === 'complete'){ initGsap(); }
   else { window.addEventListener('load', initGsap); }
