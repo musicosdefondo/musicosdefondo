@@ -480,11 +480,12 @@ section.movements{background:var(--color-bg);overflow:hidden}
   max-width:1180px;margin:0 auto;padding:0 24px;
   display:flex;flex-direction:column;gap:0;
 }
-.movement{
+/* old movement flow rules — superseded by v2 sticky stacking below */
+.movement-legacy{
   position:relative;padding:80px 0;
   border-top:1px solid var(--hairline-gold);
 }
-.movement:first-child{border-top:none;padding-top:0}
+.movement-legacy:first-child{border-top:none;padding-top:0}
 .movement-inner{
   display:grid;grid-template-columns:1fr;gap:32px;
   align-items:center;position:relative;
@@ -623,11 +624,11 @@ section.included{background:var(--color-bg-elevated)}
   .included-item:nth-child(even){border-left:1px solid var(--hairline-gold)}
   .included-item:first-child{border-left:none}
 }
-.included-icon{
+.included-icon-legacy{
   width:46px;height:46px;display:flex;align-items:center;justify-content:center;
   color:var(--color-gold);
 }
-.included-icon svg{width:32px;height:32px}
+.included-icon-legacy svg{width:32px;height:32px}
 .included-title{
   font-family:var(--serif);font-weight:400;font-style:italic;
   font-size:20px;color:var(--color-cream);line-height:1.2;
@@ -1465,11 +1466,11 @@ footer.site-footer{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;z-index:1;
 }
-.hero-logo{
+.hero-logo-legacy{
   width:min(440px,80vw);margin:0 auto 44px;
   display:flex;align-items:center;justify-content:center;
 }
-.hero-logo img{
+.hero-logo-legacy img{
   width:100%;height:auto;
   filter:drop-shadow(0 4px 32px rgba(0,0,0,0.6));
 }
@@ -1537,6 +1538,426 @@ a.footer-logo-link{
   z-index:2;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   v2 — Hero logo (bigger + 3D tilt + glow)
+   ───────────────────────────────────────────────────────────── */
+.hero-logo{
+  width:min(720px, 92vw);
+  margin:0 auto 52px;
+  perspective:1400px;
+  position:relative;
+}
+.hero-logo-inner{
+  position:relative;
+  width:100%;
+  transform-style:preserve-3d;
+  transition:transform .5s var(--ease);
+  will-change:transform;
+}
+.hero-logo .logo-glow{
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  background:radial-gradient(ellipse at center, rgba(201,169,110,0) 0%, rgba(201,169,110,0) 100%);
+  pointer-events:none;
+  transition:background .6s var(--ease), opacity .6s var(--ease), transform .35s var(--ease);
+  filter:blur(36px);
+  opacity:.55;
+  will-change:transform;
+}
+.hero-logo img{
+  width:100%;
+  height:auto;
+  position:relative;
+  z-index:1;
+  filter:drop-shadow(0 6px 32px rgba(0,0,0,0.7));
+  transition:filter .5s var(--ease);
+}
+.hero-logo:hover .logo-glow{
+  background:radial-gradient(ellipse at center, rgba(201,169,110,0.55) 0%, rgba(201,169,110,0.18) 35%, rgba(201,169,110,0) 65%);
+  opacity:1;
+}
+.hero-logo:hover img{
+  filter:
+    drop-shadow(0 6px 32px rgba(0,0,0,0.7))
+    drop-shadow(0 0 28px rgba(201,169,110,0.55))
+    drop-shadow(0 0 64px rgba(201,169,110,0.30));
+}
+@media(max-width:760px){
+  .hero-logo{ width:min(520px, 88vw); margin-bottom:40px }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   v2 — Movements as 100vh sticky stacking
+   ───────────────────────────────────────────────────────────── */
+section.movements{
+  background:var(--color-bg);
+  overflow:visible;
+  padding:0;
+}
+.movements-head{
+  text-align:center;
+  max-width:880px;
+  margin:0 auto;
+  padding:140px 24px 80px;
+}
+@media(max-width:760px){
+  .movements-head{ padding:96px 24px 56px }
+}
+
+/* Manifesto intro card (replaces old experience section) */
+.journey-intro{
+  position:relative;
+  max-width:980px;
+  margin:0 auto 120px;
+  padding:0 24px;
+}
+.journey-intro-card{
+  position:relative;
+  padding:56px clamp(28px, 5vw, 72px);
+  border:1px solid var(--hairline-gold);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,169,110,0.06) 0%, transparent 70%),
+    var(--color-bg-elevated);
+  overflow:hidden;
+}
+.journey-intro-card::before,
+.journey-intro-card::after{
+  content:'';position:absolute;width:22px;height:22px;
+  border:1px solid var(--color-gold);opacity:.55;
+}
+.journey-intro-card::before{top:14px;left:14px;border-right:none;border-bottom:none}
+.journey-intro-card::after{bottom:14px;right:14px;border-left:none;border-top:none}
+.journey-intro-eyebrow{margin-bottom:24px;justify-content:center}
+.journey-intro-eyebrow::after{
+  content:'';width:32px;height:1px;background:var(--color-gold);opacity:.55;
+}
+.journey-intro-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(28px, 3.6vw, 44px);
+  line-height:1.18;
+  color:var(--color-cream);
+  text-align:center;
+  margin-bottom:28px;
+  letter-spacing:-.005em;
+  text-wrap:balance;
+}
+.journey-intro-copy{
+  font-family:var(--sans);font-weight:300;
+  font-size:clamp(14.5px, 1.05vw, 16px);
+  line-height:1.85;
+  color:var(--color-cream-muted);
+  text-align:center;
+  max-width:680px;
+  margin:0 auto;
+}
+.journey-intro-copy strong{ color:var(--color-cream); font-weight:400 }
+.journey-intro-closer{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(18px, 1.6vw, 22px);
+  line-height:1.4;
+  color:var(--color-gold-light);
+  text-align:center;
+  margin-top:32px;
+  padding-top:28px;
+  border-top:1px solid var(--hairline-gold);
+}
+@media(max-width:760px){
+  .journey-intro{ margin-bottom:64px }
+  .journey-intro-card{ padding:42px 26px }
+}
+
+/* Sticky stacking list */
+.movement-list{
+  position:relative;
+  padding:0;
+  max-width:none;
+  margin:0;
+}
+.movement{
+  position:sticky;
+  top:0;
+  height:100vh;
+  min-height:680px;
+  width:100%;
+  padding:80px 0;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  background:var(--color-bg);
+  border-top:none;
+}
+.movement:nth-child(1){z-index:1}
+.movement:nth-child(2){z-index:2; border-top:1px solid var(--hairline-gold)}
+.movement:nth-child(3){z-index:3; border-top:1px solid var(--hairline-gold)}
+.movement:nth-child(4){z-index:4; border-top:1px solid var(--hairline-gold)}
+.movement:nth-child(5){z-index:5; border-top:1px solid var(--hairline-gold)}
+.movement:nth-child(6){z-index:6; border-top:1px solid var(--hairline-gold)}
+
+.movement .movement-inner{
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 28px;
+  position:relative;
+  z-index:2;
+}
+@media(min-width:900px){
+  .movement .movement-inner{ padding:0 56px }
+}
+@media(min-width:1200px){
+  .movement .movement-inner{ padding:0 80px }
+}
+
+/* Per-movement decorative giant number */
+.movement-bg-number{
+  position:absolute;
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(280px, 38vw, 620px);
+  line-height:.85;
+  color:var(--color-gold);
+  opacity:.045;
+  pointer-events:none;
+  user-select:none;
+  z-index:0;
+}
+.movement:nth-child(1) .movement-bg-number{top:-3vw;right:-2vw}
+.movement:nth-child(2) .movement-bg-number{bottom:-4vw;left:-3vw}
+.movement:nth-child(3) .movement-bg-number{top:-3vw;left:-3vw}
+.movement:nth-child(4) .movement-bg-number{top:50%;left:50%;transform:translate(-50%,-50%)}
+.movement:nth-child(5) .movement-bg-number{bottom:-4vw;right:-2vw}
+.movement:nth-child(6) .movement-bg-number{top:-3vw;left:50%;transform:translateX(-50%)}
+
+/* Smaller movement-number inside no-image to avoid duplicate with bg-number */
+.movement.no-image .movement-number{ font-size:clamp(72px, 9vw, 120px); opacity:.5 }
+
+/* Movement progress indicator (right rail) */
+.movements-progress{
+  position:fixed;
+  top:50%;right:32px;transform:translateY(-50%);
+  z-index:40;
+  display:flex;flex-direction:column;gap:18px;
+  opacity:0;
+  transition:opacity .5s var(--ease);
+  pointer-events:none;
+}
+.movements-progress.show{ opacity:1; pointer-events:auto }
+.movements-progress button{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--color-cream-muted);font-weight:500;
+  transition:color .35s var(--ease);
+}
+.movements-progress .pdot{
+  width:18px;height:1px;background:var(--color-cream-muted);
+  transition:width .4s var(--ease), background .35s var(--ease);
+}
+.movements-progress button.active{ color:var(--color-gold) }
+.movements-progress button.active .pdot{ width:34px; background:var(--color-gold) }
+@media(max-width:1080px){ .movements-progress{ display:none } }
+
+/* Tablet/mobile: drop sticky-stack, use natural flow */
+@media(max-width:899px){
+  .movement{
+    position:relative;
+    height:auto;
+    min-height:0;
+    padding:80px 0;
+  }
+  .movement-bg-number{ font-size:clamp(180px, 30vw, 280px) }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   v2 — Included: hex badge icons + line-draw + hover tilt
+   ───────────────────────────────────────────────────────────── */
+.included-item{
+  position:relative;
+  overflow:hidden;
+  perspective:900px;
+  transition:background .5s var(--ease);
+  cursor:default;
+}
+.included-item::before{
+  /* hover spotlight follows mouse via --mx/--my */
+  content:'';
+  position:absolute;inset:0;z-index:1;
+  background:radial-gradient(circle 220px at var(--mx,50%) var(--my,50%), rgba(201,169,110,0.10) 0%, transparent 70%);
+  opacity:0;
+  transition:opacity .5s var(--ease);
+  pointer-events:none;
+}
+.included-item:hover::before{ opacity:1 }
+
+.included-card{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+  transform-style:preserve-3d;
+  transition:transform .35s var(--ease);
+  will-change:transform;
+}
+
+/* Hexagonal seal/badge frame */
+.included-icon{
+  position:relative;
+  width:88px;height:96px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--color-gold);
+  transition:transform .55s var(--ease), filter .55s var(--ease);
+}
+.included-icon-hex{
+  position:absolute;inset:0;
+  width:88px;height:96px;
+  z-index:1;
+  overflow:visible;
+}
+.included-icon-hex .hex-fill{
+  fill:rgba(201,169,110,0.06);
+  transition:fill .5s var(--ease);
+}
+.included-icon-hex .hex-stroke{
+  fill:none;
+  stroke:var(--color-gold);
+  stroke-width:1.2;
+  opacity:.55;
+  transition:opacity .5s var(--ease), stroke-width .5s var(--ease);
+}
+.included-icon-hex .hex-stroke-inner{
+  fill:none;
+  stroke:var(--color-gold);
+  stroke-width:.8;
+  opacity:.30;
+  transition:opacity .5s var(--ease);
+}
+.included-icon svg.line-icon{
+  position:relative;z-index:2;
+  width:32px;height:32px;
+  color:var(--color-gold);
+  overflow:visible;
+}
+.included-icon svg.line-icon *[stroke]{
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Line-draw entrance — dash array/offset set inline by JS */
+.included-icon svg.line-icon .draw{
+  /* state managed via JS — no CSS variables to avoid SVG/var quirks */
+}
+
+/* Hover transformation */
+.included-item:hover .included-icon{
+  transform:translateZ(40px) scale(1.06);
+  filter:drop-shadow(0 0 24px rgba(201,169,110,0.5));
+}
+.included-item:hover .included-icon-hex .hex-fill{
+  fill:rgba(201,169,110,0.20);
+}
+.included-item:hover .included-icon-hex .hex-stroke{
+  opacity:1;
+  stroke-width:1.6;
+}
+.included-item:hover .included-icon-hex .hex-stroke-inner{
+  opacity:.65;
+}
+.included-item:hover .included-title{
+  color:var(--color-gold-light);
+}
+.included-title{ transition:color .35s var(--ease) }
+
+/* Subtle floating shimmer behind icon on hover */
+.included-icon::after{
+  content:'';
+  position:absolute;inset:-30%;
+  background:radial-gradient(circle at center, rgba(201,169,110,0.35) 0%, transparent 60%);
+  opacity:0;
+  transition:opacity .55s var(--ease);
+  pointer-events:none;
+  filter:blur(20px);
+  z-index:0;
+}
+.included-item:hover .included-icon::after{ opacity:.7 }
+
+/* ─────────────────────────────────────────────────────────────
+   v2 — Boarding pass envelope: tan leather + burn-mark date
+   ───────────────────────────────────────────────────────────── */
+.bp-envelope{
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 0%, #A1714A 0%, #7A4F2A 35%, #5C3A1F 70%, #2D1A0E 100%);
+  border:1px solid rgba(20,10,4,0.65);
+  box-shadow:
+    inset 0 14px 32px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,210,160,0.30),
+    inset 0 -8px 18px rgba(0,0,0,0.55),
+    0 30px 60px rgba(0,0,0,0.55),
+    0 -10px 24px rgba(0,0,0,0.35);
+}
+/* Leather grain noise — sits on top, overlay-blended */
+.bp-envelope .leather-grain{
+  position:absolute;inset:0;
+  border-radius:inherit;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.20  0 0 0 0 0.12  0 0 0 0 0.06  0 0 0 0.85 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode:overlay;
+  opacity:.7;
+  pointer-events:none;
+  z-index:1;
+}
+/* Stitched seam — now in gold-cream thread over leather */
+.bp-envelope::before{
+  content:'';position:absolute;left:24px;right:24px;top:14px;height:1px;
+  background:repeating-linear-gradient(90deg, #E8C588 0 6px, transparent 6px 14px);
+  opacity:.85;
+  box-shadow:0 1px 0 rgba(0,0,0,0.55);
+  z-index:2;
+}
+/* Suppress the old plain code text (we replace it with a real burn mark) */
+.bp-envelope::after{ content:none }
+
+.bp-envelope .env-tag{
+  position:absolute;left:32px;bottom:22px;z-index:3;
+  font-family:var(--serif);font-style:italic;font-size:14px;
+  color:#F0DAB5;opacity:.78;letter-spacing:.04em;
+  text-shadow:0 1px 0 rgba(0,0,0,0.6);
+}
+
+/* Burned date branding — looks scorched into the leather */
+.env-burn{
+  position:absolute;
+  right:28px;bottom:14px;z-index:3;
+  padding:8px 16px 7px;
+  font-family:'Courier New',monospace;
+  font-size:10.5px;
+  letter-spacing:.32em;
+  font-weight:700;
+  color:#1A0A04;
+  text-transform:uppercase;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(15,6,2,0.32) 0%, rgba(15,6,2,0.18) 60%, rgba(15,6,2,0) 85%);
+  border-radius:3px;
+  transform:rotate(-1.8deg);
+  text-shadow:
+    0 0 1px rgba(0,0,0,0.5),
+    0 1px 1px rgba(120,60,20,0.4);
+  filter:drop-shadow(0 0 4px rgba(80,30,8,0.45));
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+.env-burn::before{
+  /* irregular burn edges */
+  content:'';
+  position:absolute;inset:-3px -8px;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(15,6,2,0.18), transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(15,6,2,0.22), transparent 65%);
+  filter:blur(3px);
+  pointer-events:none;
+  z-index:-1;
+}
+
+@media(max-width:760px){
+  .env-burn{ right:18px; font-size:9px; letter-spacing:.24em; padding:6px 12px 5px }
+  .bp-envelope .env-tag{ left:20px; font-size:12px }
+}
+
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .reveal{opacity:1!important;transform:none!important}
@@ -1591,8 +2012,11 @@ a.footer-logo-link{
 
   <div class="hero-inner">
 
-    <h1 class="hero-logo reveal">
-      <img src="uploads/jazz-route-logo.png" alt="The Jazz Route — The Sound of Taste" width="600" height="300">
+    <h1 class="hero-logo reveal" id="heroLogo">
+      <span class="logo-glow" aria-hidden="true"></span>
+      <span class="hero-logo-inner">
+        <img src="uploads/jazz-route-logo.png" alt="The Jazz Route — The Sound of Taste" width="600" height="300">
+      </span>
     </h1>
 
     <div class="eyebrow hero-eyebrow reveal">
@@ -1639,33 +2063,178 @@ a.footer-logo-link{
 </header>
 
 <!-- ═══════════════════════════════════════════════════════════
-     EXPERIENCE
+     NEXT FLIGHT — Boarding pass
 ═══════════════════════════════════════════════════════════ -->
-<section class="experience section-pad" id="experience">
-  <div class="experience-inner">
-    <div class="eyebrow experience-eyebrow reveal">
-      <span class="es">La Experiencia</span><span class="en">The Experience</span>
+<section class="next-flight section-pad" id="next-flight">
+  <div class="next-flight-inner">
+    <div class="next-flight-head">
+      <div class="eyebrow eyebrow-center reveal">
+        <span class="es">Próximo Vuelo</span><span class="en">Next Flight</span>
+      </div>
+      <h2 class="section-title reveal" style="margin-top:24px">
+        <span class="es"><em>Tu boarding pass</em> está esperando.</span>
+        <span class="en"><em>Your boarding pass</em> is waiting.</span>
+      </h2>
     </div>
-    <h2 class="experience-title reveal">
-      <span class="es">Esto no es una cena con música de fondo.</span>
-      <span class="en">This is not a dinner with background music.</span>
-    </h2>
-    <div class="experience-copy">
-      <p class="reveal">
-        <span class="es">En un mercado saturado de "cenas con música en vivo", The Jazz Route es el único evento en Medellín que ofrece <strong>Sincronía Sensorial</strong>: una experiencia donde la historia geográfica del jazz y la sinestesia con la comida y la bebida son el hilo conductor de toda la noche.</span>
-        <span class="en">In a market saturated with "dinners with live music," The Jazz Route is the only event in Medellín offering <strong>Sensory Synchrony</strong>: an experience where the geographic history of jazz and the synesthesia between food and drink are the thread that weaves the entire night.</span>
-      </p>
-      <p class="reveal">
-        <span class="es">Un cuarteto de jazz en vivo — voz, piano, batería y trompeta — actúa no solo como ensamble musical, sino como los <strong>guías de un viaje</strong> que comienza en el Delta del Mississippi y termina en las montañas de Medellín. Cada movimiento tiene su propio destino, su propio género, su propio maridaje y su propia historia.</span>
-        <span class="en">A live jazz quartet — vocals, piano, drums, and trumpet — acts not only as a musical ensemble, but as the <strong>guides of a journey</strong> that begins in the Mississippi Delta and ends in the mountains of Medellín. Each movement has its own destination, its own genre, its own pairing, and its own story.</span>
-      </p>
-      <p class="reveal">
-        <span class="es">Aquí no se trata de comer mientras suena música. Se trata de viajar.</span>
-        <span class="en">This is not about eating while music plays. This is about traveling.</span>
-      </p>
+
+    <!-- ┌──────────────────────────────────────────────────────────┐
+         │  EDITAR ESTE BLOQUE CADA MES PARA EL PRÓXIMO EVENTO      │
+         │  - Fecha (.bp-field[data-edit="date"] .bp-value)         │
+         │  - Hora (.bp-field[data-edit="time"] .bp-value)          │
+         │  - Flight # (.bp-field[data-edit="flight"] .bp-value)    │
+         │  - URL WhatsApp del CTA (con texto pre-rellenado)        │
+         └──────────────────────────────────────────────────────────┘ -->
+    <div class="bp-stage" id="bp-stage">
+      <div class="bp-envelope" aria-hidden="true">
+        <span class="leather-grain" aria-hidden="true"></span>
+        <span class="env-tag"><span class="es">Cartera de Viaje</span><span class="en">Travel Wallet</span></span>
+        <span class="env-burn" aria-hidden="true">TJR · 019 · 19·JUN·26</span>
+      </div>
+
+      <div class="bp-card" id="bp-card" role="img" aria-label="Boarding pass — The Jazz Route">
+        <div class="bp-card-inner">
+          <span class="punch punch-top" aria-hidden="true"></span>
+          <span class="punch punch-bot" aria-hidden="true"></span>
+          <div class="bp-fold" aria-hidden="true"></div>
+
+          <!-- ── MAIN ── -->
+          <div class="bp-main">
+            <div class="bp-barcode" aria-hidden="true">
+              <div class="bars"></div>
+              <div class="num">TJR · 019 · MDE · 2026</div>
+            </div>
+            <div class="bp-content">
+              <div class="bp-header">
+                <span><span class="es">Boarding Pass</span><span class="en">Boarding Pass</span></span>
+                <span class="bp-num">TJR-019</span>
+              </div>
+              <div class="bp-body">
+                <div class="bp-top-row">
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Pasajero</span><span class="en">Passenger</span></span>
+                    <span class="bp-value">VIP Guest <small><span class="es">25 asientos disponibles</span><span class="en">25 seats available</span></small></span>
+                  </div>
+                  <div class="bp-field" data-edit="date">
+                    <span class="bp-label"><span class="es">Fecha</span><span class="en">Date</span></span>
+                    <span class="bp-value">19 Jun 2026</span>
+                  </div>
+                  <div class="bp-field" data-edit="time">
+                    <span class="bp-label"><span class="es">Hora</span><span class="en">Time</span></span>
+                    <span class="bp-value">8:00 PM</span>
+                  </div>
+                </div>
+
+                <div class="bp-route">
+                  <div class="from-col">
+                    <span class="bp-city-label"><span class="es">Origen</span><span class="en">From</span></span>
+                    <span class="bp-code">NOLA</span>
+                    <span class="bp-city-name">New Orleans</span>
+                  </div>
+                  <div class="bp-plane-track" aria-hidden="true">
+                    <span class="bp-plane-line"></span>
+                    <span class="bp-plane">
+                      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="to-col">
+                    <span class="bp-city-label"><span class="es">Destino</span><span class="en">To</span></span>
+                    <span class="bp-code">MDE</span>
+                    <span class="bp-city-name">Medellín</span>
+                  </div>
+                </div>
+
+                <div class="bp-bot-row">
+                  <div class="bp-field" data-edit="flight">
+                    <span class="bp-label"><span class="es">Vuelo</span><span class="en">Flight</span></span>
+                    <span class="bp-value">TJR 019</span>
+                  </div>
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Puerta</span><span class="en">Gate</span></span>
+                    <span class="bp-value">38</span>
+                  </div>
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Terminal</span><span class="en">Terminal</span></span>
+                    <span class="bp-value">Z Bar</span>
+                  </div>
+                  <div class="bp-field">
+                    <span class="bp-label"><span class="es">Asiento</span><span class="en">Seat</span></span>
+                    <span class="bp-value">VIP</span>
+                  </div>
+                </div>
+
+                <p class="bp-note">
+                  <span class="es">La puerta cierra 30 min antes del despegue · Solo con reserva previa</span>
+                  <span class="en">Gate closes 30 minutes before departure · By reservation only</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── STUB ── -->
+          <aside class="bp-stub">
+            <div class="bp-header">
+              <span><span class="es">Primera Clase</span><span class="en">First Class</span></span>
+              <span class="bp-num">VIP</span>
+            </div>
+            <div class="bp-stub-body">
+              <div class="bp-stub-row">
+                <span class="bp-label"><span class="es">Pasajero</span><span class="en">Passenger</span></span>
+                <span class="bp-value">VIP Guest</span>
+              </div>
+              <div class="bp-stub-row">
+                <span class="bp-label"><span class="es">Ruta</span><span class="en">Route</span></span>
+                <span class="bp-value">NOLA → MDE <small>New Orleans · Medellín</small></span>
+              </div>
+              <div class="bp-stub-mini-grid">
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Fecha</span><span class="en">Date</span></span>
+                  <span class="bp-value">19·06·26</span>
+                </div>
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Hora</span><span class="en">Time</span></span>
+                  <span class="bp-value">20:00</span>
+                </div>
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Vuelo</span><span class="en">Flight</span></span>
+                  <span class="bp-value">TJR 019</span>
+                </div>
+                <div class="bp-field">
+                  <span class="bp-label"><span class="es">Asiento</span><span class="en">Seat</span></span>
+                  <span class="bp-value">VIP</span>
+                </div>
+              </div>
+              <div class="bp-stub-barcode" aria-hidden="true">
+                <div class="bars-h"></div>
+                <div class="num">TJR · 019 · 19062026</div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Ink stamp -->
+          <div class="bp-stamp" aria-hidden="true">
+            <div class="stamp-inner">
+              The<em>Jazz</em>Route
+              <span class="stamp-date">MDE · 19·06·26</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="next-cta-wrap reveal">
+      <!-- EDITAR: Link WhatsApp con texto pre-rellenado de la fecha -->
+      <a href="https://api.whatsapp.com/send?phone=573233594562&amp;text=Hola%2C%20quiero%20reservar%20para%20The%20Jazz%20Route%20-%2019%20de%20junio"
+         class="btn btn-solid-gold"
+         target="_blank" rel="noopener">
+        <span class="es">Reserva Ahora</span><span class="en">Reserve Now</span>
+        <span class="arrow">→</span>
+      </a>
     </div>
   </div>
 </section>
+
 
 <!-- ═══════════════════════════════════════════════════════════
      MOVEMENTS — 6 destinos, alternados con/sin imagen
@@ -1683,6 +2252,26 @@ a.footer-logo-link{
       <span class="es">Cada paso del viaje es un género, una ciudad, un sabor y una historia. Del puerto de New Orleans hasta las montañas de Medellín.</span>
       <span class="en">Each step of the journey is a genre, a city, a flavor, and a story. From the port of New Orleans to the mountains of Medellín.</span>
     </p>
+  </div>
+
+  <div class="journey-intro reveal">
+    <div class="journey-intro-card">
+      <div class="eyebrow eyebrow-center journey-intro-eyebrow">
+        <span class="es">El Viaje</span><span class="en">The Journey</span>
+      </div>
+      <h3 class="journey-intro-title">
+        <span class="es">Esto no es una cena con música de fondo.</span>
+        <span class="en">This is not a dinner with background music.</span>
+      </h3>
+      <p class="journey-intro-copy">
+        <span class="es">The Jazz Route es <strong>Sincronía Sensorial</strong>: un cuarteto en vivo guía un viaje de seis movimientos, seis destinos, seis maridajes — desde el Delta del Mississippi hasta las montañas de Medellín. Cada parada tiene su género, su sabor y su historia.</span>
+        <span class="en">The Jazz Route is <strong>Sensory Synchrony</strong>: a live quartet guides a journey of six movements, six destinations, six pairings — from the Mississippi Delta to the mountains of Medellín. Each stop has its genre, flavor, and story.</span>
+      </p>
+      <p class="journey-intro-closer">
+        <span class="es">Aquí no se come mientras suena música. <em>Aquí se viaja.</em></span>
+        <span class="en">This is not eating while music plays. <em>This is traveling.</em></span>
+      </p>
+    </div>
   </div>
 
   <div class="movement-list">
@@ -1921,171 +2510,124 @@ a.footer-logo-link{
 
     <div class="included-grid reveal">
       <div class="included-item">
-        <div class="included-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l12-2v13"/>
-            <circle cx="6" cy="18" r="3"/>
-            <circle cx="18" cy="16" r="3"/>
+        <div class="included-card">
+          <div class="included-icon" aria-hidden="true">
+          <svg class="included-icon-hex" viewBox="0 0 88 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <polygon class="hex-fill"         points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke"       points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke-inner" points="44,10 76,28 76,68 44,86 12,68 12,28"/>
           </svg>
-        </div>
-        <div class="included-title"><span class="es">Live Jazz Experience</span><span class="en">Live Jazz Experience</span></div>
-        <div class="included-desc">
-          <span class="es">Cuarteto en vivo toda la noche: voz, piano, batería y trompeta.</span>
-          <span class="en">Live quartet throughout the night: vocals, piano, drums &amp; trumpet.</span>
+            <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw"    d="M9 18V5l12-2v13"/>
+              <circle class="draw d2" cx="6"  cy="18" r="3"/>
+              <circle class="draw d3" cx="18" cy="16" r="3"/>
+            </svg>
+          </div>
+          <div class="included-title"><span class="es">Live Jazz Experience</span><span class="en">Live Jazz Experience</span></div>
+          <div class="included-desc">
+            <span class="es">Cuarteto en vivo toda la noche: voz, piano, batería y trompeta.</span>
+            <span class="en">Live quartet throughout the night: vocals, piano, drums &amp; trumpet.</span>
+          </div>
         </div>
       </div>
 
       <div class="included-item">
-        <div class="included-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+        <div class="included-card">
+          <div class="included-icon" aria-hidden="true">
+          <svg class="included-icon-hex" viewBox="0 0 88 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <polygon class="hex-fill"         points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke"       points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke-inner" points="44,10 76,28 76,68 44,86 12,68 12,28"/>
           </svg>
-        </div>
-        <div class="included-title"><span class="es">6 Course Tasting Menu</span><span class="en">6 Course Tasting Menu</span></div>
-        <div class="included-desc">
-          <span class="es">Menú de degustación maridado con la narrativa musical.</span>
-          <span class="en">Six-movement tasting menu paired with the musical narrative.</span>
+            <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw"    d="M4 4v6a3 3 0 003 3v8"/>
+              <path class="draw d2" d="M10 4v6a3 3 0 01-3 3"/>
+              <path class="draw d3" d="M18 4c-1.5 0-3 1.5-3 4v4h3v9"/>
+              <line class="draw d4" x1="7"  y1="4" x2="7" y2="9"/>
+            </svg>
+          </div>
+          <div class="included-title"><span class="es">Menú de Degustación 6 Tiempos</span><span class="en">6 Course Tasting Menu</span></div>
+          <div class="included-desc">
+            <span class="es">Menú maridado con la narrativa musical del viaje.</span>
+            <span class="en">Tasting menu paired with the musical narrative.</span>
+          </div>
         </div>
       </div>
 
       <div class="included-item">
-        <div class="included-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 3h14l-2 9a5 5 0 01-5 4 5 5 0 01-5-4L5 3z"/>
-            <path d="M12 16v5M8 21h8"/>
+        <div class="included-card">
+          <div class="included-icon" aria-hidden="true">
+          <svg class="included-icon-hex" viewBox="0 0 88 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <polygon class="hex-fill"         points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke"       points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke-inner" points="44,10 76,28 76,68 44,86 12,68 12,28"/>
           </svg>
-        </div>
-        <div class="included-title"><span class="es">Signature Cocktails</span><span class="en">Signature Cocktails</span></div>
-        <div class="included-desc">
-          <span class="es">Coctelería de autor diseñada para cada destino del viaje.</span>
-          <span class="en">Author cocktails designed for each destination of the journey.</span>
+            <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw"    d="M4 4h16l-8 9-8-9z"/>
+              <line class="draw d2" x1="12" y1="13" x2="12" y2="20"/>
+              <line class="draw d3" x1="8"  y1="20" x2="16" y2="20"/>
+              <line class="draw d4" x1="15" y1="7"  x2="19" y2="3"/>
+            </svg>
+          </div>
+          <div class="included-title"><span class="es">Coctelería de Autor</span><span class="en">Signature Cocktails</span></div>
+          <div class="included-desc">
+            <span class="es">Coctelería diseñada para cada destino del viaje.</span>
+            <span class="en">Author cocktails designed for each destination.</span>
+          </div>
         </div>
       </div>
 
       <div class="included-item">
-        <div class="included-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 3v6a6 6 0 0012 0V3"/>
-            <path d="M12 15v6M8 21h8"/>
-            <path d="M3 5h3M18 5h3"/>
+        <div class="included-card">
+          <div class="included-icon" aria-hidden="true">
+          <svg class="included-icon-hex" viewBox="0 0 88 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <polygon class="hex-fill"         points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke"       points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke-inner" points="44,10 76,28 76,68 44,86 12,68 12,28"/>
           </svg>
-        </div>
-        <div class="included-title"><span class="es">Welcome Drink</span><span class="en">Welcome Drink</span></div>
-        <div class="included-desc">
-          <span class="es">Cóctel de bienvenida al hacer check-in.</span>
-          <span class="en">Welcome cocktail upon check-in.</span>
+            <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw"    d="M8 3v8a4 4 0 008 0V3z"/>
+              <line class="draw d2" x1="12" y1="15" x2="12" y2="20"/>
+              <line class="draw d3" x1="8"  y1="20" x2="16" y2="20"/>
+              <circle class="draw d4" cx="12" cy="7"  r=".7"/>
+              <circle class="draw d4" cx="10" cy="9"  r=".5"/>
+              <circle class="draw d4" cx="14" cy="6"  r=".5"/>
+            </svg>
+          </div>
+          <div class="included-title"><span class="es">Welcome Drink</span><span class="en">Welcome Drink</span></div>
+          <div class="included-desc">
+            <span class="es">Cóctel de bienvenida al hacer check-in.</span>
+            <span class="en">Welcome cocktail upon check-in.</span>
+          </div>
         </div>
       </div>
 
       <div class="included-item">
-        <div class="included-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="8" r="3"/>
-            <circle cx="17" cy="10" r="2.5"/>
-            <path d="M3 20c0-3 3-5 6-5s6 2 6 5"/>
-            <path d="M14 20c0-2.2 2-4 4-4s4 1.8 4 4"/>
+        <div class="included-card">
+          <div class="included-icon" aria-hidden="true">
+          <svg class="included-icon-hex" viewBox="0 0 88 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <polygon class="hex-fill"         points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke"       points="44,2 84,24 84,72 44,94 4,72 4,24"/>
+            <polygon class="hex-stroke-inner" points="44,10 76,28 76,68 44,86 12,68 12,28"/>
           </svg>
-        </div>
-        <div class="included-title"><span class="es">Speakeasy Atmosphere</span><span class="en">Speakeasy Atmosphere</span></div>
-        <div class="included-desc">
-          <span class="es">Experiencia exclusiva para máximo 25 personas.</span>
-          <span class="en">Exclusive experience for max 25 guests.</span>
+            <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw"    d="M5 21V5a3 3 0 013-3h8a3 3 0 013 3v16"/>
+              <line class="draw d2" x1="3" y1="21" x2="21" y2="21"/>
+              <circle class="draw d3" cx="15" cy="12" r=".9" fill="currentColor"/>
+              <path class="draw d4" d="M12 7l.7 1.5 1.7.2-1.2 1.2.3 1.7-1.5-.8-1.5.8.3-1.7-1.2-1.2 1.7-.2z"/>
+            </svg>
+          </div>
+          <div class="included-title"><span class="es">Ambiente Speakeasy</span><span class="en">Speakeasy Atmosphere</span></div>
+          <div class="included-desc">
+            <span class="es">Experiencia íntima para máximo 25 personas.</span>
+            <span class="en">Intimate experience for max 25 guests.</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SOUNDTRACK
-═══════════════════════════════════════════════════════════ -->
-<section class="soundtrack section-pad" id="soundtrack">
-  <div class="soundtrack-inner">
-    <div class="soundtrack-head">
-      <div class="eyebrow reveal">
-        <span class="es">El Soundtrack</span><span class="en">The Soundtrack</span>
-      </div>
-      <h2 class="section-title reveal">
-        <span class="es">Prepará tus oídos <em>antes de embarcar.</em></span>
-        <span class="en">Tune your ears <em>before boarding.</em></span>
-      </h2>
-      <p class="reveal">
-        <span class="es">Escuchá el playlist que inspira el viaje sonoro de The Jazz Route. De New Orleans a Medellín en 6 escalas.</span>
-        <span class="en">Listen to the playlist that inspires The Jazz Route's sonic journey. From New Orleans to Medellín in 6 stops.</span>
-      </p>
-    </div>
-    <div class="soundtrack-embed reveal">
-      <iframe
-        style="border-radius:8px"
-        src="https://open.spotify.com/embed/playlist/3Yla6072x5AEs9FVM6576o?utm_source=generator&amp;theme=0"
-        width="100%" height="352" frameborder="0"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        title="The Jazz Route — Soundtrack on Spotify"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     PAST EDITIONS
-═══════════════════════════════════════════════════════════ -->
-<section class="editions section-pad" id="editions">
-  <div class="wrap">
-    <div class="editions-head">
-      <div>
-        <div class="eyebrow reveal" style="margin-bottom:24px">
-          <span class="es">Crónicas Anteriores</span><span class="en">Past Editions</span>
-        </div>
-        <h2 class="section-title reveal">
-          <span class="es">Postales del <em>viaje.</em></span>
-          <span class="en">Postcards from <em>the journey.</em></span>
-        </h2>
-      </div>
-      <p class="reveal">
-        <span class="es">Fragmentos de las ediciones anteriores. Esto no se cuenta — se vive. Mirá las primeras paradas.</span>
-        <span class="en">Glimpses from previous editions. This isn't something to describe — it's something to live. See the first stops.</span>
-      </p>
-    </div>
-
-    <!-- Video destacado placeholder -->
-    <div class="editions-feature reveal" role="button" tabindex="0" aria-label="Reproducir video">
-      <!-- VIDEO PLACEHOLDER —
-           Reemplazar por: <video controls poster="uploads/edition-video-poster.jpg" style="width:100%;height:100%;object-fit:cover;">
-             <source src="uploads/edition-highlights.mp4" type="video/mp4">
-           </video> -->
-      <span class="placeholder-tag"><span class="es">Video destacado · edición anterior</span><span class="en">Featured video · previous edition</span></span>
-      <span class="placeholder-corner">edition-highlights.mp4 · 16:9</span>
-      <div class="play">
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
-        </div>
-        <span class="play-label"><span class="es">Reproducir resumen</span><span class="en">Play highlights</span></span>
-      </div>
-    </div>
-
-    <!-- Gallery thumbs -->
-    <div class="editions-grid reveal">
-      <div class="edition-thumb">
-        <img src="uploads/cuarteto-photo.jpg" alt="El cuarteto en escena — The Jazz Route" loading="lazy">
-        <span class="thumb-tag">01 · <span class="es">El cuarteto</span><span class="en">The quartet</span></span>
-      </div>
-      <div class="edition-thumb">
-        <img src="uploads/mesa-photo.jpg" alt="Servicio de mesa en plena experiencia" loading="lazy">
-        <span class="thumb-tag">02 · <span class="es">La mesa</span><span class="en">The table</span></span>
-      </div>
-      <div class="edition-thumb">
-        <img src="uploads/coctel-photo.jpg" alt="Coctel de autor — The Jazz Route" loading="lazy">
-        <span class="thumb-tag">03 · <span class="es">El cóctel</span><span class="en">The cocktail</span></span>
-      </div>
-      <div class="edition-thumb">
-        <img src="uploads/experience-photo-3.jpg" alt="Comensales brindando — The Jazz Route" loading="lazy">
-        <span class="thumb-tag">04 · <span class="es">Los comensales</span><span class="en">The guests</span></span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════════════════════════════════════════════════════
      TESTIMONIALS
@@ -2439,172 +2981,91 @@ a.footer-logo-link{
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════
-     NEXT FLIGHT — Boarding pass
+     PAST EDITIONS
 ═══════════════════════════════════════════════════════════ -->
-<section class="next-flight section-pad" id="next-flight">
-  <div class="next-flight-inner">
-    <div class="next-flight-head">
-      <div class="eyebrow eyebrow-center reveal">
-        <span class="es">Próximo Vuelo</span><span class="en">Next Flight</span>
-      </div>
-      <h2 class="section-title reveal" style="margin-top:24px">
-        <span class="es"><em>Tu boarding pass</em> está esperando.</span>
-        <span class="en"><em>Your boarding pass</em> is waiting.</span>
-      </h2>
-    </div>
-
-    <!-- ┌──────────────────────────────────────────────────────────┐
-         │  EDITAR ESTE BLOQUE CADA MES PARA EL PRÓXIMO EVENTO      │
-         │  - Fecha (.bp-field[data-edit="date"] .bp-value)         │
-         │  - Hora (.bp-field[data-edit="time"] .bp-value)          │
-         │  - Flight # (.bp-field[data-edit="flight"] .bp-value)    │
-         │  - URL WhatsApp del CTA (con texto pre-rellenado)        │
-         └──────────────────────────────────────────────────────────┘ -->
-    <div class="bp-stage" id="bp-stage">
-      <div class="bp-envelope" aria-hidden="true">
-        <span class="env-tag"><span class="es">Cartera de Viaje</span><span class="en">Travel Wallet</span></span>
-      </div>
-
-      <div class="bp-card" id="bp-card" role="img" aria-label="Boarding pass — The Jazz Route">
-        <div class="bp-card-inner">
-          <span class="punch punch-top" aria-hidden="true"></span>
-          <span class="punch punch-bot" aria-hidden="true"></span>
-          <div class="bp-fold" aria-hidden="true"></div>
-
-          <!-- ── MAIN ── -->
-          <div class="bp-main">
-            <div class="bp-barcode" aria-hidden="true">
-              <div class="bars"></div>
-              <div class="num">TJR · 019 · MDE · 2026</div>
-            </div>
-            <div class="bp-content">
-              <div class="bp-header">
-                <span><span class="es">Boarding Pass</span><span class="en">Boarding Pass</span></span>
-                <span class="bp-num">TJR-019</span>
-              </div>
-              <div class="bp-body">
-                <div class="bp-top-row">
-                  <div class="bp-field">
-                    <span class="bp-label"><span class="es">Pasajero</span><span class="en">Passenger</span></span>
-                    <span class="bp-value">VIP Guest <small><span class="es">25 asientos disponibles</span><span class="en">25 seats available</span></small></span>
-                  </div>
-                  <div class="bp-field" data-edit="date">
-                    <span class="bp-label"><span class="es">Fecha</span><span class="en">Date</span></span>
-                    <span class="bp-value">19 Jun 2026</span>
-                  </div>
-                  <div class="bp-field" data-edit="time">
-                    <span class="bp-label"><span class="es">Hora</span><span class="en">Time</span></span>
-                    <span class="bp-value">8:00 PM</span>
-                  </div>
-                </div>
-
-                <div class="bp-route">
-                  <div class="from-col">
-                    <span class="bp-city-label"><span class="es">Origen</span><span class="en">From</span></span>
-                    <span class="bp-code">NOLA</span>
-                    <span class="bp-city-name">New Orleans</span>
-                  </div>
-                  <div class="bp-plane-track" aria-hidden="true">
-                    <span class="bp-plane-line"></span>
-                    <span class="bp-plane">
-                      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                      </svg>
-                    </span>
-                  </div>
-                  <div class="to-col">
-                    <span class="bp-city-label"><span class="es">Destino</span><span class="en">To</span></span>
-                    <span class="bp-code">MDE</span>
-                    <span class="bp-city-name">Medellín</span>
-                  </div>
-                </div>
-
-                <div class="bp-bot-row">
-                  <div class="bp-field" data-edit="flight">
-                    <span class="bp-label"><span class="es">Vuelo</span><span class="en">Flight</span></span>
-                    <span class="bp-value">TJR 019</span>
-                  </div>
-                  <div class="bp-field">
-                    <span class="bp-label"><span class="es">Puerta</span><span class="en">Gate</span></span>
-                    <span class="bp-value">38</span>
-                  </div>
-                  <div class="bp-field">
-                    <span class="bp-label"><span class="es">Terminal</span><span class="en">Terminal</span></span>
-                    <span class="bp-value">Z Bar</span>
-                  </div>
-                  <div class="bp-field">
-                    <span class="bp-label"><span class="es">Asiento</span><span class="en">Seat</span></span>
-                    <span class="bp-value">VIP</span>
-                  </div>
-                </div>
-
-                <p class="bp-note">
-                  <span class="es">La puerta cierra 30 min antes del despegue · Solo con reserva previa</span>
-                  <span class="en">Gate closes 30 minutes before departure · By reservation only</span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ── STUB ── -->
-          <aside class="bp-stub">
-            <div class="bp-header">
-              <span><span class="es">Primera Clase</span><span class="en">First Class</span></span>
-              <span class="bp-num">VIP</span>
-            </div>
-            <div class="bp-stub-body">
-              <div class="bp-stub-row">
-                <span class="bp-label"><span class="es">Pasajero</span><span class="en">Passenger</span></span>
-                <span class="bp-value">VIP Guest</span>
-              </div>
-              <div class="bp-stub-row">
-                <span class="bp-label"><span class="es">Ruta</span><span class="en">Route</span></span>
-                <span class="bp-value">NOLA → MDE <small>New Orleans · Medellín</small></span>
-              </div>
-              <div class="bp-stub-mini-grid">
-                <div class="bp-field">
-                  <span class="bp-label"><span class="es">Fecha</span><span class="en">Date</span></span>
-                  <span class="bp-value">19·06·26</span>
-                </div>
-                <div class="bp-field">
-                  <span class="bp-label"><span class="es">Hora</span><span class="en">Time</span></span>
-                  <span class="bp-value">20:00</span>
-                </div>
-                <div class="bp-field">
-                  <span class="bp-label"><span class="es">Vuelo</span><span class="en">Flight</span></span>
-                  <span class="bp-value">TJR 019</span>
-                </div>
-                <div class="bp-field">
-                  <span class="bp-label"><span class="es">Asiento</span><span class="en">Seat</span></span>
-                  <span class="bp-value">VIP</span>
-                </div>
-              </div>
-              <div class="bp-stub-barcode" aria-hidden="true">
-                <div class="bars-h"></div>
-                <div class="num">TJR · 019 · 19062026</div>
-              </div>
-            </div>
-          </aside>
-
-          <!-- Ink stamp -->
-          <div class="bp-stamp" aria-hidden="true">
-            <div class="stamp-inner">
-              The<em>Jazz</em>Route
-              <span class="stamp-date">MDE · 19·06·26</span>
-            </div>
-          </div>
+<section class="editions section-pad" id="editions">
+  <div class="wrap">
+    <div class="editions-head">
+      <div>
+        <div class="eyebrow reveal" style="margin-bottom:24px">
+          <span class="es">Crónicas Anteriores</span><span class="en">Past Editions</span>
         </div>
+        <h2 class="section-title reveal">
+          <span class="es">Postales del <em>viaje.</em></span>
+          <span class="en">Postcards from <em>the journey.</em></span>
+        </h2>
+      </div>
+      <p class="reveal">
+        <span class="es">Fragmentos de las ediciones anteriores. Esto no se cuenta — se vive. Mirá las primeras paradas.</span>
+        <span class="en">Glimpses from previous editions. This isn't something to describe — it's something to live. See the first stops.</span>
+      </p>
+    </div>
+
+    <!-- Video destacado placeholder -->
+    <div class="editions-feature reveal" role="button" tabindex="0" aria-label="Reproducir video">
+      <!-- VIDEO PLACEHOLDER —
+           Reemplazar por: <video controls poster="uploads/edition-video-poster.jpg" style="width:100%;height:100%;object-fit:cover;">
+             <source src="uploads/edition-highlights.mp4" type="video/mp4">
+           </video> -->
+      <span class="placeholder-tag"><span class="es">Video destacado · edición anterior</span><span class="en">Featured video · previous edition</span></span>
+      <span class="placeholder-corner">edition-highlights.mp4 · 16:9</span>
+      <div class="play">
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+        </div>
+        <span class="play-label"><span class="es">Reproducir resumen</span><span class="en">Play highlights</span></span>
       </div>
     </div>
 
-    <div class="next-cta-wrap reveal">
-      <!-- EDITAR: Link WhatsApp con texto pre-rellenado de la fecha -->
-      <a href="https://api.whatsapp.com/send?phone=573233594562&amp;text=Hola%2C%20quiero%20reservar%20para%20The%20Jazz%20Route%20-%2019%20de%20junio"
-         class="btn btn-solid-gold"
-         target="_blank" rel="noopener">
-        <span class="es">Reserva Ahora</span><span class="en">Reserve Now</span>
-        <span class="arrow">→</span>
-      </a>
+    <!-- Gallery thumbs -->
+    <div class="editions-grid reveal">
+      <div class="edition-thumb">
+        <img src="uploads/cuarteto-photo.jpg" alt="El cuarteto en escena — The Jazz Route" loading="lazy">
+        <span class="thumb-tag">01 · <span class="es">El cuarteto</span><span class="en">The quartet</span></span>
+      </div>
+      <div class="edition-thumb">
+        <img src="uploads/mesa-photo.jpg" alt="Servicio de mesa en plena experiencia" loading="lazy">
+        <span class="thumb-tag">02 · <span class="es">La mesa</span><span class="en">The table</span></span>
+      </div>
+      <div class="edition-thumb">
+        <img src="uploads/coctel-photo.jpg" alt="Coctel de autor — The Jazz Route" loading="lazy">
+        <span class="thumb-tag">03 · <span class="es">El cóctel</span><span class="en">The cocktail</span></span>
+      </div>
+      <div class="edition-thumb">
+        <img src="uploads/experience-photo-3.jpg" alt="Comensales brindando — The Jazz Route" loading="lazy">
+        <span class="thumb-tag">04 · <span class="es">Los comensales</span><span class="en">The guests</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SOUNDTRACK
+═══════════════════════════════════════════════════════════ -->
+<section class="soundtrack section-pad" id="soundtrack">
+  <div class="soundtrack-inner">
+    <div class="soundtrack-head">
+      <div class="eyebrow reveal">
+        <span class="es">El Soundtrack</span><span class="en">The Soundtrack</span>
+      </div>
+      <h2 class="section-title reveal">
+        <span class="es">Prepará tus oídos <em>antes de embarcar.</em></span>
+        <span class="en">Tune your ears <em>before boarding.</em></span>
+      </h2>
+      <p class="reveal">
+        <span class="es">Escuchá el playlist que inspira el viaje sonoro de The Jazz Route. De New Orleans a Medellín en 6 escalas.</span>
+        <span class="en">Listen to the playlist that inspires The Jazz Route's sonic journey. From New Orleans to Medellín in 6 stops.</span>
+      </p>
+    </div>
+    <div class="soundtrack-embed reveal">
+      <iframe
+        style="border-radius:8px"
+        src="https://open.spotify.com/embed/playlist/3Yla6072x5AEs9FVM6576o?utm_source=generator&amp;theme=0"
+        width="100%" height="352" frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        title="The Jazz Route — Soundtrack on Spotify"></iframe>
     </div>
   </div>
 </section>
@@ -2786,18 +3247,26 @@ a.footer-logo-link{
       });
     });
 
-    // Stagger sub-elements of each movement
-    document.querySelectorAll('.movement').forEach(function(m){
-      var parts = m.querySelectorAll('.movement-number, .movement-meta, .movement-title, .movement-desc, .movement-fact, .movement-visual');
-      gsap.set(parts, { opacity: 0, y: 24 });
-      gsap.to(parts, {
-        opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.08,
-        scrollTrigger: { trigger: m, start: 'top 80%' }
+    // Stagger sub-elements of each movement (only on natural-flow viewports)
+    if (window.matchMedia('(max-width: 899px)').matches){
+      document.querySelectorAll('.movement').forEach(function(m){
+        var parts = m.querySelectorAll('.movement-number, .movement-meta, .movement-title, .movement-desc, .movement-fact, .movement-visual');
+        gsap.set(parts, { opacity: 0, y: 24 });
+        gsap.to(parts, {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.08,
+          scrollTrigger: { trigger: m, start: 'top 80%' }
+        });
       });
-    });
+    }
 
     // ── BOARDING PASS: pinned scrub open/close + mouse tilt
     initBoardingPass();
+    // ── HERO LOGO: 3D tilt + glow
+    initHeroLogo();
+    // ── INCLUDED: line-draw on enter + mousemove tilt/spotlight
+    initIncluded();
+    // ── MOVEMENTS: right-rail progress indicator
+    initMovementsProgress();
 
     // Sticky CTA after load
     onScrollSticky();
@@ -2903,6 +3372,181 @@ a.footer-logo-link{
         if(self.progress > 0.30 && self.progress < 0.65) enableTilt();
         else disableTilt();
       }
+    });
+  }
+
+  /* ── HERO LOGO: 3D tilt + glow on hover ─────────────────────── */
+  function initHeroLogo(){
+    var logo = document.getElementById('heroLogo');
+    if(!logo) return;
+    var inner = logo.querySelector('.hero-logo-inner');
+    if(!inner) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if(!window.matchMedia('(hover:hover)').matches) return;
+
+    var rafId = null, tx = 0, ty = 0;
+    function onMove(e){
+      var rect = logo.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      var dx = (e.clientX - cx) / (rect.width / 2);
+      var dy = (e.clientY - cy) / (rect.height / 2);
+      ty = Math.max(-1, Math.min(1, dx)) * 14;  // rotateY
+      tx = Math.max(-1, Math.min(1, -dy)) * 9;  // rotateX
+      if(!rafId) rafId = requestAnimationFrame(apply);
+    }
+    function apply(){
+      rafId = null;
+      inner.style.transform = 'perspective(1400px) rotateX(' + tx + 'deg) rotateY(' + ty + 'deg) translateZ(30px) scale(1.03)';
+      // Move the glow with the tilt direction for a parallax feel
+      var glow = logo.querySelector('.logo-glow');
+      if(glow){
+        glow.style.transform = 'translate3d(' + (ty * 0.8) + 'px,' + (-tx * 0.8) + 'px,0)';
+      }
+    }
+    function onLeave(){
+      tx = 0; ty = 0;
+      inner.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)';
+      var glow = logo.querySelector('.logo-glow');
+      if(glow){ glow.style.transform = 'translate3d(0,0,0)'; }
+    }
+    logo.addEventListener('mousemove', onMove);
+    logo.addEventListener('mouseleave', onLeave);
+  }
+
+  /* ── INCLUDED: line-draw + mousemove tilt + spotlight ──────── */
+  function initIncluded(){
+    var items = document.querySelectorAll('.included-item');
+    if(!items.length) return;
+
+    // Compute path lengths and inline the dash arrays. Avoid CSS var()
+    // because some SVG renderers don't update transition targets via vars.
+    items.forEach(function(item){
+      var paths = item.querySelectorAll('.line-icon .draw');
+      paths.forEach(function(p){
+        try{
+          var len = p.getTotalLength ? p.getTotalLength() : 0;
+          if(!len || !isFinite(len)) len = 200;
+          var L = Math.ceil(len + 1);
+          p.style.strokeDasharray = L + 'px';
+          p.style.strokeDashoffset = L + 'px';
+          p.style.transition = 'stroke-dashoffset 1.3s cubic-bezier(.22,1,.36,1)';
+        }catch(_){}
+      });
+    });
+
+    function drawItem(el){
+      var paths = el.querySelectorAll('.line-icon .draw');
+      paths.forEach(function(p, i){
+        p.style.transitionDelay = (i * 0.10) + 's';
+        // Force a paint then animate to 0
+        requestAnimationFrame(function(){
+          p.style.strokeDashoffset = '0px';
+        });
+      });
+      el.classList.add('drawn');
+    }
+
+    // IntersectionObserver to stagger draws across the row
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            var el = entry.target;
+            var idx = Array.prototype.indexOf.call(el.parentNode.children, el);
+            setTimeout(function(){ drawItem(el); }, Math.max(0, idx) * 110);
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.35 });
+      items.forEach(function(item){ io.observe(item); });
+    } else {
+      items.forEach(function(item){ drawItem(item); });
+    }
+
+    // Skip hover tilt on touch / reduced motion
+    var canHover = window.matchMedia('(hover:hover)').matches;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!canHover || reduced) return;
+
+    items.forEach(function(item){
+      var card = item.querySelector('.included-card');
+      if(!card) return;
+      var rafId = null, rx = 0, ry = 0;
+      function onMove(e){
+        var rect = item.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width;
+        var py = (e.clientY - rect.top) / rect.height;
+        item.style.setProperty('--mx', (px * 100) + '%');
+        item.style.setProperty('--my', (py * 100) + '%');
+        var dx = (px - 0.5) * 2;  // -1..1
+        var dy = (py - 0.5) * 2;
+        ry = dx * 7;
+        rx = -dy * 5;
+        if(!rafId) rafId = requestAnimationFrame(apply);
+      }
+      function apply(){
+        rafId = null;
+        card.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      }
+      function onLeave(){
+        rx = 0; ry = 0;
+        card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      }
+      item.addEventListener('mousemove', onMove);
+      item.addEventListener('mouseleave', onLeave);
+    });
+  }
+
+  /* ── MOVEMENTS: right-rail progress indicator ─────────────── */
+  function initMovementsProgress(){
+    var movements = document.querySelectorAll('.movement-list .movement');
+    if(!movements.length) return;
+    if(window.matchMedia('(max-width: 1080px)').matches) return;
+
+    var rail = document.createElement('div');
+    rail.className = 'movements-progress';
+    rail.setAttribute('aria-hidden', 'true');
+    movements.forEach(function(m, i){
+      var label = (m.querySelector('.movement-meta .destination')||{}).textContent || ('0' + (i+1));
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.idx = String(i);
+      btn.innerHTML = '<span class="pdot"></span><span>0' + (i+1) + '</span>';
+      btn.addEventListener('click', function(){
+        m.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      rail.appendChild(btn);
+    });
+    document.body.appendChild(rail);
+
+    var section = document.querySelector('section.movements');
+    if(!section) return;
+
+    function setActive(idx){
+      rail.querySelectorAll('button').forEach(function(b, i){
+        b.classList.toggle('active', i === idx);
+      });
+    }
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top top+=64',
+      end: 'bottom bottom',
+      onEnter: function(){ rail.classList.add('show'); },
+      onEnterBack: function(){ rail.classList.add('show'); },
+      onLeave: function(){ rail.classList.remove('show'); },
+      onLeaveBack: function(){ rail.classList.remove('show'); }
+    });
+
+    movements.forEach(function(m, i){
+      ScrollTrigger.create({
+        trigger: m,
+        start: 'top top+=120',
+        end: 'bottom top+=120',
+        onEnter: function(){ setActive(i); },
+        onEnterBack: function(){ setActive(i); }
+      });
     });
   }
   if(document.readyState === 'complete'){ initGsap(); }
