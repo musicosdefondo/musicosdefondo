@@ -757,10 +757,13 @@ section.testimonials{background:var(--color-bg);overflow:hidden}
 
 .reels-grid{
   display:grid;grid-template-columns:1fr;gap:28px;
-  max-width:980px;margin:0 auto;justify-items:center;
+  max-width:1180px;margin:0 auto;justify-items:center;
 }
-@media(min-width:760px){
-  .reels-grid{grid-template-columns:repeat(3,1fr);gap:22px;justify-items:stretch}
+@media(min-width:620px){
+  .reels-grid{grid-template-columns:repeat(2,1fr);gap:24px;justify-items:stretch}
+}
+@media(min-width:1100px){
+  .reels-grid{grid-template-columns:repeat(4,1fr);gap:20px}
 }
 .reel-card{
   position:relative;width:100%;max-width:340px;
@@ -863,14 +866,30 @@ section.testimonials{background:var(--color-bg);overflow:hidden}
   overflow:hidden;
 }
 .reel-lightbox.is-open .lb-stage{transform:translateY(0)}
-.reel-lightbox iframe{
-  width:100%;height:100%;border:0;display:block;
+.reel-lightbox video{
+  width:100%;height:100%;display:block;
+  background:#000;object-fit:contain;
 }
 .reel-lightbox .lb-loading{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   font-family:var(--sans);font-size:10px;letter-spacing:.32em;
   text-transform:uppercase;color:var(--color-gold);opacity:.55;
   pointer-events:none;
+}
+.reel-lightbox .lb-error{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  align-items:center;justify-content:center;gap:18px;padding:32px;text-align:center;
+}
+.reel-lightbox .lb-error p{
+  font-family:var(--serif);font-style:italic;font-size:17px;color:var(--color-cream-muted);
+  max-width:280px;line-height:1.5;
+}
+.reel-lightbox .lb-error code{
+  font-family:'SF Mono', Menlo, Monaco, monospace;
+  font-size:10.5px;letter-spacing:.04em;color:var(--color-gold);
+  background:rgba(201,169,110,.06);padding:6px 10px;
+  border:1px solid var(--hairline-gold);
+  word-break:break-all;
 }
 .reel-lightbox .lb-close{
   position:absolute;top:-44px;right:-2px;
@@ -882,14 +901,6 @@ section.testimonials{background:var(--color-bg);overflow:hidden}
 }
 .reel-lightbox .lb-close:hover{border-color:var(--color-gold);color:var(--color-gold);transform:rotate(90deg)}
 .reel-lightbox .lb-close svg{width:14px;height:14px}
-.reel-lightbox .lb-fallback{
-  position:absolute;inset:0;display:none;flex-direction:column;
-  align-items:center;justify-content:center;gap:18px;padding:32px;text-align:center;
-}
-.reel-lightbox .lb-fallback p{
-  font-family:var(--serif);font-style:italic;font-size:18px;color:var(--color-cream-muted);
-  max-width:280px;line-height:1.5;
-}
 @media(max-width:520px){
   .reel-lightbox{padding:60px 16px 16px}
   .reel-lightbox .lb-close{top:-46px;right:0}
@@ -1842,8 +1853,9 @@ a.footer-logo-link{
            ───────────────────────────────────────────────────────────── -->
       <article class="reel-card reveal"
                role="button" tabindex="0"
-               data-reel-id="DU6QVEyjIJJ"
-               aria-label="Ver testimonio 01 en Instagram">
+               data-video-src="uploads/the-jazz-route-testimonio-01.mp4"
+               data-instagram-url="https://www.instagram.com/reel/DU6QVEyjIJJ/"
+               aria-label="Ver testimonio 01">
         <div class="reel-bg-fallback">
           <span class="es">Arrastra aquí<br>el frame del reel</span>
           <span class="en">Drop reel<br>frame here</span>
@@ -1877,8 +1889,9 @@ a.footer-logo-link{
            ───────────────────────────────────────────────────────────── -->
       <article class="reel-card reveal"
                role="button" tabindex="0"
-               data-reel-id="DWZrM_XidKg"
-               aria-label="Ver testimonio 02 en Instagram">
+               data-video-src="uploads/the-jazz-route-testimonio-02.mp4"
+               data-instagram-url="https://www.instagram.com/reel/DWZrM_XidKg/"
+               aria-label="Ver testimonio 02">
         <div class="reel-bg-fallback">
           <span class="es">Arrastra aquí<br>el frame del reel</span>
           <span class="en">Drop reel<br>frame here</span>
@@ -1912,8 +1925,9 @@ a.footer-logo-link{
            ───────────────────────────────────────────────────────────── -->
       <article class="reel-card reveal"
                role="button" tabindex="0"
-               data-reel-id="DXS748CgGUG"
-               aria-label="Ver testimonio 03 en Instagram">
+               data-video-src="uploads/the-jazz-route-testimonio-03.mp4"
+               data-instagram-url="https://www.instagram.com/reel/DXS748CgGUG/"
+               aria-label="Ver testimonio 03">
         <div class="reel-bg-fallback">
           <span class="es">Arrastra aquí<br>el frame del reel</span>
           <span class="en">Drop reel<br>frame here</span>
@@ -1941,11 +1955,46 @@ a.footer-logo-link{
           </span>
         </div>
       </article>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           REEL 4 — sin link de Instagram aún (solo archivo)
+           ───────────────────────────────────────────────────────────── -->
+      <article class="reel-card reveal"
+               role="button" tabindex="0"
+               data-video-src="uploads/the-jazz-route-testimonio-04.mp4"
+               aria-label="Ver testimonio 04">
+        <div class="reel-bg-fallback">
+          <span class="es">Arrastra aquí<br>el frame del reel</span>
+          <span class="en">Drop reel<br>frame here</span>
+        </div>
+        <image-slot id="reel-thumb-4"
+                    shape="rect"
+                    placeholder=""
+                    fit="cover"></image-slot>
+        <div class="reel-overlay"></div>
+        <div class="reel-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"></circle>
+          </svg>
+          <span>Reel · 04</span>
+        </div>
+        <div class="reel-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg>
+        </div>
+        <div class="reel-caption">
+          <span class="reel-edition">
+            <span class="es">Testimonio · 04</span>
+            <span class="en">Testimonial · 04</span>
+          </span>
+        </div>
+      </article>
     </div>
   </div>
 
   <!-- ───────────────────────────────────────────────────────────────
-       LIGHTBOX — embebe el reel de Instagram bajo demanda
+       LIGHTBOX — reproduce el video nativo en 9:16
        ─────────────────────────────────────────────────────────────── -->
   <div class="reel-lightbox" id="reelLightbox" role="dialog" aria-modal="true" aria-label="Reel viewer">
     <div class="lb-stage">
@@ -1959,12 +2008,13 @@ a.footer-logo-link{
         <span class="es">Cargando…</span>
         <span class="en">Loading…</span>
       </div>
-      <div class="lb-fallback">
+      <div class="lb-error">
         <p>
-          <span class="es">No se pudo cargar el reel aquí. Ábrelo en Instagram:</span>
-          <span class="en">Couldn't load the reel here. Open it on Instagram:</span>
+          <span class="es">Aún no se ha subido el video.</span>
+          <span class="en">Video hasn’t been uploaded yet.</span>
         </p>
-        <a class="btn btn-ghost-gold" target="_blank" rel="noopener" id="lbFallbackLink">
+        <code id="lbErrorPath"></code>
+        <a class="btn btn-ghost-gold" target="_blank" rel="noopener" id="lbErrorLink">
           <span class="es">Ver en Instagram</span>
           <span class="en">View on Instagram</span>
           <span class="arrow">↗</span>
@@ -1975,45 +2025,54 @@ a.footer-logo-link{
 </section>
 
 <script>
-  /* Reel lightbox — lazy-loads Instagram embed only on click */
+  /* Reel lightbox — native <video> playback */
   (function(){
     const lb = document.getElementById('reelLightbox');
     if(!lb) return;
     const stage = lb.querySelector('.lb-stage');
     const closeBtn = lb.querySelector('.lb-close');
     const loading = lb.querySelector('.lb-loading');
-    const fallback = lb.querySelector('.lb-fallback');
-    const fallbackLink = lb.querySelector('#lbFallbackLink');
-    let currentIframe = null;
-    let fallbackTimer = null;
+    const errorBox = lb.querySelector('.lb-error');
+    const errorPath = lb.querySelector('#lbErrorPath');
+    const errorLink = lb.querySelector('#lbErrorLink');
+    let currentVideo = null;
 
-    function open(reelId){
-      const url = 'https://www.instagram.com/reel/' + reelId + '/embed/';
-      const externalUrl = 'https://www.instagram.com/reel/' + reelId + '/';
-      fallbackLink.href = externalUrl;
-      fallback.style.display = 'none';
+    function clearStage(){
+      if(currentVideo){
+        try{ currentVideo.pause(); }catch(_){}
+        currentVideo.remove();
+        currentVideo = null;
+      }
+      errorBox.style.display = 'none';
       loading.style.display = 'flex';
+    }
 
-      // Clear any prior iframe
-      if(currentIframe){ currentIframe.remove(); currentIframe = null; }
-      if(fallbackTimer){ clearTimeout(fallbackTimer); }
+    function open(videoSrc, instagramUrl){
+      clearStage();
+      errorPath.textContent = videoSrc;
+      errorLink.href = instagramUrl || '#';
 
-      const iframe = document.createElement('iframe');
-      iframe.src = url;
-      iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; clipboard-write');
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute('scrolling', 'no');
-      iframe.addEventListener('load', () => { loading.style.display = 'none'; });
-      stage.appendChild(iframe);
-      currentIframe = iframe;
+      const video = document.createElement('video');
+      video.src = videoSrc;
+      video.controls = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.preload = 'metadata';
 
-      // If still loading after 6s, surface the open-in-Instagram fallback
-      fallbackTimer = setTimeout(() => {
-        if(loading.style.display !== 'none'){
-          loading.style.display = 'none';
-          fallback.style.display = 'flex';
-        }
-      }, 6000);
+      video.addEventListener('loadedmetadata', () => {
+        loading.style.display = 'none';
+        // user-gesture triggered, so play() should be allowed
+        video.play().catch(() => { /* swallow — user can hit play manually */ });
+      });
+      video.addEventListener('error', () => {
+        loading.style.display = 'none';
+        if(currentVideo){ currentVideo.remove(); currentVideo = null; }
+        errorBox.style.display = 'flex';
+      });
+
+      stage.appendChild(video);
+      currentVideo = video;
 
       lb.classList.add('is-open');
       document.body.style.overflow = 'hidden';
@@ -2022,28 +2081,23 @@ a.footer-logo-link{
     function close(){
       lb.classList.remove('is-open');
       document.body.style.overflow = '';
-      if(fallbackTimer){ clearTimeout(fallbackTimer); fallbackTimer = null; }
-      // Remove iframe after fade-out so video stops
-      setTimeout(() => {
-        if(currentIframe){ currentIframe.remove(); currentIframe = null; }
-      }, 380);
+      setTimeout(clearStage, 380);
     }
 
-    document.querySelectorAll('.reel-card[data-reel-id]').forEach(card => {
-      const reelId = card.getAttribute('data-reel-id');
+    document.querySelectorAll('.reel-card[data-video-src]').forEach(card => {
+      const videoSrc = card.getAttribute('data-video-src');
+      const igUrl = card.getAttribute('data-instagram-url');
       const trigger = (e) => {
-        // Don't open when interacting with the image-slot drop UI
-        if(e.target.closest('image-slot') && e.type === 'click'){
-          // Only block if the slot is empty (so the user can drop)
-          const slot = e.target.closest('image-slot');
+        const slot = e.target.closest && e.target.closest('image-slot');
+        if(slot && e.type === 'click'){
           const isEmpty = !slot.hasAttribute('data-filled') && !slot.querySelector('img');
           if(isEmpty) return;
         }
-        open(reelId);
+        open(videoSrc, igUrl);
       };
       card.addEventListener('click', trigger);
       card.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(reelId); }
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(videoSrc, igUrl); }
       });
     });
 
