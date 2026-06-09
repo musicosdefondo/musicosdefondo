@@ -1811,6 +1811,317 @@ section.movements{
 }
 
 /* ─────────────────────────────────────────────────────────────
+   v3 — MOVEMENT CARDS: full-bleed background images + overlays
+   Three layouts toggled via [data-layout] on .movement-list:
+     • poster (default) — text centered, vignette gradient (editorial poster)
+     • bottom           — text anchored to bottom, gradient from below (film still)
+     • side             — text on one side, diagonal gradient (the example)
+   ───────────────────────────────────────────────────────────── */
+
+/* Activate full-bleed bg image on each .movement when --movement-bg is set */
+.movement-list[data-layout] .movement{
+  background-image: var(--movement-bg, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  isolation: isolate;
+}
+
+/* Single overlay layer — dark base + per-destination tint, blended */
+.movement-list[data-layout] .movement::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* Default (poster) overlay — radial vignette */
+.movement-list[data-layout="poster"] .movement::after{
+  background:
+    var(--tint-overlay, linear-gradient(135deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 100%)),
+    radial-gradient(ellipse at 50% 45%, rgba(10,10,10,0.30) 0%, rgba(10,10,10,0.62) 55%, rgba(5,5,5,0.92) 100%);
+}
+/* Bottom layout — film-still gradient from bottom */
+.movement-list[data-layout="bottom"] .movement::after{
+  background:
+    var(--tint-overlay, linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 100%)),
+    linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.25) 35%, rgba(5,5,5,0.92) 100%);
+}
+/* Side layout — diagonal gradient (the user's example) */
+.movement-list[data-layout="side"] .movement::after{
+  background:
+    var(--tint-overlay, linear-gradient(135deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 100%)),
+    linear-gradient(135deg, rgba(10,10,10,0.78) 0%, rgba(10,10,10,0.55) 35%, rgba(10,10,10,0.25) 60%, rgba(5,5,5,0.85) 100%);
+}
+/* Reverse cards: mirror the diagonal so the dark side is on the opposite end */
+.movement-list[data-layout="side"] .movement.reverse::after{
+  background:
+    var(--tint-overlay, linear-gradient(225deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 100%)),
+    linear-gradient(225deg, rgba(10,10,10,0.78) 0%, rgba(10,10,10,0.55) 35%, rgba(10,10,10,0.25) 60%, rgba(5,5,5,0.85) 100%);
+}
+
+/* Per-destination tint — applied subtly to the overlay (cohesión narrativa) */
+.movement-list[data-layout] .movement[data-tint="nola"]    { --tint-overlay: linear-gradient(135deg, rgba(201,120,40,0.22) 0%, rgba(60,30,10,0.10) 55%, rgba(10,5,2,0.0) 100%); }
+.movement-list[data-layout] .movement[data-tint="ny"]      { --tint-overlay: linear-gradient(135deg, rgba(80,110,170,0.22) 0%, rgba(20,30,60,0.12) 55%, rgba(5,8,15,0.0) 100%); }
+.movement-list[data-layout] .movement[data-tint="rio"]     { --tint-overlay: linear-gradient(135deg, rgba(80,150,90,0.20) 0%, rgba(25,55,30,0.12) 55%, rgba(5,15,8,0.0) 100%); }
+.movement-list[data-layout] .movement[data-tint="habana"]  { --tint-overlay: linear-gradient(135deg, rgba(180,60,70,0.22) 0%, rgba(60,15,20,0.14) 55%, rgba(20,5,8,0.0) 100%); }
+.movement-list[data-layout] .movement[data-tint="caribe"]  { --tint-overlay: linear-gradient(135deg, rgba(220,160,60,0.22) 0%, rgba(80,50,15,0.12) 55%, rgba(20,12,5,0.0) 100%); }
+.movement-list[data-layout] .movement[data-tint="medellin"]{ --tint-overlay: linear-gradient(135deg, rgba(160,110,60,0.22) 0%, rgba(55,35,18,0.12) 55%, rgba(15,10,5,0.0) 100%); }
+
+/* The framed .movement-visual is no longer a card — it becomes the
+   transparent layer that hosts the corner markers and destination tag
+   floated over the bg image. The <img> inside is hidden (the same image
+   is already painted via background-image on .movement). */
+.movement-list[data-layout] .movement .movement-visual{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:none;
+  aspect-ratio:auto;
+  border:none;
+  background:transparent;
+  overflow:visible;
+  z-index:1;
+  pointer-events:none;
+  order:initial;
+}
+.movement-list[data-layout] .movement .movement-visual::before,
+.movement-list[data-layout] .movement .movement-visual::after{
+  display:none;
+}
+.movement-list[data-layout] .movement .movement-visual > img{
+  /* Hidden: the same image is already painted as the .movement background.
+     We keep the <img> in the DOM so its alt remains accessible. */
+  position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;
+}
+
+/* Corner markers — reposition to the card edges with more breathing room */
+.movement-list[data-layout] .movement .movement-visual .v-corner-tl{
+  top:clamp(20px, 3vw, 36px); left:clamp(20px, 3vw, 36px);
+  font-size:16px; opacity:.85;
+}
+.movement-list[data-layout] .movement .movement-visual .v-corner-tr{
+  top:clamp(22px, 3vw, 38px); right:clamp(20px, 3vw, 36px);
+  color:rgba(242,237,228,0.7);
+}
+.movement-list[data-layout] .movement .movement-visual .v-meta{
+  bottom:clamp(24px, 3.2vw, 40px);
+  left:clamp(20px, 3vw, 36px);
+  right:auto;
+  max-width:320px;
+  color:rgba(242,237,228,0.8);
+  text-shadow:0 1px 12px rgba(0,0,0,0.7);
+}
+.movement-list[data-layout] .movement .movement-visual .v-meta .tag{
+  color:var(--color-gold);
+  text-shadow:none;
+}
+
+/* Inner grid: collapse to single column; .movement-inner becomes the content layer */
+.movement-list[data-layout] .movement .movement-inner{
+  display:flex;
+  align-items:center;
+  min-height:100%;
+  grid-template-columns:1fr;
+  gap:0;
+  z-index:2;
+}
+
+/* Hide the giant decorative ghost number — the image is the focal point now */
+.movement-list[data-layout] .movement .movement-bg-number{ display:none }
+
+/* Fade no-image styling: now movement 4 has an image too */
+.movement-list[data-layout] .movement.no-image .movement-inner{ max-width:none }
+
+/* ── Variant A: POSTER (default) — centered editorial ─────── */
+.movement-list[data-layout="poster"] .movement .movement-inner{
+  justify-content:center;
+}
+.movement-list[data-layout="poster"] .movement .movement-text{
+  margin:0 auto;
+  text-align:center;
+  max-width:780px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  order:initial !important;
+}
+.movement-list[data-layout="poster"] .movement .movement-meta{ justify-content:center }
+.movement-list[data-layout="poster"] .movement .movement-number{
+  font-size:clamp(86px, 11vw, 160px);
+  opacity:.42;
+  margin-bottom:8px;
+}
+.movement-list[data-layout="poster"] .movement .movement-title{
+  text-shadow:0 2px 24px rgba(0,0,0,0.55);
+}
+.movement-list[data-layout="poster"] .movement .movement-desc{
+  max-width:640px;
+  color:rgba(242,237,228,0.88);
+  text-shadow:0 1px 16px rgba(0,0,0,0.6);
+}
+.movement-list[data-layout="poster"] .movement .movement-desc strong{ color:var(--color-cream) }
+.movement-list[data-layout="poster"] .movement .movement-fact{
+  text-align:left;
+  max-width:560px;
+  margin:8px auto 0;
+  background:rgba(8,8,8,0.55);
+  backdrop-filter:blur(12px) saturate(120%);
+  -webkit-backdrop-filter:blur(12px) saturate(120%);
+  border-left:1px solid var(--color-gold);
+  padding:22px 26px;
+}
+.movement-list[data-layout="poster"] .movement .movement-fact .fact-text{
+  color:rgba(242,237,228,0.95);
+}
+
+/* ── Variant B: BOTTOM — film-still / cinematic ───────────── */
+.movement-list[data-layout="bottom"] .movement .movement-inner{
+  align-items:flex-end;
+  padding-top:0;
+  padding-bottom:clamp(60px, 8vh, 96px);
+}
+.movement-list[data-layout="bottom"] .movement .movement-text{
+  max-width:760px;
+  margin:0;
+  text-align:left;
+  order:initial !important;
+}
+.movement-list[data-layout="bottom"] .movement.reverse .movement-text{
+  margin-left:auto;
+}
+.movement-list[data-layout="bottom"] .movement .movement-number{
+  font-size:clamp(72px, 9vw, 140px);
+  opacity:.5;
+  margin-bottom:4px;
+}
+.movement-list[data-layout="bottom"] .movement .movement-title{
+  text-shadow:0 2px 20px rgba(0,0,0,0.6);
+}
+.movement-list[data-layout="bottom"] .movement .movement-desc{
+  max-width:620px;
+  color:rgba(242,237,228,0.9);
+  text-shadow:0 1px 12px rgba(0,0,0,0.55);
+}
+.movement-list[data-layout="bottom"] .movement .movement-fact{
+  background:rgba(8,8,8,0.5);
+  backdrop-filter:blur(10px) saturate(120%);
+  -webkit-backdrop-filter:blur(10px) saturate(120%);
+  max-width:560px;
+}
+/* Repositionar el v-meta a la derecha en este layout para no chocar */
+.movement-list[data-layout="bottom"] .movement .movement-visual .v-meta{
+  bottom:auto; top:clamp(80px, 10vh, 120px);
+  left:auto; right:clamp(20px, 3vw, 36px);
+  text-align:right; max-width:280px;
+}
+
+/* ── Variant C: SIDE — diagonal split (the user's example) ── */
+@media(min-width:900px){
+  .movement-list[data-layout="side"] .movement .movement-inner{
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    gap:clamp(40px, 6vw, 96px);
+    align-items:center;
+  }
+  .movement-list[data-layout="side"] .movement.reverse .movement-inner{
+    grid-template-columns:1fr 1.05fr;
+  }
+  .movement-list[data-layout="side"] .movement.reverse .movement-text{
+    order:2 !important;
+  }
+}
+.movement-list[data-layout="side"] .movement .movement-text{
+  max-width:560px;
+  margin:0;
+  text-align:left;
+}
+.movement-list[data-layout="side"] .movement .movement-title{
+  text-shadow:0 2px 20px rgba(0,0,0,0.55);
+}
+.movement-list[data-layout="side"] .movement .movement-desc{
+  color:rgba(242,237,228,0.92);
+  text-shadow:0 1px 12px rgba(0,0,0,0.5);
+}
+.movement-list[data-layout="side"] .movement .movement-fact{
+  background:rgba(8,8,8,0.5);
+  backdrop-filter:blur(10px) saturate(120%);
+  -webkit-backdrop-filter:blur(10px) saturate(120%);
+}
+
+/* Mobile — collapse everything to a clean single column with readable overlay */
+@media(max-width:899px){
+  .movement-list[data-layout] .movement .movement-inner{
+    align-items:center;
+    padding-top:96px;
+    padding-bottom:64px;
+  }
+  .movement-list[data-layout] .movement .movement-text{
+    margin:0 auto !important;
+    max-width:520px;
+    text-align:left;
+  }
+  .movement-list[data-layout="poster"] .movement .movement-text{ text-align:center }
+  .movement-list[data-layout="poster"] .movement .movement-meta{ justify-content:center }
+  .movement-list[data-layout] .movement::after{
+    /* slightly stronger on mobile for legibility */
+    background:
+      var(--tint-overlay, transparent),
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.35) 30%, rgba(5,5,5,0.92) 100%);
+  }
+  .movement-list[data-layout] .movement .movement-visual .v-meta{
+    position:absolute; bottom:auto; top:auto;
+    /* hide on mobile — destination is already in .movement-meta */
+    display:none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Layout picker — small control above the movement list
+   ───────────────────────────────────────────────────────────── */
+.movements-picker{
+  display:flex;justify-content:center;
+  margin:0 auto 56px;
+  padding:0 24px;
+  position:relative;z-index:5;
+}
+.movements-picker-inner{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px;
+  background:rgba(10,10,10,0.55);
+  border:1px solid var(--hairline-gold);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.movements-picker-label{
+  font-family:var(--sans);font-size:9.5px;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--color-cream-muted);
+  padding:0 14px 0 10px;
+  border-right:1px solid var(--hairline-gold);
+  margin-right:4px;
+  line-height:1;
+}
+.movements-picker button{
+  font-family:var(--sans);font-size:10px;letter-spacing:.24em;
+  text-transform:uppercase;font-weight:500;
+  color:var(--color-cream-muted);
+  padding:10px 16px;
+  background:transparent;border:none;cursor:pointer;
+  transition:color .3s var(--ease), background .3s var(--ease);
+}
+.movements-picker button:hover{ color:var(--color-cream) }
+.movements-picker button.active{
+  color:var(--color-bg);
+  background:var(--color-gold);
+}
+@media(max-width:760px){
+  .movements-picker-label{ display:none }
+  .movements-picker button{ padding:9px 12px; font-size:9.5px; letter-spacing:.20em }
+}
+
+/* ─────────────────────────────────────────────────────────────
    v2 — Included: hex badge icons + line-draw + hover tilt
    ───────────────────────────────────────────────────────────── */
 .included-item{
@@ -2317,10 +2628,28 @@ section.movements{
     </div>
   </div>
 
-  <div class="movement-list">
+  <!-- Layout picker (options to compare) -->
+  <div class="movements-picker reveal" role="radiogroup" aria-label="Estilo de las cards del viaje">
+    <div class="movements-picker-inner">
+      <span class="movements-picker-label">
+        <span class="es">Estilo</span><span class="en">Style</span>
+      </span>
+      <button type="button" data-picker="poster" class="active" aria-pressed="true">
+        <span class="es">Póster</span><span class="en">Poster</span>
+      </button>
+      <button type="button" data-picker="bottom" aria-pressed="false">
+        <span class="es">Cinema</span><span class="en">Cinema</span>
+      </button>
+      <button type="button" data-picker="side" aria-pressed="false">
+        <span class="es">Diagonal</span><span class="en">Diagonal</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="movement-list" data-layout="poster">
 
     <!-- Movimiento 1 — New Orleans · with image -->
-    <article class="movement has-image" data-tint="nola">
+    <article class="movement has-image" data-tint="nola" style="--movement-bg:url('uploads/experience-photo-2.jpg')">
       <div class="movement-inner">
         <div class="movement-visual" aria-hidden="true">
           <img src="uploads/experience-photo-2.jpg" alt="Servicio de mesa frente al escenario Mississippi — Z Bar Jazz Club" loading="lazy">
@@ -2357,7 +2686,7 @@ section.movements{
     </article>
 
     <!-- Movimiento 2 — New York · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="ny">
+    <article class="movement has-image reverse" data-tint="ny" style="--movement-bg:url('uploads/experience-photo-1.jpg')">
       <div class="movement-inner">
         <div class="movement-text">
           <span class="movement-number">02</span>
@@ -2394,7 +2723,7 @@ section.movements{
     </article>
 
     <!-- Movimiento 3 — Rio · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="rio">
+    <article class="movement has-image reverse" data-tint="rio" style="--movement-bg:url('uploads/movement-03-rio.jpg')">
       <div class="movement-inner">
         <div class="movement-text">
           <span class="movement-number">03</span>
@@ -2430,12 +2759,22 @@ section.movements{
       </div>
     </article>
 
-    <!-- Movimiento 4 — Havana · NO IMAGE -->
-    <article class="movement no-image" data-tint="habana">
+    <!-- Movimiento 4 — Havana · Bolero -->
+    <article class="movement has-image" data-tint="habana" style="--movement-bg:url('uploads/movement-04-bolero.jpg')">
       <div class="movement-inner">
-        <div class="movement-text" style="margin:0 auto;text-align:center">
+        <div class="movement-visual" aria-hidden="true">
+          <img src="uploads/movement-04-bolero.jpg" alt="Bolero · La Habana / México — movimiento 04" loading="lazy">
+          <span class="v-corner-tl">i</span>
+          <span class="v-corner-tr">04 / 06</span>
+          <div class="v-meta">
+            <span class="tag">Destino · Destination</span>
+            <span class="es">La Habana / México</span>
+            <span class="en">Havana / Mexico City</span>
+          </div>
+        </div>
+        <div class="movement-text">
           <span class="movement-number">04</span>
-          <div class="movement-meta" style="justify-content:center">
+          <div class="movement-meta">
             <span class="destination"><span class="es">La Habana / México</span><span class="en">Havana / Mexico City</span></span>
             <span class="sep"></span>
             <span class="genre">Bolero &amp; Filin</span>
@@ -2447,7 +2786,7 @@ section.movements{
             <span class="es"><strong>Terciopelo y Fuego.</strong> El jazz se impregna del romanticismo trágico latino. El bar se oscurece y el ambiente se torna denso. El Bolero es teatro puro: la música de la pasión contenida, del cigarro y la copa de vino. La voz es la protagonista, narrando historias de amor y dolor que piden sabores profundos como el cacao amargo, chiles secos o reducciones de vino.</span>
             <span class="en"><strong>Velvet and Fire.</strong> Jazz absorbs Latin tragic romanticism. The bar darkens and the atmosphere becomes dense. Bolero is pure theater: the music of restrained passion, of cigars and wine glasses. The voice takes center stage, narrating stories of love and pain that demand deep flavors like bitter cacao, dried chiles, and wine reductions.</span>
           </p>
-          <div class="movement-fact" style="text-align:left">
+          <div class="movement-fact">
             <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
             <p class="fact-text">
               <span class="es">En los clubes de La Habana de los años 50, los cantantes de Bolero bebían ron añejo seco — sin azúcar — antes de salir a escena. Creían que el azúcar "empalagaba" las cuerdas vocales, mientras que el alcohol puro "limpiaba" la voz para el lamento.</span>
@@ -2459,7 +2798,7 @@ section.movements{
     </article>
 
     <!-- Movimiento 5 — Caribbean · with image -->
-    <article class="movement has-image" data-tint="caribe">
+    <article class="movement has-image" data-tint="caribe" style="--movement-bg:url('uploads/movement-05-caribe.jpg')">
       <div class="movement-inner">
         <div class="movement-visual" aria-hidden="true">
           <img src="uploads/movement-05-caribe.jpg" alt="Latin Jazz — percusión afrocubana" loading="lazy">
@@ -2497,7 +2836,7 @@ section.movements{
     </article>
 
     <!-- Movimiento 6 — Medellín · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="medellin">
+    <article class="movement has-image reverse" data-tint="medellin" style="--movement-bg:url('uploads/movement-06-medellin.jpg')">
       <div class="movement-inner">
         <div class="movement-text">
           <span class="movement-number">06</span>
@@ -3310,6 +3649,8 @@ section.movements{
     initIncluded();
     // ── MOVEMENTS: right-rail progress indicator
     initMovementsProgress();
+    // ── MOVEMENTS: layout picker (poster / bottom / side)
+    initMovementsLayoutPicker();
 
     // Sticky CTA after load
     onScrollSticky();
@@ -3572,6 +3913,39 @@ section.movements{
       }
       item.addEventListener('mousemove', onMove);
       item.addEventListener('mouseleave', onLeave);
+    });
+  }
+
+  /* ── MOVEMENTS: layout picker (poster / cinema / diagonal) ── */
+  function initMovementsLayoutPicker(){
+    var picker = document.querySelector('.movements-picker');
+    var list   = document.querySelector('.movement-list');
+    if(!picker || !list) return;
+
+    var STORAGE_KEY = 'jazz-route:movement-layout';
+    var buttons = picker.querySelectorAll('button[data-picker]');
+
+    function apply(value){
+      if(!value) return;
+      list.setAttribute('data-layout', value);
+      buttons.forEach(function(b){
+        var on = b.getAttribute('data-picker') === value;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      try { localStorage.setItem(STORAGE_KEY, value); } catch(e){}
+    }
+
+    // Restore prior selection if any
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if(saved) apply(saved);
+    } catch(e){}
+
+    buttons.forEach(function(b){
+      b.addEventListener('click', function(){
+        apply(b.getAttribute('data-picker'));
+      });
     });
   }
 
