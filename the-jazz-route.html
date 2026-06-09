@@ -1799,13 +1799,13 @@ section.movements{
 .movements-progress button.active .pdot{ width:34px; background:var(--color-gold) }
 @media(max-width:1080px){ .movements-progress{ display:none } }
 
-/* Tablet/mobile: drop sticky-stack, use natural flow */
+/* Mobile: keep sticky stacking effect, just shrink heights & paddings */
 @media(max-width:899px){
   .movement{
-    position:relative;
-    height:auto;
-    min-height:0;
-    padding:80px 0;
+    /* Keep position:sticky from the base rule — do NOT switch to relative */
+    height:100svh;             /* small viewport height — stable with mobile address bar */
+    min-height:560px;
+    padding:60px 0;
   }
   .movement-bg-number{ font-size:clamp(180px, 30vw, 280px) }
 }
@@ -2051,30 +2051,57 @@ section.movements{
   -webkit-backdrop-filter:blur(10px) saturate(120%);
 }
 
-/* Mobile — collapse everything to a clean single column with readable overlay */
+/* Mobile — single column, readable overlay, sticky stack preserved */
 @media(max-width:899px){
   .movement-list[data-layout] .movement .movement-inner{
-    align-items:center;
-    padding-top:96px;
-    padding-bottom:64px;
+    align-items:flex-end;
+    padding-top:80px;
+    padding-bottom:56px;
+    padding-left:22px;
+    padding-right:22px;
   }
   .movement-list[data-layout] .movement .movement-text{
-    margin:0 auto !important;
-    max-width:520px;
+    margin:0 !important;
+    max-width:none;
     text-align:left;
   }
-  .movement-list[data-layout="poster"] .movement .movement-text{ text-align:center }
+  .movement-list[data-layout="poster"] .movement .movement-inner{ align-items:center }
+  .movement-list[data-layout="poster"] .movement .movement-text{ text-align:center; align-items:center }
   .movement-list[data-layout="poster"] .movement .movement-meta{ justify-content:center }
   .movement-list[data-layout] .movement::after{
     /* slightly stronger on mobile for legibility */
     background:
       var(--tint-overlay, transparent),
-      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.35) 30%, rgba(5,5,5,0.92) 100%);
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.30) 28%, rgba(5,5,5,0.94) 100%);
   }
+  .movement-list[data-layout] .movement .movement-visual .v-corner-tl,
+  .movement-list[data-layout] .movement .movement-visual .v-corner-tr{
+    top:18px;
+  }
+  .movement-list[data-layout] .movement .movement-visual .v-corner-tl{ left:18px }
+  .movement-list[data-layout] .movement .movement-visual .v-corner-tr{ right:18px }
   .movement-list[data-layout] .movement .movement-visual .v-meta{
-    position:absolute; bottom:auto; top:auto;
-    /* hide on mobile — destination is already in .movement-meta */
+    /* hide on mobile — destination is already shown in .movement-meta */
     display:none;
+  }
+  /* Smaller number on mobile so it doesn't dominate the small card */
+  .movement-list[data-layout] .movement .movement-number{
+    font-size:clamp(62px, 18vw, 110px);
+  }
+  .movement-list[data-layout] .movement .movement-title{
+    font-size:clamp(28px, 7vw, 42px);
+  }
+  .movement-list[data-layout] .movement .movement-desc{
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:20px;
+  }
+  .movement-list[data-layout] .movement .movement-fact{
+    padding:16px 18px;
+  }
+  .movement-list[data-layout] .movement .movement-fact .fact-text{
+    font-size:13.5px;
+    line-height:1.55;
   }
 }
 
@@ -2628,25 +2655,7 @@ section.movements{
     </div>
   </div>
 
-  <!-- Layout picker (options to compare) -->
-  <div class="movements-picker reveal" role="radiogroup" aria-label="Estilo de las cards del viaje">
-    <div class="movements-picker-inner">
-      <span class="movements-picker-label">
-        <span class="es">Estilo</span><span class="en">Style</span>
-      </span>
-      <button type="button" data-picker="poster" class="active" aria-pressed="true">
-        <span class="es">Póster</span><span class="en">Poster</span>
-      </button>
-      <button type="button" data-picker="bottom" aria-pressed="false">
-        <span class="es">Cinema</span><span class="en">Cinema</span>
-      </button>
-      <button type="button" data-picker="side" aria-pressed="false">
-        <span class="es">Diagonal</span><span class="en">Diagonal</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="movement-list" data-layout="poster">
+  <div class="movement-list" data-layout="bottom">
 
     <!-- Movimiento 1 — New Orleans · with image -->
     <article class="movement has-image" data-tint="nola" style="--movement-bg:url('uploads/experience-photo-2.jpg')">
@@ -3649,8 +3658,6 @@ section.movements{
     initIncluded();
     // ── MOVEMENTS: right-rail progress indicator
     initMovementsProgress();
-    // ── MOVEMENTS: layout picker (poster / bottom / side)
-    initMovementsLayoutPicker();
 
     // Sticky CTA after load
     onScrollSticky();
@@ -3913,39 +3920,6 @@ section.movements{
       }
       item.addEventListener('mousemove', onMove);
       item.addEventListener('mouseleave', onLeave);
-    });
-  }
-
-  /* ── MOVEMENTS: layout picker (poster / cinema / diagonal) ── */
-  function initMovementsLayoutPicker(){
-    var picker = document.querySelector('.movements-picker');
-    var list   = document.querySelector('.movement-list');
-    if(!picker || !list) return;
-
-    var STORAGE_KEY = 'jazz-route:movement-layout';
-    var buttons = picker.querySelectorAll('button[data-picker]');
-
-    function apply(value){
-      if(!value) return;
-      list.setAttribute('data-layout', value);
-      buttons.forEach(function(b){
-        var on = b.getAttribute('data-picker') === value;
-        b.classList.toggle('active', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      try { localStorage.setItem(STORAGE_KEY, value); } catch(e){}
-    }
-
-    // Restore prior selection if any
-    try {
-      var saved = localStorage.getItem(STORAGE_KEY);
-      if(saved) apply(saved);
-    } catch(e){}
-
-    buttons.forEach(function(b){
-      b.addEventListener('click', function(){
-        apply(b.getAttribute('data-picker'));
-      });
     });
   }
 
