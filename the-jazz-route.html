@@ -1555,7 +1555,7 @@ a.footer-logo-link{
   transform:perspective(1400px) rotateX(0deg) rotateY(0deg);
   transition:transform .5s var(--ease);
   will-change:transform;
-  animation:logoFloat 7.5s ease-in-out infinite;
+  animation:logoFloat 7.5s ease-in-out 1.4s infinite;
 }
 .hero-logo .logo-glow{
   display:block;
@@ -1566,9 +1566,9 @@ a.footer-logo-link{
   pointer-events:none;
   transition:background .6s var(--ease), opacity .6s var(--ease), transform .35s var(--ease);
   filter:blur(36px);
-  opacity:.45;
+  opacity:0;
   will-change:transform, opacity;
-  animation:logoGlowPulse 7.5s ease-in-out infinite;
+  animation:logoGlowPulse 7.5s ease-in-out 1.4s infinite;
 }
 @keyframes logoFloat{
   0%,100%{ transform:perspective(1400px) translateY(0) rotateX(0deg) rotateY(0deg) }
@@ -1578,9 +1578,36 @@ a.footer-logo-link{
   0%,100%{ opacity:.40; transform:scale(.96) }
   50%   { opacity:.75; transform:scale(1.04) }
 }
-/* Pause ambient float while user is interacting (tilt takes over) */
-.hero-logo.is-tilting .hero-logo-inner{ animation-play-state:paused }
-.hero-logo.is-tilting .logo-glow{ animation-play-state:paused }
+/* ── Cinematic entrance ──────────────────────────────────────── */
+.hero-logo .hero-logo-inner{ opacity:0 }
+.hero-logo.is-entered .hero-logo-inner{
+  animation: logoEnter 1.4s cubic-bezier(.2,.7,.2,1) forwards,
+             logoFloat 7.5s ease-in-out 1.4s infinite;
+}
+.hero-logo.is-entered .logo-glow{
+  animation: logoGlowBurst 1.6s cubic-bezier(.2,.7,.2,1) forwards,
+             logoGlowPulse 7.5s ease-in-out 1.6s infinite;
+}
+/* CRITICAL: must come AFTER .is-entered so it wins specificity tie-break.
+   Kill animations entirely while tilting — paused keyframes still override
+   inline transform; "none" lets style.transform win. */
+.hero-logo.is-tilting .hero-logo-inner{ animation:none !important; opacity:1 }
+.hero-logo.is-tilting .logo-glow{ animation:none !important; opacity:1 }
+@keyframes logoEnter{
+  0%   { opacity:0; filter:blur(18px); transform:perspective(1400px) translateY(40px) scale(.82) rotateX(-12deg) }
+  60%  { opacity:1; filter:blur(2px);  transform:perspective(1400px) translateY(-4px) scale(1.02) rotateX(2deg) }
+  100% { opacity:1; filter:blur(0);    transform:perspective(1400px) translateY(0) scale(1) rotateX(0deg) }
+}
+@keyframes logoGlowBurst{
+  0%   { opacity:0; transform:scale(.4) }
+  35%  { opacity:1; transform:scale(1.25) }
+  100% { opacity:.5; transform:scale(1) }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-logo .hero-logo-inner,
+  .hero-logo.is-entered .hero-logo-inner,
+  .hero-logo.is-entered .logo-glow{ animation:none; opacity:1; transform:none }
+}
 .hero-logo img{
   width:100%;
   height:auto;
@@ -3397,15 +3424,41 @@ section.movements{
     if(!logo) return;
     var inner = logo.querySelector('.hero-logo-inner');
     if(!inner) return;
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Cinematic entrance: fire as soon as the logo is mounted
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ logo.classList.add('is-entered'); });
+    });
+
+    if(reduced) return;
+
+    // Scroll reactivity: gentle parallax tilt while hero is in view
+    var scrollRaf = null;
+    function onScroll(){
+      if(scrollRaf) return;
+      scrollRaf = requestAnimationFrame(function(){
+        scrollRaf = null;
+        if(logo.classList.contains('is-tilting')) return; // hover wins
+        var rect = logo.getBoundingClientRect();
+        var vh = window.innerHeight || 1;
+        var center = (rect.top + rect.height/2) / vh;
+        var n = Math.max(-1, Math.min(1, (center - 0.5) * 2));
+        var rX = n * 4;
+        var rY = -n * 2;
+        var trY = n * -10;
+        inner.style.transform =
+          'perspective(1400px) rotateX(' + rX + 'deg) rotateY(' + rY + 'deg) translateY(' + trY + 'px)';
+      });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
     if(!window.matchMedia('(hover:hover)').matches) return;
 
     var rafId = null, tx = 0, ty = 0;
     function onEnter(){
       logo.classList.add('is-tilting');
-      // Lock the glow's inline transform so the keyframe doesn't fight us
-      var glow = logo.querySelector('.logo-glow');
-      if(glow){ glow.style.transform = 'translate3d(0,0,0)'; }
     }
     function onMove(e){
       var rect = logo.getBoundingClientRect();
@@ -3413,26 +3466,25 @@ section.movements{
       var cy = rect.top + rect.height / 2;
       var dx = (e.clientX - cx) / (rect.width / 2);
       var dy = (e.clientY - cy) / (rect.height / 2);
-      ty = Math.max(-1, Math.min(1, dx)) * 14;  // rotateY
-      tx = Math.max(-1, Math.min(1, -dy)) * 9;  // rotateX
+      ty = Math.max(-1, Math.min(1, dx)) * 14;
+      tx = Math.max(-1, Math.min(1, -dy)) * 9;
       if(!rafId) rafId = requestAnimationFrame(apply);
     }
     function apply(){
       rafId = null;
       inner.style.transform = 'perspective(1400px) rotateX(' + tx + 'deg) rotateY(' + ty + 'deg) translateZ(30px) scale(1.03)';
-      // Move the glow with the tilt direction for a parallax feel
       var glow = logo.querySelector('.logo-glow');
       if(glow){
-        glow.style.transform = 'translate3d(' + (ty * 0.8) + 'px,' + (-tx * 0.8) + 'px,0)';
+        glow.style.transform = 'translate3d(' + (ty * 0.8) + 'px,' + (-tx * 0.8) + 'px,0) scale(1.05)';
       }
     }
     function onLeave(){
       tx = 0; ty = 0;
-      // Clear inline styles so ambient float/pulse keyframes resume cleanly
       inner.style.transform = '';
       var glow = logo.querySelector('.logo-glow');
       if(glow){ glow.style.transform = ''; }
       logo.classList.remove('is-tilting');
+      onScroll();
     }
     logo.addEventListener('mouseenter', onEnter);
     logo.addEventListener('mousemove', onMove);
