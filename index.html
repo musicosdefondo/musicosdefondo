@@ -126,7 +126,7 @@ nav.scrolled{padding:14px 40px}
 .m-cell p{font-size:17px;color:rgba(242,237,228,.65);line-height:1.7;font-family:var(--sans);font-weight:400}
 
 /* ── BENTO SERVICES ── */
-.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:320px 320px 260px 300px;gap:12px;margin-top:56px}
+.bento{display:grid;grid-template-columns:1fr;grid-auto-rows:minmax(300px,auto);gap:12px;margin-top:56px}
 .bento-card{position:relative;border-radius:20px;overflow:hidden;border:.5px solid var(--border);background:var(--ink-card);cursor:pointer;transition:transform .6s cubic-bezier(.22,1,.36,1),border-color .6s}
 .bento-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.3)}
 .bento-card .card-img{position:absolute;inset:0}
@@ -156,14 +156,8 @@ nav.scrolled{padding:14px 40px}
 .card-actions a.primary:hover{background:transparent;color:var(--gold)}
 .card-actions a.secondary{color:var(--cream);background:transparent}
 .card-actions a.secondary:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
-/* bento layout */
-.b1{grid-column:1;grid-row:1}
-.b2{grid-column:2/4;grid-row:1/3}
-.b3{grid-column:1;grid-row:2}
-.b4{grid-column:1/3;grid-row:3}
-.b5{grid-column:3;grid-row:3}
-.b6{grid-column:1;grid-row:4}
-.b7{grid-column:2/4;grid-row:4}
+/* bento layout — vertical stack on all viewports */
+.b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:1;grid-row:auto}
 
 /* ── SERVICE MODAL ── */
 .svc-modal-backdrop{position:fixed;inset:0;z-index:2000;background:rgba(10,9,7,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;justify-content:center;padding:24px}
@@ -300,10 +294,6 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .bento{grid-template-columns:1fr 1fr;grid-template-rows:300px 300px 260px 300px 280px}
-  .b1{grid-column:1;grid-row:1}.b2{grid-column:2;grid-row:1/3}.b3{grid-column:1;grid-row:2}
-  .b4{grid-column:1/3;grid-row:3}.b5{grid-column:1;grid-row:4}.b6{grid-column:2;grid-row:4}
-  .b7{grid-column:1/3;grid-row:5}
   .value-grid{grid-template-columns:1fr 1fr}
   .formats-grid{grid-template-columns:repeat(3,1fr)}
   .modal-level{grid-template-columns:1fr;gap:6px}
@@ -318,8 +308,6 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
   .hero-title{font-size:clamp(38px,11vw,64px)}
   .sect{padding:80px 0}
   .manifest-grid,.value-grid{grid-template-columns:1fr}
-  .bento{grid-template-columns:1fr;grid-template-rows:repeat(7,300px)}
-  .b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:1;grid-row:auto}
   .formats-grid{grid-template-columns:1fr 1fr}
   .marquee-img{height:280px}
   .timeline{padding-left:32px}
@@ -525,7 +513,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="lead gs">Cada uno responde a diferentes categorías de servicio. Selecciona el que más se adecúe a tu tipo de evento.</p>
     <div class="bento gs">
       <a class="bento-card bento-card--link b1" href="the-jazz-route.html" aria-label="The Jazz Route — Experiencia 360">
-        <div class="card-img"><img src="uploads/movement-04-bolero.jpg" alt="The Jazz Route — experiencia 360 de música en vivo para hoteles y restaurantes en Medellín"></div>
+        <div class="card-img"><img src="uploads/og-jazz-route.jpg" alt="The Jazz Route — experiencia 360 de música en vivo para hoteles y restaurantes en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content">
           <span class="card-num">01</span>
@@ -546,46 +534,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <span class="card-arrow">→</span>
       </a>
-      <div class="bento-card b3" data-svc="2" onclick="openSvcModal(2)">
-        <div class="card-img"><img src="uploads/bandperformance1.jpg" alt="Christmas Jazz — espectáculo navideño con Small Big Band en Medellín"></div>
-        <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">03</span><span class="card-tag">Temporada · Fin de año · Retail</span><h3 class="card-name">Christmas <em>Jazz</em></h3><p class="card-desc">Small Big Band + marionetas. El villancico clásico transformado en espectáculo internacional.</p><span class="card-cta">Ver detalle →</span></div>
-        <span class="card-arrow">→</span>
-      </div>
-      <div class="bento-card b4" data-svc="3" onclick="openSvcModal(3)">
-        <div class="card-img"><img src="uploads/trumpetcloseup.jpg" alt="Música Itinerante — músicos en vivo para centros comerciales y activaciones en Medellín"></div>
-        <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">04</span><span class="card-tag">Centros Comerciales · Activaciones</span><h3 class="card-name">Música <em>Itinerante</em></h3><p class="card-desc">Música en vivo de altísima calidad llevada exactamente donde está tu cliente.</p><span class="card-cta">Ver detalle →</span></div>
-        <span class="card-arrow">→</span>
-      </div>
-      <a class="bento-card bento-card--link b5" href="bodas-y-cocteles.html" aria-label="Bodas y Cocteles">
+      <a class="bento-card bento-card--link b3" href="bodas-y-cocteles.html" aria-label="Bodas y Cocteles">
         <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Bodas y Cocteles — música en vivo para bodas y eventos premium en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content">
-          <span class="card-num">05</span>
+          <span class="card-num">03</span>
           <span class="card-tag">Bodas · Cocteles · Wedding Planners</span>
           <h3 class="card-name">Bodas y <em>Cocteles</em></h3>
           <p class="card-desc">Música en vivo para cada momento — ceremonia, coctel y celebración.</p>
         </div>
         <span class="card-arrow">→</span>
       </a>
-      <div class="bento-card b6" data-svc="5" onclick="openSvcModal(5)">
-        <div class="card-img"><img src="uploads/pianistcloseup.jpg" alt="Servicios Corporativos — team building con música en vivo para empresas en Medellín"></div>
-        <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">06</span><span class="card-tag">RRHH · Bienestar · Team Building</span><h3 class="card-name">Servicios <em>Corporativos</em></h3><p class="card-desc">Talleres experienciales con música en vivo para fortalecer equipos de trabajo.</p><span class="card-cta">Ver detalle →</span></div>
-        <span class="card-arrow">→</span>
-      </div>
-      <a class="bento-card bento-card--link b7" href="paginas-sonoras.html" aria-label="Páginas Sonoras">
+      <a class="bento-card bento-card--link b4" href="paginas-sonoras.html" aria-label="Páginas Sonoras">
         <div class="card-img"><img src="uploads/ps-paginas-musica.png" alt="Páginas Sonoras — musicalización en vivo de literatura en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
         <div class="card-content">
-          <span class="card-num">07</span>
+          <span class="card-num">04</span>
           <span class="card-tag">Literatura · Librerías · Ferias</span>
           <h3 class="card-name">Páginas <em>Sonoras</em></h3>
           <p class="card-desc">Lecturas musicalizadas en vivo con Diego Londoño — palabra, música e imagen compuestas en el instante.</p>
         </div>
         <span class="card-arrow">→</span>
       </a>
+      <div class="bento-card b5" data-svc="2" onclick="openSvcModal(2)">
+        <div class="card-img"><img src="uploads/bandperformance1.jpg" alt="Christmas Jazz — espectáculo navideño con Small Big Band en Medellín"></div>
+        <div class="card-overlay"></div><div class="card-glow"></div>
+        <div class="card-content"><span class="card-num">05</span><span class="card-tag">Temporada · Fin de año · Retail</span><h3 class="card-name">Christmas <em>Jazz</em></h3><p class="card-desc">Small Big Band + marionetas. El villancico clásico transformado en espectáculo internacional.</p><span class="card-cta">Ver detalle →</span></div>
+        <span class="card-arrow">→</span>
+      </div>
+      <div class="bento-card b6" data-svc="3" onclick="openSvcModal(3)">
+        <div class="card-img"><img src="uploads/trumpetcloseup.jpg" alt="Música Itinerante — músicos en vivo para centros comerciales y activaciones en Medellín"></div>
+        <div class="card-overlay"></div><div class="card-glow"></div>
+        <div class="card-content"><span class="card-num">06</span><span class="card-tag">Centros Comerciales · Activaciones</span><h3 class="card-name">Música <em>Itinerante</em></h3><p class="card-desc">Música en vivo de altísima calidad llevada exactamente donde está tu cliente.</p><span class="card-cta">Ver detalle →</span></div>
+        <span class="card-arrow">→</span>
+      </div>
+      <div class="bento-card b7" data-svc="5" onclick="openSvcModal(5)">
+        <div class="card-img"><img src="uploads/pianistcloseup.jpg" alt="Servicios Corporativos — team building con música en vivo para empresas en Medellín"></div>
+        <div class="card-overlay"></div><div class="card-glow"></div>
+        <div class="card-content"><span class="card-num">07</span><span class="card-tag">RRHH · Bienestar · Team Building</span><h3 class="card-name">Servicios <em>Corporativos</em></h3><p class="card-desc">Talleres experienciales con música en vivo para fortalecer equipos de trabajo.</p><span class="card-cta">Ver detalle →</span></div>
+        <span class="card-arrow">→</span>
+      </div>
     </div>
 
     <!-- SEO: Contenido indexable de servicios (invisible en pantalla, legible por crawlers) -->
