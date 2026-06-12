@@ -135,16 +135,17 @@ nav.scrolled{padding:14px 40px}
 .bento-card .card-glow{position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%);opacity:0;transition:opacity .6s;pointer-events:none;z-index:1}
 .bento-card:hover .card-glow{opacity:1}
 .bento-card .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,7,.9) 0%,rgba(10,9,7,.35) 45%,rgba(10,9,7,.1) 100%);z-index:1}
-.bento-card .card-content{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;padding:28px;height:100%}
-.bento-card .card-num{font-family:var(--mono);font-size:clamp(32px,3.4vw,46px);color:var(--gold);letter-spacing:.06em;opacity:.9;margin-bottom:auto;font-weight:400;line-height:1}
-.bento-card .card-name{font-family:var(--sans);font-size:clamp(36px,3.6vw,52px);font-weight:500;margin-bottom:10px;line-height:1.05;letter-spacing:-.02em}
+.bento-card .card-content{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px;height:100%;gap:10px}
+.bento-card .card-num{font-family:var(--mono);font-size:clamp(32px,3.4vw,46px);color:var(--gold);letter-spacing:.06em;opacity:.9;font-weight:400;line-height:1;margin-bottom:6px}
+.bento-card .card-name{font-family:var(--sans);font-size:clamp(36px,3.6vw,52px);font-weight:500;line-height:1.05;letter-spacing:-.02em;margin:0}
 .bento-card .card-name em{font-family:var(--serif);font-style:italic;font-weight:400}
-.bento-card .card-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin-bottom:12px}
+.bento-card .card-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin:0}
 .bento-card .card-desc{font-size:16px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.75);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .bento-card .card-arrow{position:absolute;top:28px;right:28px;font-size:18px;color:var(--gold);opacity:0;transform:translateX(-4px);transition:all .5s;z-index:2}
 .bento-card:hover .card-arrow{opacity:1;transform:translateX(0)}
 .bento-card .card-cta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:0;transition:opacity .5s}
 .bento-card:hover .card-cta{opacity:1}
+@media(hover:none){.bento-card .card-cta{opacity:.9}}
 .card-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center;position:relative;z-index:3;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
 .bento-card--cta:hover .card-actions,
 .bento-card--cta.tapped .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
@@ -508,9 +509,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ─── SERVICIOS ─── -->
 <section class="sect" id="servicios">
   <div class="wrap">
-    <p class="micro gs">Ecosistema de servicios</p>
+    <p class="micro gs">SERVICIOS</p>
     <h2 class="gs">Siete maneras de<br>transformar <em>tu espacio.</em></h2>
-    <p class="lead gs">Cada uno responde a diferentes categorías de servicio. Selecciona el que más se adecúe a tu tipo de evento.</p>
+    <p class="lead gs">Explora dando click al servicio que mas te interese</p>
     <div class="bento gs">
       <a class="bento-card bento-card--link b1" href="the-jazz-route.html" aria-label="The Jazz Route — Experiencia 360">
         <div class="card-img"><img src="uploads/og-jazz-route.jpg" alt="The Jazz Route — experiencia 360 de música en vivo para hoteles y restaurantes en Medellín"></div>
@@ -520,6 +521,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="card-tag">Experiencia 360</span>
           <h3 class="card-name">The Jazz <em>Route</em></h3>
           <p class="card-desc">Maridaje sonoro inmersivo entre gastronomía, historia y música en vivo.</p>
+          <span class="card-cta">Ver detalle →</span>
         </div>
         <span class="card-arrow">→</span>
       </a>
@@ -531,6 +533,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="card-tag">Cultura · Teatros · Instituciones</span>
           <h3 class="card-name">Cine <em>Conciertos</em></h3>
           <p class="card-desc">Live Scoring en vivo de películas icónicas, con derechos de exhibición incluidos.</p>
+          <span class="card-cta">Ver detalle →</span>
         </div>
         <span class="card-arrow">→</span>
       </a>
@@ -542,6 +545,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="card-tag">Bodas · Cocteles · Wedding Planners</span>
           <h3 class="card-name">Bodas y <em>Cocteles</em></h3>
           <p class="card-desc">Música en vivo para cada momento — ceremonia, coctel y celebración.</p>
+          <span class="card-cta">Ver detalle →</span>
         </div>
         <span class="card-arrow">→</span>
       </a>
@@ -553,6 +557,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="card-tag">Literatura · Librerías · Ferias</span>
           <h3 class="card-name">Páginas <em>Sonoras</em></h3>
           <p class="card-desc">Lecturas musicalizadas en vivo con Diego Londoño — palabra, música e imagen compuestas en el instante.</p>
+          <span class="card-cta">Ver detalle →</span>
         </div>
         <span class="card-arrow">→</span>
       </a>
@@ -608,9 +613,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ─── VÍDEOS ─── -->
 <section class="sect" id="videos">
   <div class="wrap">
-    <p class="micro gs">En cámara</p>
+    <p class="micro gs">VÍDEOS</p>
     <h2 class="gs">Escúchanos<br>en <em>vivo.</em></h2>
-    <p class="body-text gs">Tres registros de nuestro ensamble — para que la propuesta sonora hable por sí misma.</p>
     <div class="videos-grid gs">
       <div class="video-card">
         <iframe src="https://www.youtube.com/embed/aSztTdYAGjg?si=B1saKj2nWr4RkFrn" title="Músicos de Fondo — performance en vivo 01" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
