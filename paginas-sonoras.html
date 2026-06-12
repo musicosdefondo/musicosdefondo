@@ -55,7 +55,7 @@
       "@type": "Organization",
       "name": "Músicos de Fondo",
       "url": "https://musicosdefondo.com",
-      "telephone": "+573104208629",
+      "telephone": "+573003033436",
       "email": "musicosdefondo@gmail.com",
       "logo": "https://musicosdefondo.com/uploads/logomusicosdefondo.png",
       "address": { "@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO" },
@@ -123,7 +123,7 @@
     }
 
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
+    html{scroll-behavior:smooth;background:var(--bg);}
     body{
       background:var(--bg);
       color:var(--fg);
@@ -133,6 +133,22 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       overflow-x:hidden;
+      position:relative;
+      isolation:isolate;
+    }
+    /* Stone-texture global background — fixed, dimmed, subtle */
+    body::before{
+      content:'';
+      position:fixed;inset:0;z-index:-10;pointer-events:none;
+      background:url('uploads/blackstonebackground.jpg') center center / cover no-repeat;
+      opacity:.55;
+    }
+    /* Soft vignette + dimming so the texture reads as atmosphere, not a photo */
+    body::after{
+      content:'';
+      position:fixed;inset:0;z-index:-9;pointer-events:none;
+      background:
+        radial-gradient(ellipse 110% 90% at 50% 45%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.62) 70%, rgba(0,0,0,.82) 100%);
     }
     img{max-width:100%;display:block;}
     a{color:inherit;text-decoration:none;}
@@ -195,7 +211,7 @@
       filter:grayscale(.85) contrast(1.1) brightness(.55);opacity:.42;}
     .hero-atmo .hero-fallback{background:url('uploads/ps-paginas-musica.png') center 35%/cover no-repeat;}
     .hero-atmo::after{content:'';position:absolute;inset:0;z-index:1;
-      background:radial-gradient(ellipse 70% 60% at 50% 42%, transparent 0%, rgba(0,0,0,.45) 55%, #000 92%);}
+      background:radial-gradient(ellipse 70% 60% at 50% 42%, transparent 0%, rgba(0,0,0,.4) 55%, rgba(0,0,0,.85) 92%);}
     .hero-ctx{
       font-family:var(--f-mono);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
       color:var(--fg-mute);margin-bottom:46px;
@@ -346,11 +362,11 @@
     .sec-head h2{font-family:var(--f-display);font-weight:300;font-size:clamp(1.9rem,4vw,3rem);line-height:1.18;letter-spacing:-.01em;}
     .sec-head p{margin-top:22px;font-size:17px;color:var(--fg-mute);max-width:520px;}
 
-    .cards{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft);}
+    .cards{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft);overflow:hidden;}
     @media(min-width:680px){.cards{grid-template-columns:1fr 1fr;}}
     @media(min-width:1040px){.cards{grid-template-columns:repeat(3,1fr);}}
-    .card{background:var(--bg);padding:44px 32px;transition:background .5s ease;display:flex;flex-direction:column;}
-    .card:hover{background:var(--bg-lift);}
+    .card{background:rgba(7,7,6,.55);padding:44px 32px;transition:background .5s ease;display:flex;flex-direction:column;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);}
+    .card:hover{background:rgba(14,14,12,.72);}
     .card .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:26px;}
     .card h3{font-family:var(--f-display);font-weight:400;font-size:23px;line-height:1.15;margin-bottom:14px;}
     .card p{font-size:16px;line-height:1.8;color:var(--fg-mute);}
@@ -394,7 +410,7 @@
       background:url('uploads/diegolondono.jpg') center 15%/cover no-repeat;
       filter:grayscale(.35) contrast(1.08) brightness(.45);opacity:.32;}
     .diego-bg::after{content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 85% 75% at 50% 40%, rgba(0,0,0,.15) 0%, rgba(0,0,0,.7) 60%, #000 92%);}
+      background:radial-gradient(ellipse 85% 75% at 50% 40%, rgba(0,0,0,.15) 0%, rgba(0,0,0,.65) 60%, rgba(0,0,0,.88) 92%);}
     @media(max-width:899px){
       .diego-bg{background-position:center 10%;opacity:.26;}
     }
@@ -417,7 +433,7 @@
       background:url('uploads/ps-publico-live.png') center 40%/cover no-repeat;
       filter:grayscale(.35) contrast(1.1) brightness(.42);opacity:.30;}
     .proof-bg::after{content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,0,0,.4) 0%, rgba(0,0,0,.82) 60%, #000 95%);}
+      background:radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,0,0,.4) 0%, rgba(0,0,0,.78) 60%, rgba(0,0,0,.9) 95%);}
     .proof .ey{font-family:var(--f-mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--fg-mute);display:inline-flex;align-items:center;gap:14px;margin-bottom:40px;}
     .proof .ey::before{content:'';width:30px;height:1px;background:var(--gold);display:inline-block;}
     .proof .badge{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);padding:9px 18px;border-radius:2px;margin-bottom:40px;}
@@ -434,7 +450,7 @@
     .cta-bg{position:absolute;inset:0;z-index:-2;
       background:url('uploads/ps-paginas-musica.png') center center/cover no-repeat;
       filter:grayscale(1) contrast(1.15) brightness(.4);opacity:.22;}
-    .cta-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 75% 70% at 50% 50%, rgba(0,0,0,.45) 0%, rgba(0,0,0,.82) 60%, #000 92%);}
+    .cta-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 75% 70% at 50% 50%, rgba(0,0,0,.45) 0%, rgba(0,0,0,.8) 60%, rgba(0,0,0,.9) 92%);}
     .cta .ey{font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:30px;}
     .cta h2{font-family:var(--f-script);font-weight:500;font-size:clamp(2.6rem,7vw,5rem);line-height:1.05;color:var(--fg);margin-bottom:32px;text-wrap:balance;}
     .cta .sub{font-family:var(--f-body);font-weight:300;font-size:clamp(1.1rem,2.2vw,1.4rem);color:var(--fg-dim);max-width:580px;margin:0 auto 50px;line-height:1.5;}
@@ -570,7 +586,7 @@
 
     <div class="hero-cta">
       <a class="btn btn-primary" href="https://musicosdefondo.com/cotizador.html">Solicitar propuesta <span class="ar" aria-hidden="true">→</span></a>
-      <a class="btn btn-ghost" href="https://wa.me/573104208629" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+      <a class="btn btn-ghost" href="https://wa.me/573003033436" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
     </div>
 
     <div class="scrollcue" aria-hidden="true"><span class="bar"></span></div>
@@ -811,12 +827,12 @@
       <p class="sub rv" data-d="2">Cuéntanos el espacio y la fecha. Nosotros diseñamos la experiencia completa.</p>
       <div class="cta-btns rv" data-d="3">
         <a class="btn btn-primary btn-lg" href="https://musicosdefondo.com/cotizador.html">Solicitar propuesta <span class="ar" aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost btn-lg" href="https://wa.me/573104208629" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-ghost btn-lg" href="https://wa.me/573003033436" target="_blank" rel="noopener">WhatsApp</a>
       </div>
       <div class="cta-contact rv" data-d="4">
         <a href="/cdn-cgi/l/email-protection#0e637b7d676d617d6a6b6861606a614e69636f6762206d6163"><span class="__cf_email__" data-cfemail="28455d5b414b475b4c4d4e47464c47684f45494144064b4745">[email&#160;protected]</span></a>
         <span class="sep">·</span>
-        <a href="https://wa.me/573104208629" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://wa.me/573003033436" target="_blank" rel="noopener">WhatsApp</a>
         <span class="sep">·</span>
         <a href="https://www.instagram.com/musicosdefondo/" target="_blank" rel="noopener">Instagram</a>
         <span class="sep">·</span>
@@ -846,7 +862,7 @@
   </footer>
 
   <!-- WhatsApp float -->
-  <a class="wa" href="https://wa.me/573104208629" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <a class="wa" href="https://wa.me/573003033436" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.13c-1.52 0-3-.41-4.29-1.18l-.31-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.35c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.83 2.41a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
   </a>
 
