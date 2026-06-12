@@ -145,6 +145,12 @@ nav.scrolled{padding:14px 40px}
 .bento-card:hover .card-arrow{opacity:1;transform:translateX(0)}
 .bento-card .card-cta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:0;transition:opacity .5s}
 .bento-card:hover .card-cta{opacity:1}
+.card-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;position:relative;z-index:3}
+.card-actions a{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:11px 20px;border-radius:100px;transition:all .35s;border:.5px solid var(--gold);white-space:nowrap;line-height:1}
+.card-actions a.primary{background:var(--gold);color:var(--ink)}
+.card-actions a.primary:hover{background:transparent;color:var(--gold)}
+.card-actions a.secondary{color:var(--cream);background:transparent}
+.card-actions a.secondary:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
 /* bento layout */
 .b1{grid-column:1;grid-row:1}
 .b2{grid-column:2/4;grid-row:1/3}
@@ -184,7 +190,12 @@ nav.scrolled{padding:14px 40px}
 .modal-bullet{display:flex;gap:12px;align-items:flex-start}
 .modal-bullet-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:8px;flex-shrink:0;opacity:.6}
 .modal-bullet-text{font-size:15px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.72);line-height:1.55}
-.modal-cta-row{display:flex;gap:20px;align-items:center;margin-top:8px}
+.modal-cta-row{display:flex;gap:14px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.modal-cta-row a.primary{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.modal-cta-row a.primary:hover{background:transparent;color:var(--gold)}
+.modal-cta-row a.secondary{background:transparent;color:var(--gold)}
+.modal-cta-row a.secondary:hover{background:var(--gold);color:var(--ink)}
+.card-actions{display:none}
 .modal-cta-row a{font-family:var(--sans);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--gold);border:.5px solid var(--gold);padding:13px 30px;border-radius:100px;transition:all .4s}
 .modal-cta-row a:hover{background:var(--gold);color:var(--ink)}
 
@@ -515,13 +526,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="bento-card b1" data-svc="0" onclick="openSvcModal(0)">
         <div class="card-img"><img src="uploads/singercloseup.jpg" alt="Experiencia 360° — música en vivo para restaurantes y hoteles en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">01</span><span class="card-tag">HORECA · Hoteles · Restaurantes</span><h3 class="card-name">Experiencia <em>360°</em></h3><p class="card-desc">Maridaje sonoro inmersivo donde la gastronomía y la historia dialogan con la música.</p><span class="card-cta">Ver detalle →</span></div>
+        <div class="card-content"><span class="card-num">01</span><span class="card-tag">HORECA · Hoteles · Restaurantes</span><h3 class="card-name">Experiencia <em>360°</em></h3><p class="card-desc">Maridaje sonoro inmersivo entre gastronomía, historia y música en vivo.</p></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b2" data-svc="1" onclick="openSvcModal(1)">
         <div class="card-img"><img src="uploads/cineconciertos.jpg" alt="Cine-Conciertos — live scoring de películas con banda en vivo en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">02</span><span class="card-tag">Cultura · Teatros · Instituciones</span><h3 class="card-name">Cine <em>Conciertos</em></h3><p class="card-desc">Live Scoring en vivo de obras cinematográficas icónicas. Gestión de derechos de exhibición incluida.</p><span class="card-cta">Ver detalle →</span></div>
+        <div class="card-content"><span class="card-num">02</span><span class="card-tag">Cultura · Teatros · Instituciones</span><h3 class="card-name">Cine <em>Conciertos</em></h3><p class="card-desc">Live Scoring en vivo de películas icónicas, con derechos de exhibición incluidos.</p></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b3" data-svc="2" onclick="openSvcModal(2)">
@@ -537,9 +548,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b5" data-svc="4" onclick="openSvcModal(4)">
-        <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Bodas Simbólicas — música en vivo para bodas premium en Medellín"></div>
+        <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Bodas y Cocteles — música en vivo para bodas y eventos premium en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">05</span><span class="card-tag">Ultra-Premium · Wedding Planners</span><h3 class="card-name">Bodas <em>Simbólicas</em></h3><p class="card-desc">Música en vivo diseñada para cada momento de tu boda.</p><span class="card-cta">Ver detalle →</span></div>
+        <div class="card-content"><span class="card-num">05</span><span class="card-tag">Bodas · Cocteles · Wedding Planners</span><h3 class="card-name">Bodas y <em>Cocteles</em></h3><p class="card-desc">Música en vivo para cada momento — ceremonia, coctel y celebración.</p></div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b6" data-svc="5" onclick="openSvcModal(5)">
@@ -551,7 +562,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="bento-card b7" data-svc="6" onclick="openSvcModal(6)">
         <div class="card-img"><img src="uploads/saxophonecloseup.jpg" alt="Páginas Sonoras — musicalización en vivo de literatura en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">07</span><span class="card-tag">Literatura · Librerías · Ferias</span><h3 class="card-name">Páginas <em>Sonoras</em></h3><p class="card-desc">Live Scoring para literatura. La narrativa se convierte en experiencia multisensorial.</p><span class="card-cta">Ver detalle →</span></div>
+        <div class="card-content"><span class="card-num">07</span><span class="card-tag">Literatura · Librerías · Ferias</span><h3 class="card-name">Páginas <em>Sonoras</em></h3><p class="card-desc">Live Scoring para literatura — la narrativa convertida en experiencia multisensorial.</p></div>
         <span class="card-arrow">→</span>
       </div>
     </div>
@@ -737,26 +748,28 @@ const SVC_DATA = [
   {
     num:'01', tag:'HORECA · Hoteles · Restaurantes', title:'Experiencia <em>360°</em>',
     img:'uploads/singercloseup.jpg',
-    tagline:'Mas que vender música en vivo; diseñamos activos de retención que transforman tu menú en un evento de destino.',
-    desc:'Es una experiencia inmersiva donde la gastronomía, la coctelería y la historia dialogan con la música. El cliente HORECA más que contratarnos para ambientar, se asocia para crear un evento de destino dentro de su local.',
+    pageUrl:'the-jazz-route.html',
+    tagline:'Diseñamos eventos de destino que transforman tu menú en un activo de retención.',
+    desc:'Maridaje sonoro inmersivo donde gastronomía, coctelería e historia dialogan con la música en vivo.',
     levels:[
-      {name:'Experiencia 360°', desc:'Cena maridaje 6 tiempos con narrativa histórica guiada. Del Mississippi a Medellín. Evento VIP que transforma noches de baja ocupación en veladas Sold Out.'},
-      {name:'Noches de Inmersión', desc:'Eventos bimensuales temáticos — “Havana Night”, “Prohibition Era”. Atraen nichos, elevan consumo y generan contenido viral.'},
-      {name:'Residencias Sonoras', desc:'Dúos o tríos bajo suscripción mensual. Curación continua de la identidad sonora del venue. Flujo de caja recurrente.'}
+      {name:'The Jazz Route', desc:'Cena maridaje de 6 tiempos con narrativa histórica guiada — del Mississippi a Medellín.'},
+      {name:'Noches de Inmersión', desc:'Eventos temáticos bimensuales — Havana Night, Prohibition Era.'},
+      {name:'Residencias Sonoras', desc:'Dúos o tríos bajo suscripción mensual. Identidad sonora continua del venue.'}
     ],
-    bullets:['Residencias semanales o mensuales a la medida','Dúo íntimo para lobby o cuarteto para rooftop','Producción técnica llave en mano','Registro audiovisual: 1 Reel + 5 fotos HD por evento','+10 años de experiencia en programación HORECA']
+    bullets:['Producción técnica llave en mano','Registro audiovisual: 1 Reel + 5 fotos HD por evento','+10 años de experiencia en programación HORECA']
   },
   {
     num:'02', tag:'Cultura · Teatros · Instituciones', title:'Cine <em>Conciertos</em>',
     img:'uploads/cineconciertos.jpg',
+    pageUrl:'cine-conciertos-medellin.html',
     tagline:'Transformamos la proyección tradicional en una gala irrepetible.',
-    desc:'Live Scoring en vivo de obras cinematográficas. Reinterpretamos bandas sonoras icónicas sincronizando música en vivo con la proyección. Gestión de derechos (EGEDA/MPLC) incluida: producto cero riesgos legales para el comprador.',
+    desc:'Live Scoring sincronizado con la proyección. Gestión de derechos (EGEDA/MPLC) incluida — cero riesgos legales.',
     levels:[
-      {name:'Animación y Fantasía', desc:'El Viaje de Chihiro · El Castillo Ambulante · WALL-E · Elementos. Taquilla familiar premium para domingos y vacaciones.'},
-      {name:'Estética y Culto', desc:'El Gran Hotel Budapest · Ennio, el Maestro. Galas cinéfilas, festivales y patrocinadores de lujo.'},
-      {name:'Era Dorada', desc:'Tiempos Modernos · El Maquinista de la General. Alto engagement, viralidad orgánica, públicos jóvenes.'}
+      {name:'Animación y Fantasía', desc:'Chihiro · Castillo Ambulante · WALL-E. Taquilla familiar premium.'},
+      {name:'Estética y Culto', desc:'Gran Hotel Budapest · Ennio. Galas cinéfilas y patrocinadores de lujo.'},
+      {name:'Era Dorada', desc:'Tiempos Modernos · El Maquinista. Públicos jóvenes y viralidad orgánica.'}
     ],
-    bullets:['Formato septeto / Small Big Band','Clearing legal de derechos de autor incluido','Ideal para teatros, cajas de compensación y galas VIP','Sin competencia directa en Colombia','5 músicos + registro audiovisual']
+    bullets:['Septeto / Small Big Band','Clearing legal de derechos incluido','Sin competencia directa en Colombia']
   },
   {
     num:'03', tag:'Temporada · Fin de Año · Retail', title:'Christmas <em>Jazz</em>',
@@ -782,16 +795,17 @@ const SVC_DATA = [
     bullets:['100% acústico o amplificación portátil invisible','Cero fricción logística: sin tarimas, sin cables','Ideal para temporadas fuertes y activaciones de marca','Aumenta tráfico y permanencia en zonas comerciales']
   },
   {
-    num:'05', tag:'Ultra-Premium · Wedding Planners', title:'Bodas <em>Simbólicas</em>',
+    num:'05', tag:'Bodas · Cocteles · Wedding Planners', title:'Bodas y <em>Cocteles</em>',
     img:'uploads/bandperformance.jpg',
-    tagline:'Música en vivo diseñada para cada momento de tu boda.',
-    desc:'Creamos la banda sonora de tu ceremonia y celebración. Live Scoring reactivo para votos, musicalización de proyecciones sorpresa y producción técnica invisible que se integra al flujo del evento.',
+    pageUrl:'bodas-y-cocteles.html',
+    tagline:'Música en vivo diseñada para los momentos que importan.',
+    desc:'Tres servicios que cubren la boda completa — del pre-evento al primer baile original. Dirección musical dedicada y producción técnica autosuficiente.',
     levels:[
-      {name:'El Ritual Cinematográfico', desc:'Live Scoring ceremonial. Improvisación reactiva a los votos y musicalización de videos sorpresa.'},
-      {name:'El Viaje Sonoro', desc:'Ceremonia + Sunset Cocktail. Transición orgánica de la solemnidad al primer brindis (Swing, Latin Jazz).'},
-      {name:'La Obra Maestra', desc:'Composición o arreglo exclusivo de la canción de la pareja para su entrada triunfal. Ultra-Premium.'}
+      {name:'Warm-Up · Pre-Boda', desc:'Welcome party, rehearsal dinner o encuentros íntimos la víspera. Dúo, trío o ensamble según el espacio.'},
+      {name:'La hora del cóctel', desc:'Ambientación en vivo para la transición ceremonia → recepción. Set continuo con transiciones orgánicas.'},
+      {name:'Música original', desc:'Composición o arreglo exclusivo para la entrada, los votos o el primer baile. Grabación de estudio como recuerdo.'}
     ],
-    bullets:['Hecho a la medida — pieza compuesta para la pareja','Dúo acústico o ensamble completo','Producción integral sin fricción para el planner','Comisión para aliados (Planner/Officiante): 5%–10%']
+    bullets:['Dirección musical dedicada para la pareja','Producción técnica invisible que se integra al evento','Comisión para Wedding Planners y aliados']
   },
   {
     num:'06', tag:'RRHH · Bienestar · Team Building', title:'Servicios <em>Corporativos</em>',
@@ -807,14 +821,15 @@ const SVC_DATA = [
   {
     num:'07', tag:'Literatura · Librerías · Ferias', title:'Páginas <em>Sonoras</em>',
     img:'uploads/saxophonecloseup.jpg',
+    pageUrl:'paginas-sonoras.html',
     tagline:'La literatura se convierte en experiencia multisensorial.',
-    desc:'Live Scoring para literatura. En alianza con escritores. Narramos y musicalizamos en tiempo real biografías, crónicas y novelas. Formato inmersivo que permite cobrar taquilla premium y genera venta cruzada de libros.',
+    desc:'Live Scoring para literatura en alianza con escritores. Narrativa y música en tiempo real — taquilla premium y venta cruzada de libros.',
     levels:[
-      {name:'Crónicas y Acordes', desc:'Biografías musicales + reinterpretación en Jazz/Blues. Narraciones rítmicas con banda en vivo.'},
-      {name:'Literatura Noir', desc:'Novela negra + contrabajo y Bebop oscuro. Maridaje con licores premium. Atmósfera de club de jazz nocturno.'},
-      {name:'Realismo Mágico', desc:'Literatura colombiana y latinoamericana + Son Cubano, Bolero y ritmos autóctonos. Identidad cultural con raíz.'}
+      {name:'Crónicas y Acordes', desc:'Biografías musicales reinterpretadas en Jazz y Blues.'},
+      {name:'Literatura Noir', desc:'Novela negra con contrabajo y Bebop. Atmósfera de club nocturno.'},
+      {name:'Realismo Mágico', desc:'Literatura latinoamericana con Son Cubano, Bolero y ritmos autóctonos.'}
     ],
-    bullets:['Alianza con escritores — credibilidad periodística y audiencia de nicho','Dúo o cuarteto según el aforo','Experiencia validada con Librería Lerner','Permite taquilla premium en eventos literarios']
+    bullets:['Alianza con escritores reconocidos','Dúo o cuarteto según aforo','Experiencia validada con Librería Lerner']
   }
 ];
 
@@ -837,7 +852,10 @@ function openSvcModal(i) {
     html += '<div class="modal-bullet"><div class="modal-bullet-dot"></div><div class="modal-bullet-text">' + b + '</div></div>';
   });
   html += '</div>';
-  html += '<div class="modal-cta-row"><a href="cotizador.html">Solicitar propuesta →</a></div>';
+  let ctas = '';
+  if (d.pageUrl) ctas += '<a href="' + d.pageUrl + '" class="primary">Ver experiencia →</a>';
+  ctas += '<a href="cotizador.html" class="' + (d.pageUrl ? 'secondary' : 'primary') + '">Cotizar →</a>';
+  html += '<div class="modal-cta-row">' + ctas + '</div>';
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('svcModalInner').scrollTop = 0;
   modal.classList.add('open');
