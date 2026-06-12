@@ -391,10 +391,13 @@
     /* Diego section bg */
     .sec-diego{position:relative;overflow:hidden;isolation:isolate;}
     .diego-bg{position:absolute;inset:0;z-index:-2;
-      background:url('uploads/diegolondono.jpg') center 20%/cover no-repeat;
-      filter:grayscale(.4) contrast(1.1) brightness(.35);opacity:.18;}
+      background:url('uploads/diegolondono.jpg') center 15%/cover no-repeat;
+      filter:grayscale(.35) contrast(1.08) brightness(.45);opacity:.32;}
     .diego-bg::after{content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,0,0,.3) 0%, rgba(0,0,0,.8) 60%, #000 95%);}
+      background:radial-gradient(ellipse 85% 75% at 50% 40%, rgba(0,0,0,.15) 0%, rgba(0,0,0,.7) 60%, #000 92%);}
+    @media(max-width:899px){
+      .diego-bg{background-position:center 10%;opacity:.26;}
+    }
 
     /* ===== PARA QUIÉN ===== */
     .aud-grid{display:grid;grid-template-columns:1fr;gap:0;}
