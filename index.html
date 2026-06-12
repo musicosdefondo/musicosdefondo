@@ -408,7 +408,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
         "itemOffered": {
           "@type": "Service",
           "name": "Páginas Sonoras",
-          "description": "Live Scoring para literatura. Musicalización en vivo de biografías, crónicas y novelas en alianza con Diego Londoño."
+          "description": "Lecturas musicalizadas en vivo con Diego Londoño: el autor lee sus cuentos inéditos mientras un cuarteto compone la banda sonora en tiempo real y sus fotografías se proyectan como universo visual. Performance literario-musical inmersivo de 60 minutos."
         }
       }
     ]
@@ -562,7 +562,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="bento-card b7" data-svc="6" onclick="openSvcModal(6)">
         <div class="card-img"><img src="uploads/saxophonecloseup.jpg" alt="Páginas Sonoras — musicalización en vivo de literatura en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">07</span><span class="card-tag">Literatura · Librerías · Ferias</span><h3 class="card-name">Páginas <em>Sonoras</em></h3><p class="card-desc">Live Scoring para literatura — la narrativa convertida en experiencia multisensorial.</p></div>
+        <div class="card-content"><span class="card-num">07</span><span class="card-tag">Literatura · Librerías · Ferias</span><h3 class="card-name">Páginas <em>Sonoras</em></h3><p class="card-desc">Lecturas musicalizadas en vivo con Diego Londoño — palabra, música e imagen compuestas en el instante.</p></div>
         <span class="card-arrow">→</span>
       </div>
     </div>
@@ -587,8 +587,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h3>Servicios Corporativos — Talleres experienciales con música en vivo para empresas</h3>
       <p>Talleres experienciales que usan principios de la música en vivo (improvisación, escucha activa, ensamble) para fortalecer equipos de trabajo. Dos modalidades: Lab de Identidad Sonora (el equipo compone el himno de la empresa con la banda) y Talleres de Composición para liberación creativa. Facturable bajo Capacitación y SST. De 60 a 120 minutos, adaptable.</p>
 
-      <h3>Páginas Sonoras — Musicalización en vivo de literatura</h3>
-      <p>Live Scoring para literatura en alianza con el periodista Diego Londoño. Narramos y musicalizamos en tiempo real biografías, crónicas y novelas. Tres niveles: Crónicas y Acordes (biografías musicales con Jazz y Blues), Literatura Noir (novela negra con contrabajo y Bebop) y Realismo Mágico (literatura colombiana y latinoamericana con Son Cubano y Bolero). Formato dúo o cuarteto. Experiencia validada con Librería Lerner.</p>
+      <h3>Páginas Sonoras — Lecturas musicalizadas en vivo</h3>
+      <p>Performance literario-musical inmersivo de 60 minutos con el escritor y periodista Diego Londoño (El Fan Fatal). Diego lee sus cuentos inéditos — relatos nacidos de fotografías tomadas en aeropuertos, aceras, hospitales y calles de paso — mientras un cuarteto de músicos compone la banda sonora en tiempo real y sus fotografías originales se proyectan como universo visual. Tres lenguajes en una sola experiencia: palabra, música e imagen. Nada está pregrabado. Incluye ensamble de 4 músicos + narrador-autor, diseño sonoro, dramaturgia musical, curaduría literaria y proyección fotográfica. Para librerías, ferias del libro, festivales literarios, centros culturales, universidades, teatros y programación municipal. Diego Londoño es autor de siete libros con Penguin Random House y Planeta, entre ellos la biografía oficial de Juanes y Brutal Honestidad — las vidas de Andrés Calamaro.</p>
     </div>
 
   </div>
@@ -822,14 +822,15 @@ const SVC_DATA = [
     num:'07', tag:'Literatura · Librerías · Ferias', title:'Páginas <em>Sonoras</em>',
     img:'uploads/saxophonecloseup.jpg',
     pageUrl:'paginas-sonoras.html',
-    tagline:'La literatura se convierte en experiencia multisensorial.',
-    desc:'Live Scoring para literatura en alianza con escritores. Narrativa y música en tiempo real — taquilla premium y venta cruzada de libros.',
+    tagline:'Palabra, música e imagen — compuestas en el instante en que la historia se cuenta.',
+    desc:'Lecturas musicalizadas en vivo con Diego Londoño. El autor lee sus cuentos inéditos mientras un cuarteto compone la banda sonora en tiempo real y sus fotografías se proyectan como universo visual. 60 minutos de performance literario-musical inmersivo — nada pregrabado.',
+    levelsLabel:'Tres lenguajes en una sola experiencia',
     levels:[
-      {name:'Crónicas y Acordes', desc:'Biografías musicales reinterpretadas en Jazz y Blues.'},
-      {name:'Literatura Noir', desc:'Novela negra con contrabajo y Bebop. Atmósfera de club nocturno.'},
-      {name:'Realismo Mágico', desc:'Literatura latinoamericana con Son Cubano, Bolero y ritmos autóctonos.'}
+      {name:'La palabra', desc:'Cuentos inéditos de Diego Londoño — relatos nacidos de fotografías tomadas en aeropuertos, aceras, hospitales y calles de paso. A medio camino entre la crónica y la prosa poética.'},
+      {name:'El sonido', desc:'Un cuarteto compone en tiempo real la banda sonora que se fusiona con cada relato. La música reacciona al texto, al ambiente de cada párrafo y al silencio entre frases.'},
+      {name:'La imagen', desc:'Las fotografías originales del autor se proyectan como universo visual, uniendo texto y música en un único recorrido sensorial.'}
     ],
-    bullets:['Alianza con escritores reconocidos','Dúo o cuarteto según aforo','Experiencia validada con Librería Lerner']
+    bullets:['Cuarteto de 4 músicos + narrador-autor (Diego Londoño) — show de 60 min','Incluye diseño sonoro, curaduría literaria, dramaturgia musical y proyección fotográfica','Para librerías, ferias del libro, festivales literarios, centros culturales, universidades y teatros','Diego Londoño — autor de 7 libros con Penguin Random House y Planeta; biógrafo oficial de Juanes y Andrés Calamaro','Venue aporta backline, sonido, iluminación y proyección — nosotros llevamos el resto']
   }
 ];
 
@@ -842,7 +843,7 @@ function openSvcModal(i) {
   document.getElementById('modalTitle').innerHTML = d.title;
   let html = '<p class="modal-tagline">"' + d.tagline + '"</p>';
   html += '<p class="modal-desc">' + d.desc + '</p>';
-  html += '<div class="modal-levels"><h4>' + (d.levels.length === 2 ? 'Dos niveles de oferta' : 'Tres niveles de oferta') + '</h4>';
+  html += '<div class="modal-levels"><h4>' + (d.levelsLabel || (d.levels.length === 2 ? 'Dos niveles de oferta' : 'Tres niveles de oferta')) + '</h4>';
   d.levels.forEach(l => {
     html += '<div class="modal-level"><div class="modal-level-name">' + l.name + '</div><div class="modal-level-desc">' + l.desc + '</div></div>';
   });
