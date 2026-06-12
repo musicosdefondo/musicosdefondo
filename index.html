@@ -145,7 +145,12 @@ nav.scrolled{padding:14px 40px}
 .bento-card:hover .card-arrow{opacity:1;transform:translateX(0)}
 .bento-card .card-cta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:0;transition:opacity .5s}
 .bento-card:hover .card-cta{opacity:1}
-.card-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;position:relative;z-index:3}
+.card-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:3;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
+.bento-card--cta:hover .card-actions,
+.bento-card--cta.tapped .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
+.bento-card--cta:hover .card-arrow,
+.bento-card--cta.tapped .card-arrow{opacity:0}
+.bento-card--cta{cursor:pointer}
 .card-actions a{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:11px 20px;border-radius:100px;transition:all .35s;border:.5px solid var(--gold);white-space:nowrap;line-height:1}
 .card-actions a.primary{background:var(--gold);color:var(--ink)}
 .card-actions a.primary:hover{background:transparent;color:var(--gold)}
@@ -195,7 +200,6 @@ nav.scrolled{padding:14px 40px}
 .modal-cta-row a.primary:hover{background:transparent;color:var(--gold)}
 .modal-cta-row a.secondary{background:transparent;color:var(--gold)}
 .modal-cta-row a.secondary:hover{background:var(--gold);color:var(--ink)}
-.card-actions{display:none}
 .modal-cta-row a{font-family:var(--sans);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--gold);border:.5px solid var(--gold);padding:13px 30px;border-radius:100px;transition:all .4s}
 .modal-cta-row a:hover{background:var(--gold);color:var(--ink)}
 
@@ -271,6 +275,18 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 
 /* ── GSAP ── */
 .gs{opacity:0;transform:translateY(40px)}
+
+/* ── FLOATING CTA ── */
+.float-cta{position:fixed;bottom:24px;right:24px;z-index:998;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;background:var(--gold);color:var(--ink);border:none;padding:16px 28px;border-radius:100px;cursor:pointer;box-shadow:0 14px 36px -10px rgba(0,0,0,.65),0 0 0 1px rgba(201,168,76,.35);opacity:0;pointer-events:none;transform:translateY(20px) scale(.92);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),background .3s,color .3s,box-shadow .3s;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.float-cta.show{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+.float-cta:hover{background:var(--cream);color:var(--ink);box-shadow:0 18px 42px -10px rgba(0,0,0,.7),0 0 0 1px rgba(201,168,76,.5)}
+.float-cta .float-cta-icon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.float-cta .float-cta-icon svg{width:100%;height:100%}
+@media(max-width:768px){
+  .float-cta{bottom:20px;right:20px;padding:0;width:54px;height:54px;border-radius:50%;justify-content:center;letter-spacing:0}
+  .float-cta .float-cta-icon{width:22px;height:22px}
+  .float-cta .float-cta-label{display:none}
+}
 
 /* ── SR-ONLY (visible to crawlers, invisible on screen) ── */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -436,9 +452,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <nav id="nav">
   <a href="#"><img src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo" class="nav-logo"></a>
   <div class="nav-links">
-    <a href="#manifiesto">Manifiesto</a>
     <a href="#servicios">Servicios</a>
     <a href="#videos">Vídeos</a>
+    <a href="#manifiesto">Manifiesto</a>
     <a href="#formatos">Formatos</a>
     <a href="#trayectoria">Trayectoria</a>
     <a href="#contacto">Contacto</a>
@@ -452,9 +468,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" onclick="this.parentElement.classList.remove('open')">&times;</button>
-  <a href="#manifiesto" onclick="this.parentElement.classList.remove('open')">Manifiesto</a>
   <a href="#servicios" onclick="this.parentElement.classList.remove('open')">Servicios</a>
   <a href="#videos" onclick="this.parentElement.classList.remove('open')">Vídeos</a>
+  <a href="#manifiesto" onclick="this.parentElement.classList.remove('open')">Manifiesto</a>
   <a href="#formatos" onclick="this.parentElement.classList.remove('open')">Formatos</a>
   <a href="#trayectoria" onclick="this.parentElement.classList.remove('open')">Trayectoria</a>
   <a href="#contacto" onclick="this.parentElement.classList.remove('open')">Contacto</a>
@@ -489,7 +505,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <img src="uploads/logomusicosdefondo.png" alt="Músicos de Fondo — música en vivo para eventos en Medellín" class="hero-logo gs" style="width: 350px; height: 350px; margin: 0px 0px 40px">
     <p class="hero-eyebrow gs">Boutique de Diseño Sonoro · Medellín</p>
     <h1 class="hero-title gs">El lenguaje sonoro<br>de tu <em>marca.</em> <span class="sr-only">— Música en vivo para eventos en Medellín, Colombia. Músicos profesionales de jazz, latin, funk y blues.</span></h1>
-    <p class="hero-sub gs">Traducimos marcas, espacios y momentos al lenguaje de la música en vivo. Cada show garantiza un alto estándar musical y un registro audiovisual para la difusión de tu evento.</p>
+    <p class="hero-sub gs">Traducimos marcas, espacios y momentos al lenguaje de la música en vivo.</p>
+    <p class="sr-only">Cada show garantiza un alto estándar musical y un registro audiovisual para la difusión de tu evento. Música en vivo profesional para eventos corporativos, hoteles, restaurantes y bodas en Medellín.</p>
     <div class="hero-ctas gs">
       <a href="#servicios" class="link">Ver servicios →</a>
       <a href="cotizador.html" class="pill">Solicitar propuesta</a>
@@ -500,22 +517,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <hr class="sep">
 
-<!-- ─── MANIFIESTO ─── -->
-<section class="sect" id="manifiesto">
-  <div class="wrap">
-    <p class="micro gs">La promesa</p>
-    <h2 class="gs">Diseñamos <em>atmósferas.</em></h2>
-    <p class="lead gs">Hecho a la medida — donde tú decides el género, el formato y el nivel de protagonismo.</p>
-    <p class="body-text gs">Partimos del Jazz y lo fusionamos con Latin, Son Cubano, Funk, Blues y Pop. Operamos desde solistas íntimos hasta Small Big Bands. Entregamos un registro audiovisual para la difusión y comunicación de tu evento.</p>
-    <div class="manifest-grid gs">
-      <div class="m-cell"><div class="num">01</div><h3>Somos tu aliado</h3><p>Nuestro éxito depende de que tu negocio facture más. Entendemos rotación de mesas, perfiles de consumidor y momentos de servicio.</p></div>
-      <div class="m-cell"><div class="num">02</div><h3>Cero fricción</h3><p>Nuestro equipo se encarga de la coordinación técnica y operativa del show, con procesos claros para integrarse correctamente a la dinámica de tu evento.</p></div>
-    </div>
-  </div>
-</section>
-
-<hr class="sep">
-
 <!-- ─── SERVICIOS ─── -->
 <section class="sect" id="servicios">
   <div class="wrap">
@@ -523,16 +524,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="gs">Siete maneras de<br>transformar <em>tu espacio.</em></h2>
     <p class="lead gs">Cada uno responde a diferentes categorías de servicio. Selecciona el que más se adecúe a tu tipo de evento.</p>
     <div class="bento gs">
-      <div class="bento-card b1" data-svc="0" onclick="openSvcModal(0)">
-        <div class="card-img"><img src="uploads/singercloseup.jpg" alt="Experiencia 360° — música en vivo para restaurantes y hoteles en Medellín"></div>
+      <div class="bento-card bento-card--cta b1">
+        <div class="card-img"><img src="uploads/movement-04-bolero.jpg" alt="The Jazz Route — experiencia 360 de música en vivo para hoteles y restaurantes en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">01</span><span class="card-tag">HORECA · Hoteles · Restaurantes</span><h3 class="card-name">Experiencia <em>360°</em></h3><p class="card-desc">Maridaje sonoro inmersivo entre gastronomía, historia y música en vivo.</p></div>
+        <div class="card-content">
+          <span class="card-num">01</span>
+          <span class="card-tag">Experiencia 360</span>
+          <h3 class="card-name">The Jazz <em>Route</em></h3>
+          <p class="card-desc">Maridaje sonoro inmersivo entre gastronomía, historia y música en vivo.</p>
+          <div class="card-actions">
+            <a href="the-jazz-route.html" class="primary">Saber más</a>
+            <a href="cotizador.html" class="secondary">Cotizar</a>
+          </div>
+        </div>
         <span class="card-arrow">→</span>
       </div>
-      <div class="bento-card b2" data-svc="1" onclick="openSvcModal(1)">
+      <div class="bento-card bento-card--cta b2">
         <div class="card-img"><img src="uploads/cineconciertos.jpg" alt="Cine-Conciertos — live scoring de películas con banda en vivo en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">02</span><span class="card-tag">Cultura · Teatros · Instituciones</span><h3 class="card-name">Cine <em>Conciertos</em></h3><p class="card-desc">Live Scoring en vivo de películas icónicas, con derechos de exhibición incluidos.</p></div>
+        <div class="card-content">
+          <span class="card-num">02</span>
+          <span class="card-tag">Cultura · Teatros · Instituciones</span>
+          <h3 class="card-name">Cine <em>Conciertos</em></h3>
+          <p class="card-desc">Live Scoring en vivo de películas icónicas, con derechos de exhibición incluidos.</p>
+          <div class="card-actions">
+            <a href="cine-conciertos-medellin.html" class="primary">Saber más</a>
+            <a href="cotizador.html" class="secondary">Cotizar</a>
+          </div>
+        </div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b3" data-svc="2" onclick="openSvcModal(2)">
@@ -547,10 +566,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="card-content"><span class="card-num">04</span><span class="card-tag">Centros Comerciales · Activaciones</span><h3 class="card-name">Música <em>Itinerante</em></h3><p class="card-desc">Música en vivo de altísima calidad llevada exactamente donde está tu cliente.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
-      <div class="bento-card b5" data-svc="4" onclick="openSvcModal(4)">
+      <div class="bento-card bento-card--cta b5">
         <div class="card-img"><img src="uploads/bandperformance.jpg" alt="Bodas y Cocteles — música en vivo para bodas y eventos premium en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">05</span><span class="card-tag">Bodas · Cocteles · Wedding Planners</span><h3 class="card-name">Bodas y <em>Cocteles</em></h3><p class="card-desc">Música en vivo para cada momento — ceremonia, coctel y celebración.</p></div>
+        <div class="card-content">
+          <span class="card-num">05</span>
+          <span class="card-tag">Bodas · Cocteles · Wedding Planners</span>
+          <h3 class="card-name">Bodas y <em>Cocteles</em></h3>
+          <p class="card-desc">Música en vivo para cada momento — ceremonia, coctel y celebración.</p>
+          <div class="card-actions">
+            <a href="bodas-y-cocteles.html" class="primary">Saber más</a>
+            <a href="cotizador.html" class="secondary">Cotizar</a>
+          </div>
+        </div>
         <span class="card-arrow">→</span>
       </div>
       <div class="bento-card b6" data-svc="5" onclick="openSvcModal(5)">
@@ -559,10 +587,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="card-content"><span class="card-num">06</span><span class="card-tag">RRHH · Bienestar · Team Building</span><h3 class="card-name">Servicios <em>Corporativos</em></h3><p class="card-desc">Talleres experienciales con música en vivo para fortalecer equipos de trabajo.</p><span class="card-cta">Ver detalle →</span></div>
         <span class="card-arrow">→</span>
       </div>
-      <div class="bento-card b7" data-svc="6" onclick="openSvcModal(6)">
+      <div class="bento-card bento-card--cta b7">
         <div class="card-img"><img src="uploads/ps-paginas-musica.png" alt="Páginas Sonoras — musicalización en vivo de literatura en Medellín"></div>
         <div class="card-overlay"></div><div class="card-glow"></div>
-        <div class="card-content"><span class="card-num">07</span><span class="card-tag">Literatura · Librerías · Ferias</span><h3 class="card-name">Páginas <em>Sonoras</em></h3><p class="card-desc">Lecturas musicalizadas en vivo con Diego Londoño — palabra, música e imagen compuestas en el instante.</p></div>
+        <div class="card-content">
+          <span class="card-num">07</span>
+          <span class="card-tag">Literatura · Librerías · Ferias</span>
+          <h3 class="card-name">Páginas <em>Sonoras</em></h3>
+          <p class="card-desc">Lecturas musicalizadas en vivo con Diego Londoño — palabra, música e imagen compuestas en el instante.</p>
+          <div class="card-actions">
+            <a href="paginas-sonoras.html" class="primary">Saber más</a>
+            <a href="cotizador.html" class="secondary">Cotizar</a>
+          </div>
+        </div>
         <span class="card-arrow">→</span>
       </div>
     </div>
@@ -596,27 +633,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <hr class="sep">
 
-<section class="marquee-section" id="galeria">
-  <div class="wrap">
-    <p class="micro gs">El ensamble</p>
-    <h2 class="gs" style="margin-bottom:48px">Música en vivo,<br><em>sin sustitutos.</em></h2>
-  </div>
-  <div class="marquee-track">
-    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Trompetista de jazz en vivo — Músicos de Fondo Medellín"></div>
-    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Vocalista de jazz en evento en vivo — Músicos de Fondo"></div>
-    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista en presentación en vivo — Músicos de Fondo Medellín"></div>
-    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista de jazz en evento corporativo — Músicos de Fondo"></div>
-    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista en concierto de jazz — Músicos de Fondo Medellín"></div>
-    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Músico de trompeta en vivo — eventos Medellín"></div>
-    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Cantante de jazz en restaurante — música en vivo Medellín"></div>
-    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista jazz — música para eventos en Medellín"></div>
-    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista en evento — música en vivo para hoteles Medellín"></div>
-    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista jazz en vivo — Músicos de Fondo Colombia"></div>
-  </div>
-</section>
-
-<hr class="sep">
-
 <!-- ─── VÍDEOS ─── -->
 <section class="sect" id="videos">
   <div class="wrap">
@@ -643,18 +659,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <hr class="sep">
 
-<!-- ─── FORMATOS ─── -->
-<section class="sect" id="formatos">
+<!-- ─── MANIFIESTO ─── -->
+<section class="sect" id="manifiesto">
   <div class="wrap">
-    <p class="micro gs">Formatos</p>
-    <h2 class="gs">Desde dúo íntimo<br>hasta <em>Small Big Band.</em></h2>
-    <p class="body-text gs">Cada formato se adapta al aforo, la acústica y el propósito del evento.</p>
-    <div class="formats-grid gs">
-      <div class="fmt"><div class="fmt-name">Dúo</div><div class="fmt-count">2 músicos</div><div class="fmt-desc"> Recepciones íntimas, lobbies, cenas privadas.</div></div>
-      <div class="fmt"><div class="fmt-name">Trío</div><div class="fmt-count">3 músicos</div><div class="fmt-desc">Dinámicas rítmicas para restaurantes.</div></div>
-      <div class="fmt"><div class="fmt-name">Cuarteto</div><div class="fmt-count">4 músicos</div><div class="fmt-desc">La base clásica del jazz.</div><div class="fmt-badge">Best-Seller</div></div>
-      <div class="fmt"><div class="fmt-name">Quinteto+</div><div class="fmt-count">5–6 músicos</div><div class="fmt-desc">Mayor textura melódica. Corporativos de mayor aforo.</div></div>
-      <div class="fmt"><div class="fmt-name">Septeto</div><div class="fmt-count">7 músicos</div><div class="fmt-desc">Small Big Band. Formato premium para galas de alto impacto.</div></div>
+    <p class="micro gs">La promesa</p>
+    <h2 class="gs">Diseñamos <em>atmósferas.</em></h2>
+    <p class="lead gs">Hecho a la medida — donde tú decides el género, el formato y el nivel de protagonismo.</p>
+    <p class="body-text gs">Partimos del Jazz y lo fusionamos con Latin, Son Cubano, Funk, Blues y Pop. Operamos desde solistas íntimos hasta Small Big Bands. Entregamos un registro audiovisual para la difusión y comunicación de tu evento.</p>
+    <div class="manifest-grid gs">
+      <div class="m-cell"><div class="num">01</div><h3>Somos tu aliado</h3><p>Nuestro éxito depende de que tu negocio facture más. Entendemos rotación de mesas, perfiles de consumidor y momentos de servicio.</p></div>
+      <div class="m-cell"><div class="num">02</div><h3>Cero fricción</h3><p>Nuestro equipo se encarga de la coordinación técnica y operativa del show, con procesos claros para integrarse correctamente a la dinámica de tu evento.</p></div>
     </div>
   </div>
 </section>
@@ -678,6 +692,24 @@ Creamos atmósferas <em>que valorizan tu espacio.</em></h2>
 
 <hr class="sep">
 
+<!-- ─── FORMATOS ─── -->
+<section class="sect" id="formatos">
+  <div class="wrap">
+    <p class="micro gs">Formatos</p>
+    <h2 class="gs">Desde dúo íntimo<br>hasta <em>Small Big Band.</em></h2>
+    <p class="body-text gs">Cada formato se adapta al aforo, la acústica y el propósito del evento.</p>
+    <div class="formats-grid gs">
+      <div class="fmt"><div class="fmt-name">Dúo</div><div class="fmt-count">2 músicos</div><div class="fmt-desc"> Recepciones íntimas, lobbies, cenas privadas.</div></div>
+      <div class="fmt"><div class="fmt-name">Trío</div><div class="fmt-count">3 músicos</div><div class="fmt-desc">Dinámicas rítmicas para restaurantes.</div></div>
+      <div class="fmt"><div class="fmt-name">Cuarteto</div><div class="fmt-count">4 músicos</div><div class="fmt-desc">La base clásica del jazz.</div><div class="fmt-badge">Best-Seller</div></div>
+      <div class="fmt"><div class="fmt-name">Quinteto+</div><div class="fmt-count">5–6 músicos</div><div class="fmt-desc">Mayor textura melódica. Corporativos de mayor aforo.</div></div>
+      <div class="fmt"><div class="fmt-name">Septeto</div><div class="fmt-count">7 músicos</div><div class="fmt-desc">Small Big Band. Formato premium para galas de alto impacto.</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
 <!-- ─── TRAYECTORIA ─── -->
 <section class="sect" id="trayectoria">
   <div class="wrap">
@@ -690,6 +722,27 @@ Creamos atmósferas <em>que valorizan tu espacio.</em></h2>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-text">Cine-Conciertos y Christmas Jazz validados con taquilla premium. Expansión del catálogo.</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Hoy</div><div class="tl-text">Operación nacional como unidad de negocio de Falso Ídolo. Siete productos activos.</div></div>
     </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<section class="marquee-section" id="galeria">
+  <div class="wrap">
+    <p class="micro gs">El ensamble</p>
+    <h2 class="gs" style="margin-bottom:48px">Música en vivo,<br><em>sin sustitutos.</em></h2>
+  </div>
+  <div class="marquee-track">
+    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Trompetista de jazz en vivo — Músicos de Fondo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Vocalista de jazz en evento en vivo — Músicos de Fondo"></div>
+    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista en presentación en vivo — Músicos de Fondo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista de jazz en evento corporativo — Músicos de Fondo"></div>
+    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista en concierto de jazz — Músicos de Fondo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/trumpetcloseup.jpg" alt="Músico de trompeta en vivo — eventos Medellín"></div>
+    <div class="marquee-img"><img src="uploads/singercloseup.jpg" alt="Cantante de jazz en restaurante — música en vivo Medellín"></div>
+    <div class="marquee-img"><img src="uploads/saxophonecloseup.jpg" alt="Saxofonista jazz — música para eventos en Medellín"></div>
+    <div class="marquee-img"><img src="uploads/pianistcloseup.jpg" alt="Pianista en evento — música en vivo para hoteles Medellín"></div>
+    <div class="marquee-img"><img src="uploads/trumpetcloseup1.jpg" alt="Trompetista jazz en vivo — Músicos de Fondo Colombia"></div>
   </div>
 </section>
 
@@ -724,6 +777,8 @@ Creamos atmósferas <em>que valorizan tu espacio.</em></h2>
   </div>
 </section>
 
+
+
 <!-- ─── FOOTER ─── -->
 <footer>
   <p>Músicos de Fondo — Boutique de Diseño Sonoro · Medellín, Colombia · 2026</p>
@@ -741,6 +796,12 @@ Creamos atmósferas <em>que valorizan tu espacio.</em></h2>
   <img src="uploads/isotipomusicosdefondo.png" alt="Isotipo Músicos de Fondo — música en vivo Medellín" class="footer-iso">
   <span class="sello">Un proyecto de Falso Ídolo</span>
 </footer>
+
+<!-- Floating CTA — always-on access to cotizador -->
+<a href="cotizador.html" class="float-cta" id="floatCta" aria-label="Cotizar — solicitar propuesta">
+  <span class="float-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.5A8 8 0 1 1 21 12z"/></svg></span>
+  <span class="float-cta-label">Cotizar</span>
+</a>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── SERVICE DATA ── */
@@ -922,6 +983,42 @@ document.querySelectorAll('a, button, .bento-card, .nav-cta, .cl-tag, .fmt').for
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
+
+/* ── FLOATING CTA SHOW/HIDE ── */
+(function(){
+  const floatCta = document.getElementById('floatCta');
+  const heroEl = document.querySelector('.hero');
+  if (!floatCta || !heroEl) return;
+  let heroH = heroEl.offsetHeight;
+  window.addEventListener('resize', () => { heroH = heroEl.offsetHeight; });
+  const onScroll = () => {
+    const sy = window.scrollY || window.pageYOffset;
+    if (sy > heroH - 140) floatCta.classList.add('show');
+    else floatCta.classList.remove('show');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ── MOBILE TAP-REVEAL FOR CTA CARDS ── */
+(function(){
+  document.querySelectorAll('.bento-card--cta').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.card-actions a')) return; // let buttons navigate
+      if (!window.matchMedia('(hover: none)').matches) return;
+      e.preventDefault();
+      document.querySelectorAll('.bento-card--cta.tapped').forEach(c => {
+        if (c !== card) c.classList.remove('tapped');
+      });
+      card.classList.toggle('tapped');
+    });
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.bento-card--cta')) {
+      document.querySelectorAll('.bento-card--cta.tapped').forEach(c => c.classList.remove('tapped'));
+    }
+  });
+})();
 
 /* ── SMOOTH ANCHOR SCROLL ── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
