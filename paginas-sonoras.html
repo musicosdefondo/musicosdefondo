@@ -388,6 +388,14 @@
     .alianza-body p{font-size:17px;line-height:1.9;color:var(--fg-dim);max-width:520px;}
     .alianza-body p+p{margin-top:18px;}
 
+    /* Diego section bg */
+    .sec-diego{position:relative;overflow:hidden;isolation:isolate;}
+    .diego-bg{position:absolute;inset:0;z-index:-2;
+      background:url('uploads/diegolondono.jpg') center 20%/cover no-repeat;
+      filter:grayscale(.4) contrast(1.1) brightness(.35);opacity:.18;}
+    .diego-bg::after{content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,0,0,.3) 0%, rgba(0,0,0,.8) 60%, #000 95%);}
+
     /* ===== PARA QUIÉN ===== */
     .aud-grid{display:grid;grid-template-columns:1fr;gap:0;}
     @media(min-width:680px){.aud-grid{grid-template-columns:1fr 1fr;}}
@@ -708,7 +716,8 @@
   <div class="wrap"><div class="hairline"></div></div>
 
   <!-- 06 — DIEGO LONDOÑO -->
-  <section data-screen-label="06 El Narrador">
+  <section class="sec-diego" data-screen-label="06 El Narrador">
+    <div class="diego-bg" aria-hidden="true"></div>
     <div class="wrap">
       <div class="eyebrow rv">El Narrador</div>
       <div class="alianza">
