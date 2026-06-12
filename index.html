@@ -135,17 +135,17 @@ nav.scrolled{padding:14px 40px}
 .bento-card .card-glow{position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%);opacity:0;transition:opacity .6s;pointer-events:none;z-index:1}
 .bento-card:hover .card-glow{opacity:1}
 .bento-card .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,7,.9) 0%,rgba(10,9,7,.35) 45%,rgba(10,9,7,.1) 100%);z-index:1}
-.bento-card .card-content{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;height:100%}
-.bento-card .card-num{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.18em;opacity:.75;margin-bottom:auto}
-.bento-card .card-name{font-family:var(--sans);font-size:clamp(22px,2vw,28px);font-weight:500;margin-bottom:8px;line-height:1.15;letter-spacing:-.01em}
+.bento-card .card-content{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;padding:28px;height:100%}
+.bento-card .card-num{font-family:var(--mono);font-size:clamp(32px,3.4vw,46px);color:var(--gold);letter-spacing:.06em;opacity:.9;margin-bottom:auto;font-weight:400;line-height:1}
+.bento-card .card-name{font-family:var(--sans);font-size:clamp(36px,3.6vw,52px);font-weight:500;margin-bottom:10px;line-height:1.05;letter-spacing:-.02em}
 .bento-card .card-name em{font-family:var(--serif);font-style:italic;font-weight:400}
-.bento-card .card-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin-bottom:10px}
+.bento-card .card-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin-bottom:12px}
 .bento-card .card-desc{font-size:16px;font-family:var(--sans);font-weight:400;color:rgba(242,237,228,.75);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .bento-card .card-arrow{position:absolute;top:28px;right:28px;font-size:18px;color:var(--gold);opacity:0;transform:translateX(-4px);transition:all .5s;z-index:2}
 .bento-card:hover .card-arrow{opacity:1;transform:translateX(0)}
 .bento-card .card-cta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:0;transition:opacity .5s}
 .bento-card:hover .card-cta{opacity:1}
-.card-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:3;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
+.card-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center;position:relative;z-index:3;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
 .bento-card--cta:hover .card-actions,
 .bento-card--cta.tapped .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
 .bento-card--cta:hover .card-arrow,
@@ -271,7 +271,7 @@ footer .sello{font-family:var(--mono);font-size:12px;color:rgba(201,168,76,.45);
 .gs{opacity:0;transform:translateY(40px)}
 
 /* ── FLOATING CTA ── */
-.float-cta{position:fixed;bottom:24px;right:24px;z-index:998;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;background:var(--gold);color:var(--ink);border:none;padding:16px 28px;border-radius:100px;cursor:pointer;box-shadow:0 14px 36px -10px rgba(0,0,0,.65),0 0 0 1px rgba(201,168,76,.35);opacity:0;pointer-events:none;transform:translateY(20px) scale(.92);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),background .3s,color .3s,box-shadow .3s;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.float-cta{position:fixed;bottom:24px;right:24px;z-index:998;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;background:var(--gold);color:var(--ink);border:none;padding:16px 28px;border-radius:100px;cursor:pointer;box-shadow:0 14px 36px -10px rgba(0,0,0,.65),0 0 0 1px rgba(201,168,76,.35);opacity:1;pointer-events:auto;transform:translateY(0) scale(1);transition:background .3s,color .3s,box-shadow .3s;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
 .float-cta.show{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
 .float-cta:hover{background:var(--cream);color:var(--ink);box-shadow:0 18px 42px -10px rgba(0,0,0,.7),0 0 0 1px rgba(201,168,76,.5)}
 .float-cta .float-cta-icon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -447,7 +447,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#trayectoria">Trayectoria</a>
     <a href="#contacto">Contacto</a>
   </div>
-  <div class="nav-cta-wrap"><a href="cotizador.html" class="nav-cta">Solicitar propuesta</a></div>
+  <div class="nav-cta-wrap"><a href="cotizador.html" class="nav-cta">COTIZAR</a></div>
   <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
     <span></span><span></span><span></span>
   </div>
@@ -462,7 +462,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="#formatos" onclick="this.parentElement.classList.remove('open')">Formatos</a>
   <a href="#trayectoria" onclick="this.parentElement.classList.remove('open')">Trayectoria</a>
   <a href="#contacto" onclick="this.parentElement.classList.remove('open')">Contacto</a>
-  <a href="cotizador.html" class="nav-cta" style="text-align:center;margin-top:20px" onclick="this.parentElement.classList.remove('open')">Solicitar propuesta</a>
+  <a href="cotizador.html" class="nav-cta" style="text-align:center;margin-top:20px" onclick="this.parentElement.classList.remove('open')">COTIZAR</a>
 </div>
 
 <!-- ─── SERVICE MODAL ─── -->
@@ -497,7 +497,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="sr-only">Cada show garantiza un alto estándar musical y un registro audiovisual para la difusión de tu evento. Música en vivo profesional para eventos corporativos, hoteles, restaurantes y bodas en Medellín.</p>
     <div class="hero-ctas gs">
       <a href="#servicios" class="link">Ver servicios →</a>
-      <a href="cotizador.html" class="pill">Solicitar propuesta</a>
+      <a href="cotizador.html" class="pill">COTIZAR</a>
     </div>
     <div class="hero-line gs"></div>
   </div>
@@ -741,7 +741,7 @@ Creamos atmósferas <em>que valorizan tu espacio.</em></h2>
   <div class="cta-inner">
     <p class="cta-big gs">¿Cuál es tu<br>próximo <em>evento?</em></p>
     <div class="cta-links gs">
-      <a href="cotizador.html" class="cta-link primary">Solicitar propuesta</a>
+      <a href="cotizador.html" class="cta-link primary">COTIZAR</a>
       <a href="https://wa.me/573003033436" target="_blank" class="cta-link">WhatsApp →</a>
       <a href="https://www.instagram.com/musicosdefondo/" target="_blank" class="cta-link">INSTAGRAM →</a>
       <a href="https://www.youtube.com/@musicosdefondo" target="_blank" rel="noopener" class="cta-link">YouTube →</a>
@@ -770,9 +770,9 @@ Creamos atmósferas <em>que valorizan tu espacio.</em></h2>
 </footer>
 
 <!-- Floating CTA — always-on access to cotizador -->
-<a href="cotizador.html" class="float-cta" id="floatCta" aria-label="Cotizar — solicitar propuesta">
+<a href="cotizador.html" class="float-cta show" id="floatCta" aria-label="Cotizar">
   <span class="float-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="1.6"/><path d="M9.5 3.6a1 1 0 0 1 1-.6h3a1 1 0 0 1 1 .6l.4 1.4h-5.8z" fill="currentColor" stroke="none"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="13.5" x2="15" y2="13.5"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span>
-  <span class="float-cta-label">Cotizar</span>
+  <span class="float-cta-label">COTIZAR</span>
 </a>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -956,20 +956,10 @@ document.querySelectorAll('a, button, .bento-card, .nav-cta, .cl-tag, .fmt').for
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
-/* ── FLOATING CTA SHOW/HIDE ── */
+/* ── FLOATING CTA (always visible) ── */
 (function(){
   const floatCta = document.getElementById('floatCta');
-  const heroEl = document.querySelector('.hero');
-  if (!floatCta || !heroEl) return;
-  let heroH = heroEl.offsetHeight;
-  window.addEventListener('resize', () => { heroH = heroEl.offsetHeight; });
-  const onScroll = () => {
-    const sy = window.scrollY || window.pageYOffset;
-    if (sy > heroH - 140) floatCta.classList.add('show');
-    else floatCta.classList.remove('show');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  if (floatCta) floatCta.classList.add('show');
 })();
 
 /* ── MOBILE TAP-REVEAL FOR CTA CARDS ── */
