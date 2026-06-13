@@ -39,7 +39,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&family=Cinzel:wght@500;600;700;800;900&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -218,16 +218,46 @@
     }
     .hero-ctx .dot{color:var(--gold);margin:0 9px;}
     .hero-head{
-      font-family:var(--f-script);font-weight:500;color:var(--fg);
-      font-size:clamp(2.7rem,7.6vw,5.6rem);line-height:1.32;letter-spacing:.005em;
-      margin-bottom:6px;
+      font-family:'Cinzel', var(--f-display);
+      font-weight:600;
+      color:var(--fg);
+      font-size:clamp(2.2rem,8.6vw,6.2rem);
+      line-height:1.05;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+      text-shadow:0 1px 32px rgba(0,0,0,.6), 0 0 60px rgba(196,163,90,.08);
+      white-space:nowrap;
     }
-    .hero-head .l{display:block;}
-    .hero-head .l:nth-child(2){color:var(--fg);}
-    .hero-head .l:nth-child(3){color:var(--gold);}
+    .hero-head .l{display:inline-block;}
+    .hero-head .l:nth-child(1){color:var(--fg);margin-right:.34em;}
+    .hero-head .l:nth-child(2){color:var(--gold);font-weight:700;}
     .js .hero-head .l{animation:heroUp 1.05s cubic-bezier(.16,1,.3,1) both;}
-    .js .hero-head .l:nth-child(2){animation-delay:.13s;}
-    .js .hero-head .l:nth-child(3){animation-delay:.26s;}
+    .js .hero-head .l:nth-child(2){animation-delay:.18s;}
+    /* gilt rule under title */
+    .hero-head::after{
+      content:'';display:block;width:64px;height:1px;margin:28px auto 0;
+      background:linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+      opacity:.55;
+    }
+    .js .hero-head::after{animation:heroFade 1.4s ease .55s both;}
+    @media(max-width:560px){
+      .hero-head{letter-spacing:.08em;white-space:normal;}
+      .hero-head .l{display:block;margin-right:0;}
+    }
+    .hero-booktitle{
+      font-family:var(--f-display);
+      font-style:italic;
+      font-weight:400;
+      color:var(--fg-dim);
+      font-size:clamp(1.3rem, 2.6vw, 1.85rem);
+      letter-spacing:.01em;
+      line-height:1.3;
+      margin:0 auto;
+      max-width:640px;
+      text-align:center;
+    }
+    .js .hero-booktitle{animation:heroFade 1s ease .42s both;}
     @keyframes heroUp{from{opacity:0;transform:translateY(42px);}to{opacity:1;transform:translateY(0);}}
     .hero-sub{
       font-family:var(--f-body);font-weight:300;
@@ -507,7 +537,7 @@
       *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
       .hero-head .l{transform:none!important;opacity:1!important;}
       .rv{opacity:1!important;transform:none!important;filter:none!important;}
-      .hero-sub,.book-row,.hero-cta{opacity:1!important;transform:none!important;}
+      .hero-sub,.hero-booktitle,.book-row,.hero-cta{opacity:1!important;transform:none!important;}
       .book{transform:rotateX(52deg) rotateZ(-32deg)!important;}
       .flip{transform:translateZ(1px) rotateY(0deg)!important;}
       .flank{opacity:.25!important;transform:none!important;}
@@ -549,10 +579,12 @@
 
     <h1 class="hero-head">
       <span class="l">Páginas</span>
-      <span class="l"><span style="color: #c4a35a">Sonoras</span></span>
+      <span class="l">Sonoras</span>
     </h1>
 
-    <p class="hero-sub" style="font-family: Montserrat">El libro de las Pequeñas Cosas<br><br><br>Mientras Diego Londoño narra sus relatos inéditos, un cuarteto musical compone la banda sonora en tiempo real y sus fotografías se proyectan como universo visual.</p>
+    <p class="hero-booktitle">El Libro de Las Pequeñas Cosas</p>
+
+
 
     <!-- book flanked by sound-waves + frame icons -->
     <div class="book-row" aria-hidden="true">
