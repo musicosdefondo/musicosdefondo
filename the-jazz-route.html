@@ -1432,22 +1432,39 @@ footer.site-footer{
    STICKY MOBILE CTA
    ───────────────────────────────────────────────────────────── */
 .sticky-cta{
-  position:fixed;left:0;right:0;bottom:0;z-index:90;
-  display:none;align-items:center;justify-content:space-between;
-  gap:16px;padding:14px 20px;
-  background:rgba(7,7,7,0.92);backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border-top:1px solid var(--hairline-gold);
-  transform:translateY(110%);transition:transform .45s var(--ease);
+  position:fixed;z-index:90;
+  display:flex;align-items:center;justify-content:center;
+  transform:translateY(20px);opacity:0;pointer-events:none;
+  transition:transform .45s var(--ease), opacity .45s var(--ease);
 }
-.sticky-cta.show{transform:translateY(0)}
-.sticky-cta.hide{transform:translateY(110%)}
-.sticky-cta .sticky-label{
-  font-family:var(--serif);font-style:italic;font-size:15px;color:var(--color-cream);
-  line-height:1.2;
+.sticky-cta.show{transform:translateY(0);opacity:1;pointer-events:auto}
+.sticky-cta.hide{transform:translateY(20px);opacity:0;pointer-events:none}
+
+/* Desktop / tablet — floating pill in bottom-right */
+.sticky-cta{
+  right:28px;bottom:28px;left:auto;
+  padding:0;background:transparent;backdrop-filter:none;
+  -webkit-backdrop-filter:none;border:0;
 }
-.sticky-cta .btn{padding:12px 20px;font-size:11px;letter-spacing:.18em}
-@media(max-width:760px){.sticky-cta{display:flex}}
+.sticky-cta .btn{
+  padding:14px 22px;font-size:11px;letter-spacing:.18em;
+  box-shadow:0 10px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.25);
+}
+
+/* Mobile — full-width bar */
+@media(max-width:760px){
+  .sticky-cta{
+    left:0;right:0;bottom:0;
+    padding:14px 20px;
+    background:rgba(7,7,7,0.92);backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--hairline-gold);
+    transform:translateY(110%);
+  }
+  .sticky-cta.show{transform:translateY(0)}
+  .sticky-cta.hide{transform:translateY(110%)}
+  .sticky-cta .btn{padding:12px 20px;box-shadow:none}
+}
 
 /* ─────────────────────────────────────────────────────────────
    PLACEHOLDER UTILITIES
@@ -1488,6 +1505,12 @@ footer.site-footer{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;z-index:1;
 }
+.editions-feature iframe{
+  position:absolute;inset:0;width:100%;height:100%;
+  border:0;z-index:2;display:block;
+}
+.editions-feature:has(iframe){background:none}
+.editions-feature:has(iframe)::after{display:none}
 .movement-visual:has(img),
 .venue-image:has(img),
 .edition-thumb:has(img),
@@ -1543,6 +1566,84 @@ a.footer-logo-link{
 .hero-media:has(img) .hero-media-overlay{
   background:linear-gradient(180deg, rgba(7,7,7,0.55) 0%, rgba(7,7,7,0.65) 40%, rgba(7,7,7,0.92) 100%);
   z-index:2;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HERO VIDEO — full-bleed background video
+   ───────────────────────────────────────────────────────────── */
+.hero-media .hero-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  z-index:1;
+  display:block;
+  /* Slight cinematic warmth + contrast lift */
+  filter:saturate(1.05) contrast(1.03);
+  /* Subtle slow zoom for life when paused frames look static */
+  animation:heroVideoFloat 22s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes heroVideoFloat{
+  0%   { transform:scale(1.02) }
+  100% { transform:scale(1.08) }
+}
+.hero-media:has(video) .hero-media-overlay{
+  /* Slightly lighter top so the video reads through, dense bottom
+     so the pills, copy, and CTA stay legible */
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(7,7,7,0.30) 0%, rgba(7,7,7,0.55) 60%, rgba(7,7,7,0.0) 100%),
+    linear-gradient(180deg, rgba(7,7,7,0.35) 0%, rgba(7,7,7,0.55) 45%, rgba(7,7,7,0.92) 100%);
+  z-index:2;
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-media .hero-video{ animation:none }
+}
+
+/* Autoplay fallback play button — hidden by default,
+   shown only when JS detects the browser blocked autoplay. */
+.hero-video-play{
+  position:absolute;
+  left:50%; top:50%;
+  transform:translate(-50%, -50%) scale(.92);
+  z-index:4;
+  display:none;
+  align-items:center; gap:12px;
+  padding:14px 22px 14px 18px;
+  border-radius:999px;
+  background:rgba(10,10,10,0.55);
+  backdrop-filter:blur(14px) saturate(120%);
+  -webkit-backdrop-filter:blur(14px) saturate(120%);
+  border:1px solid var(--color-gold);
+  color:var(--color-gold);
+  font-family:var(--sans); font-size:11px;
+  letter-spacing:.28em; text-transform:uppercase; font-weight:500;
+  cursor:pointer;
+  opacity:0;
+  transition:opacity .5s var(--ease), transform .5s var(--ease), background .35s var(--ease), color .35s var(--ease);
+}
+.hero-video-play svg{
+  width:18px; height:18px;
+  display:block;
+  transition:transform .35s var(--ease);
+}
+.hero-video-play:hover{
+  background:var(--color-gold);
+  color:var(--color-bg);
+  transform:translate(-50%, -50%) scale(1);
+}
+.hero-video-play:hover svg{ transform:translateX(2px) }
+/* Activated by JS only when autoplay fails */
+body.hero-autoplay-failed .hero-video-play{
+  display:inline-flex;
+  opacity:1;
+  animation:hvpPulse 2.6s ease-in-out infinite;
+}
+@keyframes hvpPulse{
+  0%,100% { transform:translate(-50%, -50%) scale(.96) }
+  50%     { transform:translate(-50%, -50%) scale(1.02) }
+}
+@media (prefers-reduced-motion: reduce){
+  body.hero-autoplay-failed .hero-video-play{ animation:none }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -2398,9 +2499,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        </video>
   -->
   <div class="hero-media" aria-hidden="true">
-    <img src="uploads/hero-bg.jpg" alt="" loading="eager" fetchpriority="high">
+    <video class="hero-video" id="heroVideo"
+           autoplay muted loop playsinline preload="auto"
+           poster="uploads/hero-bg.jpg"
+           aria-hidden="true">
+      <source src="uploads/TJRHeroWeb.mp4" type="video/mp4">
+    </video>
     <div class="hero-media-overlay"></div>
   </div>
+
+  <!-- Autoplay fallback button — only shown if the browser blocks autoplay -->
+  <button type="button" class="hero-video-play" id="heroVideoPlay" aria-label="Reproducir video">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    <span class="hvp-label es">Reproducir</span>
+    <span class="hvp-label en">Play</span>
+  </button>
 
   <div class="hero-inner">
 
@@ -2627,271 +2740,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-
 <!-- ═══════════════════════════════════════════════════════════
-     MOVEMENTS — 6 destinos, alternados con/sin imagen
+     CRÓNICAS ANTERIORES (formerly PAST EDITIONS)
 ═══════════════════════════════════════════════════════════ -->
-<section class="movements section-pad" id="movements">
-  <div class="movements-head">
-    <div class="eyebrow eyebrow-center reveal">
-      <span class="es">El Viaje</span><span class="en">The Journey</span>
+<section class="editions section-pad" id="editions">
+  <div class="wrap">
+    <div class="editions-head">
+      <div>
+        <div class="eyebrow reveal" style="margin-bottom:24px">
+          <span class="es">Crónicas Anteriores</span><span class="en">Past Editions</span>
+        </div>
+        <h2 class="section-title reveal">
+          <span class="es">Postales del <em>viaje.</em></span>
+          <span class="en">Postcards from <em>the journey.</em></span>
+        </h2>
+      </div>
     </div>
-    <h2 class="section-title reveal">
-      <span class="es">Seis movimientos. <em>Seis destinos.</em></span>
-      <span class="en">Six movements. <em>Six destinations.</em></span>
-    </h2>
-    <p class="reveal">
-      <span class="es">Cada paso del viaje es un género, una ciudad, un sabor y una historia. Del puerto de New Orleans hasta las montañas de Medellín.</span>
-      <span class="en">Each step of the journey is a genre, a city, a flavor, and a story. From the port of New Orleans to the mountains of Medellín.</span>
-    </p>
-  </div>
 
-  <div class="journey-intro reveal">
-    <div class="journey-intro-card">
-      <div class="eyebrow eyebrow-center journey-intro-eyebrow">
-        <span class="es">El Viaje</span><span class="en">The Journey</span>
-      </div>
-      <h3 class="journey-intro-title">
-        <span class="es">Esto no es una cena con música de fondo.</span>
-        <span class="en">This is not a dinner with background music.</span>
-      </h3>
-      <p class="journey-intro-copy">
-        <span class="es">The Jazz Route es <strong>Sincronía Sensorial</strong>: un cuarteto en vivo guía un viaje de seis movimientos, seis destinos, seis maridajes — desde el Delta del Mississippi hasta las montañas de Medellín. Cada parada tiene su género, su sabor y su historia.</span>
-        <span class="en">The Jazz Route is <strong>Sensory Synchrony</strong>: a live quartet guides a journey of six movements, six destinations, six pairings — from the Mississippi Delta to the mountains of Medellín. Each stop has its genre, flavor, and story.</span>
-      </p>
-      <p class="journey-intro-closer">
-        <span class="es">Aquí no se come mientras suena música. <em>Aquí se viaja.</em></span>
-        <span class="en">This is not eating while music plays. <em>This is traveling.</em></span>
-      </p>
+    <!-- Video destacado — YouTube embed -->
+    <div class="editions-feature reveal">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/x0ciXvqh8_0?rel=0&amp;modestbranding=1"
+        title="The Jazz Route — Crónicas anteriores"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
     </div>
-  </div>
 
-  <div class="movement-list" data-layout="bottom">
-
-    <!-- Movimiento 1 — New Orleans · with image -->
-    <article class="movement has-image" data-tint="nola" style="--movement-bg:url('uploads/experience-photo-2.jpg')">
-      <div class="movement-inner">
-        <div class="movement-visual" aria-hidden="true">
-          <img src="uploads/experience-photo-2.jpg" alt="Servicio de mesa frente al escenario Mississippi — Z Bar Jazz Club" loading="lazy">
-          <span class="v-corner-tl">i</span>
-          <span class="v-corner-tr">01 / 06</span>
-          <div class="v-meta">
-            <span class="tag">Destino · Destination</span>
-            New Orleans · LA
-          </div>
-        </div>
-        <div class="movement-text">
-          <span class="movement-number">01</span>
-          <div class="movement-meta">
-            <span class="destination">New Orleans</span>
-            <span class="sep"></span>
-            <span class="genre">Blues / Early Jazz</span>
-          </div>
-          <h3 class="movement-title">
-            <span class="es">La Cuna</span><span class="en">The Cradle</span>
-          </h3>
-          <p class="movement-desc">
-            <span class="es"><strong>Historia y Sazón.</strong> Todo empieza en el puerto. New Orleans es el crisol donde Francia, España y África se encontraron. No es solo blues triste; es celebración, carnaval y el luto elegante de un funeral de jazz. El sabor es un "Gumbo" sensorial: especiado, con alma de río y carácter profundo.</span>
-            <span class="en"><strong>History and Spice.</strong> It all begins at the port. New Orleans is the melting pot where France, Spain, and Africa converged. It's not just sad blues; it's celebration, carnival, and the elegant mourning of a jazz funeral. The flavor is a sensory "Gumbo": spiced, with the soul of the river and deep character.</span>
-          </p>
-          <div class="movement-fact">
-            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
-            <p class="fact-text">
-              <span class="es">En los "Juke Joints" del Delta donde nació el Blues, no había cócteles finos. Se bebía "Moonshine" — whisky de maíz ilegal destilado a la luz de la luna — y se comía pan de maíz frito para aguantar el alcohol.</span>
-              <span class="en">In the Mississippi Delta's "Juke Joints" where the Blues was born, there were no fine cocktails. People drank "Moonshine" — illegal corn whiskey distilled by moonlight — and ate fried cornbread to endure the alcohol.</span>
-            </p>
-          </div>
-        </div>
+    <!-- Gallery thumbs -->
+    <div class="editions-grid reveal">
+      <div class="edition-thumb">
+        <img src="uploads/cuarteto-photo.jpg" alt="El cuarteto en escena — The Jazz Route" loading="lazy">
+        <span class="thumb-tag">01 · <span class="es">El cuarteto</span><span class="en">The quartet</span></span>
       </div>
-    </article>
-
-    <!-- Movimiento 2 — New York · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="ny" style="--movement-bg:url('uploads/experience-photo-1.jpg')">
-      <div class="movement-inner">
-        <div class="movement-text">
-          <span class="movement-number">02</span>
-          <div class="movement-meta">
-            <span class="destination">New York</span>
-            <span class="sep"></span>
-            <span class="genre">Swing &amp; Bebop</span>
-          </div>
-          <h3 class="movement-title">
-            <span class="es">La Jungla de Concreto</span><span class="en">The Concrete Jungle</span>
-          </h3>
-          <p class="movement-desc">
-            <span class="es"><strong>Vértigo Cosmopolita.</strong> El jazz migra al norte y se encuentra con la metrópolis. La adrenalina de la gran ciudad se traduce en texturas crujientes, temperaturas frías y acidez punzante. Es el sonido de los rascacielos. La batería marca un ritmo frenético que exige sabores metálicos, limpios y sofisticados, como una noche de invierno en Manhattan.</span>
-            <span class="en"><strong>Cosmopolitan Vertigo.</strong> Jazz migrates north and meets the metropolis. The big city's adrenaline translates into crunchy textures, cold temperatures, and sharp acidity. It's the sound of skyscrapers. The drums set a frenetic rhythm demanding metallic, clean, and sophisticated flavors — like a winter night in Manhattan.</span>
-          </p>
-          <div class="movement-fact">
-            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
-            <p class="fact-text">
-              <span class="es">Frank Sinatra, ícono de la era Swing, tenía un ritual sagrado para su trago: 4 cubos de hielo, dos dedos de Jack Daniel's y un chorrito de agua. Lo llamaba "el néctar de los dioses" y jamás lo mezclaba con refresco.</span>
-              <span class="en">Frank Sinatra, the icon of the Swing era, had a sacred ritual for his drink: 4 ice cubes, two fingers of Jack Daniel's, and a splash of water. He called it "the nectar of the gods" and never mixed it with soda.</span>
-            </p>
-          </div>
-        </div>
-        <div class="movement-visual" aria-hidden="true">
-          <img src="uploads/experience-photo-1.jpg" alt="Cuarteto en vivo frente al mural New York — The Jazz Route" loading="lazy">
-          <span class="v-corner-tl">i</span>
-          <span class="v-corner-tr">02 / 06</span>
-          <div class="v-meta">
-            <span class="tag">Destino · Destination</span>
-            New York · NY
-          </div>
-        </div>
+      <div class="edition-thumb">
+        <img src="uploads/mesa-photo.jpg" alt="Servicio de mesa en plena experiencia" loading="lazy">
+        <span class="thumb-tag">02 · <span class="es">La mesa</span><span class="en">The table</span></span>
       </div>
-    </article>
-
-    <!-- Movimiento 3 — Rio · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="rio" style="--movement-bg:url('uploads/movement-03-rio.jpg')">
-      <div class="movement-inner">
-        <div class="movement-text">
-          <span class="movement-number">03</span>
-          <div class="movement-meta">
-            <span class="destination">Rio de Janeiro</span>
-            <span class="sep"></span>
-            <span class="genre">Bossa Nova</span>
-          </div>
-          <h3 class="movement-title">
-            <span class="es">La Brisa del Sur</span><span class="en">The Southern Breeze</span>
-          </h3>
-          <p class="movement-desc">
-            <span class="es"><strong>Caricia y Frescura.</strong> El viaje cruza el ecuador buscando el mar. La tensión de Nueva York se disuelve en la playa. El Bossa Nova es la samba que aprendió a susurrar. La sensualidad de Río se refleja en texturas untuosas y sedosas. El saxofón toca suave, imitando la brisa, mientras el paladar recibe grasas nobles que recubren la boca como un beso salado.</span>
-            <span class="en"><strong>Caress and Freshness.</strong> The journey crosses the equator seeking the sea. New York's tension dissolves on the beach. Bossa Nova is the samba that learned to whisper. Rio's sensuality reflects in unctuous, silky textures. The saxophone plays softly, imitating the breeze, while the palate receives noble fats that coat the mouth like a salty kiss.</span>
-          </p>
-          <div class="movement-fact">
-            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
-            <p class="fact-text">
-              <span class="es">La Cachaça nació como una bebida de esclavos en los ingenios azucareros, igual que la Samba. El Bossa Nova la "refinó" en los bares de Ipanema al mezclarla con hielo y azúcar — la Caipirinha — volviéndola aceptable para la clase alta.</span>
-              <span class="en">Cachaça was born as a drink of enslaved workers in the sugar mills, just like Samba. Bossa Nova "refined" it in the bars of Ipanema by mixing it with ice and sugar — the Caipirinha — making it acceptable for the upper class.</span>
-            </p>
-          </div>
-        </div>
-        <div class="movement-visual" aria-hidden="true">
-          <img src="uploads/movement-03-rio.jpg" alt="Bossa Nova — movimiento Rio de Janeiro" loading="lazy">
-          <span class="v-corner-tl">i</span>
-          <span class="v-corner-tr">03 / 06</span>
-          <div class="v-meta">
-            <span class="tag">Destino · Destination</span>
-            Rio de Janeiro · BR
-          </div>
-        </div>
+      <div class="edition-thumb">
+        <img src="uploads/coctel-photo.jpg" alt="Coctel de autor — The Jazz Route" loading="lazy">
+        <span class="thumb-tag">03 · <span class="es">El cóctel</span><span class="en">The cocktail</span></span>
       </div>
-    </article>
-
-    <!-- Movimiento 4 — Havana · Bolero -->
-    <article class="movement has-image" data-tint="habana" style="--movement-bg:url('uploads/movement-04-bolero.jpg')">
-      <div class="movement-inner">
-        <div class="movement-visual" aria-hidden="true">
-          <img src="uploads/movement-04-bolero.jpg" alt="Bolero · La Habana / México — movimiento 04" loading="lazy">
-          <span class="v-corner-tl">i</span>
-          <span class="v-corner-tr">04 / 06</span>
-          <div class="v-meta">
-            <span class="tag">Destino · Destination</span>
-            <span class="es">La Habana / México</span>
-            <span class="en">Havana / Mexico City</span>
-          </div>
-        </div>
-        <div class="movement-text">
-          <span class="movement-number">04</span>
-          <div class="movement-meta">
-            <span class="destination"><span class="es">La Habana / México</span><span class="en">Havana / Mexico City</span></span>
-            <span class="sep"></span>
-            <span class="genre">Bolero &amp; Filin</span>
-          </div>
-          <h3 class="movement-title">
-            <span class="es">El Drama</span><span class="en">The Drama</span>
-          </h3>
-          <p class="movement-desc">
-            <span class="es"><strong>Terciopelo y Fuego.</strong> El jazz se impregna del romanticismo trágico latino. El bar se oscurece y el ambiente se torna denso. El Bolero es teatro puro: la música de la pasión contenida, del cigarro y la copa de vino. La voz es la protagonista, narrando historias de amor y dolor que piden sabores profundos como el cacao amargo, chiles secos o reducciones de vino.</span>
-            <span class="en"><strong>Velvet and Fire.</strong> Jazz absorbs Latin tragic romanticism. The bar darkens and the atmosphere becomes dense. Bolero is pure theater: the music of restrained passion, of cigars and wine glasses. The voice takes center stage, narrating stories of love and pain that demand deep flavors like bitter cacao, dried chiles, and wine reductions.</span>
-          </p>
-          <div class="movement-fact">
-            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
-            <p class="fact-text">
-              <span class="es">En los clubes de La Habana de los años 50, los cantantes de Bolero bebían ron añejo seco — sin azúcar — antes de salir a escena. Creían que el azúcar "empalagaba" las cuerdas vocales, mientras que el alcohol puro "limpiaba" la voz para el lamento.</span>
-              <span class="en">In 1950s Havana clubs, Bolero singers drank dry aged rum — no sugar — before going on stage. They believed sugar "cloyed" the vocal cords, while pure alcohol "cleansed" the voice for the lament.</span>
-            </p>
-          </div>
-        </div>
+      <div class="edition-thumb">
+        <img src="uploads/experience-photo-3.jpg" alt="Comensales brindando — The Jazz Route" loading="lazy">
+        <span class="thumb-tag">04 · <span class="es">Los comensales</span><span class="en">The guests</span></span>
       </div>
-    </article>
-
-    <!-- Movimiento 5 — Caribbean · with image -->
-    <article class="movement has-image" data-tint="caribe" style="--movement-bg:url('uploads/movement-05-caribe.jpg')">
-      <div class="movement-inner">
-        <div class="movement-visual" aria-hidden="true">
-          <img src="uploads/movement-05-caribe.jpg" alt="Latin Jazz — percusión afrocubana" loading="lazy">
-          <span class="v-corner-tl">i</span>
-          <span class="v-corner-tr">05 / 06</span>
-          <div class="v-meta">
-            <span class="tag">Destino · Destination</span>
-            <span class="es">El Caribe / NY Fusión</span>
-            <span class="en">The Caribbean / NY Fusion</span>
-          </div>
-        </div>
-        <div class="movement-text">
-          <span class="movement-number">05</span>
-          <div class="movement-meta">
-            <span class="destination"><span class="es">El Caribe / NY Fusión</span><span class="en">The Caribbean / NY Fusion</span></span>
-            <span class="sep"></span>
-            <span class="genre">Latin Jazz</span>
-          </div>
-          <h3 class="movement-title">
-            <span class="es">La Explosión</span><span class="en">The Explosion</span>
-          </h3>
-          <p class="movement-desc">
-            <span class="es"><strong>Impacto y Color.</strong> El retorno a la energía, pero esta vez con sangre caliente. Los tambores recuperan su trono. El Latin Jazz es el matrimonio entre la técnica del jazz y la percusión afrocubana. Es polirritmia, baile y celebración. La euforia se refleja en contrastes agresivos: picantes vivos, frutas asadas y un choque de temperaturas que despierta todos los receptores sensoriales antes del gran final.</span>
-            <span class="en"><strong>Impact and Color.</strong> The return to energy, but this time with hot blood. The drums reclaim their throne. Latin Jazz is the marriage between jazz technique and Afro-Cuban percussion. It's polyrhythm, dance, and celebration. Euphoria reflects in aggressive contrasts: vivid spice, roasted fruits, and a temperature clash that awakens every sensory receptor before the grand finale.</span>
-          </p>
-          <div class="movement-fact">
-            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
-            <p class="fact-text">
-              <span class="es">El tema clásico "Manteca" de Dizzy Gillespie tiene doble sentido. Aunque "manteca" era jerga para la marihuana, Chano Pozo — el percusionista cubano — gritaba "¡Manteca!" porque extrañaba la grasa de cerdo y la mantequilla real de la comida cubana mientras vivía en Nueva York.</span>
-              <span class="en">Dizzy Gillespie's classic "Manteca" has a double meaning. While "manteca" was slang for marijuana, Chano Pozo — the Cuban percussionist — shouted "¡Manteca!" because he missed the real pork lard and butter from Cuban cooking while living in New York.</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Movimiento 6 — Medellín · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="medellin" style="--movement-bg:url('uploads/movement-06-medellin.jpg')">
-      <div class="movement-inner">
-        <div class="movement-text">
-          <span class="movement-number">06</span>
-          <div class="movement-meta">
-            <span class="destination">Medellín</span>
-            <span class="sep"></span>
-            <span class="genre">Colombian Jazz</span>
-          </div>
-          <h3 class="movement-title">
-            <span class="es">El Hogar</span><span class="en">Home</span>
-          </h3>
-          <p class="movement-desc">
-            <span class="es"><strong>Identidad y Vanguardia.</strong> El destino final. El jazz sube la montaña y abraza nuestra identidad. El Colombian Jazz toma los aires de pasillo, cumbia o bambuco y los eleva con la sofisticación de la improvisación mundial. La llegada a casa se siente reconfortante pero sorprendente. Los sabores son los de nuestra memoria — maíz, panela, frutas locales — tratados con técnicas modernas, cerrando el viaje con el orgullo de saber que Medellín tiene su propio sonido.</span>
-            <span class="en"><strong>Identity and Avant-Garde.</strong> The final destination. Jazz climbs the mountain and embraces our identity. Colombian Jazz takes the airs of pasillo, cumbia, and bambuco and elevates them with the sophistication of world-class improvisation. Coming home feels comforting yet surprising. The flavors are those of our memory — corn, panela, local fruits — treated with modern techniques, closing the journey with the pride of knowing Medellín has its own sound.</span>
-          </p>
-          <div class="movement-fact">
-            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
-            <p class="fact-text">
-              <span class="es">El Viche — destilado de caña del Pacífico — no es solo licor, es medicina ancestral. Los músicos de marimba lo tomaban para entrar en trance y "curar el alma" antes de tocar, conectando lo espiritual con lo festivo.</span>
-              <span class="en">Viche — a Pacific coast sugarcane spirit — is not just liquor, it's ancestral medicine. Marimba musicians drank it to enter a trance and "heal the soul" before playing, connecting the spiritual with the festive.</span>
-            </p>
-          </div>
-        </div>
-        <div class="movement-visual" aria-hidden="true">
-          <img src="uploads/movement-06-medellin.jpg" alt="Colombian Jazz — movimiento Medellín" loading="lazy">
-          <span class="v-corner-tl">i</span>
-          <span class="v-corner-tr">06 / 06</span>
-          <div class="v-meta">
-            <span class="tag">Destino · Destination</span>
-            Medellín · CO
-          </div>
-        </div>
-      </div>
-    </article>
-
+    </div>
   </div>
 </section>
 
@@ -3029,7 +2924,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </section>
-
 
 <!-- ═══════════════════════════════════════════════════════════
      TESTIMONIALS
@@ -3383,61 +3277,269 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════
-     PAST EDITIONS
+     MOVEMENTS — 6 destinos, alternados con/sin imagen
 ═══════════════════════════════════════════════════════════ -->
-<section class="editions section-pad" id="editions">
-  <div class="wrap">
-    <div class="editions-head">
-      <div>
-        <div class="eyebrow reveal" style="margin-bottom:24px">
-          <span class="es">Crónicas Anteriores</span><span class="en">Past Editions</span>
-        </div>
-        <h2 class="section-title reveal">
-          <span class="es">Postales del <em>viaje.</em></span>
-          <span class="en">Postcards from <em>the journey.</em></span>
-        </h2>
+<section class="movements section-pad" id="movements">
+  <div class="movements-head">
+    <div class="eyebrow eyebrow-center reveal">
+      <span class="es">El Viaje</span><span class="en">The Journey</span>
+    </div>
+    <h2 class="section-title reveal">
+      <span class="es">Seis movimientos. <em>Seis destinos.</em></span>
+      <span class="en">Six movements. <em>Six destinations.</em></span>
+    </h2>
+    <p class="reveal">
+      <span class="es">Cada paso del viaje es un género, una ciudad, un sabor y una historia. Del puerto de New Orleans hasta las montañas de Medellín.</span>
+      <span class="en">Each step of the journey is a genre, a city, a flavor, and a story. From the port of New Orleans to the mountains of Medellín.</span>
+    </p>
+  </div>
+
+  <div class="journey-intro reveal">
+    <div class="journey-intro-card">
+      <div class="eyebrow eyebrow-center journey-intro-eyebrow">
+        <span class="es">El Viaje</span><span class="en">The Journey</span>
       </div>
-      <p class="reveal">
-        <span class="es">Fragmentos de las ediciones anteriores. Esto no se cuenta — se vive. Mirá las primeras paradas.</span>
-        <span class="en">Glimpses from previous editions. This isn't something to describe — it's something to live. See the first stops.</span>
+      <h3 class="journey-intro-title">
+        <span class="es">Esto no es una cena con música de fondo.</span>
+        <span class="en">This is not a dinner with background music.</span>
+      </h3>
+      <p class="journey-intro-copy">
+        <span class="es">The Jazz Route es <strong>Sincronía Sensorial</strong>: un cuarteto en vivo guía un viaje de seis movimientos, seis destinos, seis maridajes — desde el Delta del Mississippi hasta las montañas de Medellín. Cada parada tiene su género, su sabor y su historia.</span>
+        <span class="en">The Jazz Route is <strong>Sensory Synchrony</strong>: a live quartet guides a journey of six movements, six destinations, six pairings — from the Mississippi Delta to the mountains of Medellín. Each stop has its genre, flavor, and story.</span>
+      </p>
+      <p class="journey-intro-closer">
+        <span class="es">Aquí no se come mientras suena música. <em>Aquí se viaja.</em></span>
+        <span class="en">This is not eating while music plays. <em>This is traveling.</em></span>
       </p>
     </div>
+  </div>
 
-    <!-- Video destacado placeholder -->
-    <div class="editions-feature reveal" role="button" tabindex="0" aria-label="Reproducir video">
-      <!-- VIDEO PLACEHOLDER —
-           Reemplazar por: <video controls poster="uploads/edition-video-poster.jpg" style="width:100%;height:100%;object-fit:cover;">
-             <source src="uploads/edition-highlights.mp4" type="video/mp4">
-           </video> -->
-      <span class="placeholder-tag"><span class="es">Video destacado · edición anterior</span><span class="en">Featured video · previous edition</span></span>
-      <span class="placeholder-corner">edition-highlights.mp4 · 16:9</span>
-      <div class="play">
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+  <div class="movement-list" data-layout="bottom">
+
+    <!-- Movimiento 1 — New Orleans · with image -->
+    <article class="movement has-image" data-tint="nola" style="--movement-bg:url('uploads/experience-photo-2.jpg')">
+      <div class="movement-inner">
+        <div class="movement-visual" aria-hidden="true">
+          <img src="uploads/experience-photo-2.jpg" alt="Servicio de mesa frente al escenario Mississippi — Z Bar Jazz Club" loading="lazy">
+          <span class="v-corner-tl">i</span>
+          <span class="v-corner-tr">01 / 06</span>
+          <div class="v-meta">
+            <span class="tag">Destino · Destination</span>
+            New Orleans · LA
+          </div>
         </div>
-        <span class="play-label"><span class="es">Reproducir resumen</span><span class="en">Play highlights</span></span>
+        <div class="movement-text">
+          <span class="movement-number">01</span>
+          <div class="movement-meta">
+            <span class="destination">New Orleans</span>
+            <span class="sep"></span>
+            <span class="genre">Blues / Early Jazz</span>
+          </div>
+          <h3 class="movement-title">
+            <span class="es">La Cuna</span><span class="en">The Cradle</span>
+          </h3>
+          <p class="movement-desc">
+            <span class="es"><strong>Historia y Sazón.</strong> Todo empieza en el puerto. New Orleans es el crisol donde Francia, España y África se encontraron. No es solo blues triste; es celebración, carnaval y el luto elegante de un funeral de jazz. El sabor es un "Gumbo" sensorial: especiado, con alma de río y carácter profundo.</span>
+            <span class="en"><strong>History and Spice.</strong> It all begins at the port. New Orleans is the melting pot where France, Spain, and Africa converged. It's not just sad blues; it's celebration, carnival, and the elegant mourning of a jazz funeral. The flavor is a sensory "Gumbo": spiced, with the soul of the river and deep character.</span>
+          </p>
+          <div class="movement-fact">
+            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
+            <p class="fact-text">
+              <span class="es">En los "Juke Joints" del Delta donde nació el Blues, no había cócteles finos. Se bebía "Moonshine" — whisky de maíz ilegal destilado a la luz de la luna — y se comía pan de maíz frito para aguantar el alcohol.</span>
+              <span class="en">In the Mississippi Delta's "Juke Joints" where the Blues was born, there were no fine cocktails. People drank "Moonshine" — illegal corn whiskey distilled by moonlight — and ate fried cornbread to endure the alcohol.</span>
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </article>
 
-    <!-- Gallery thumbs -->
-    <div class="editions-grid reveal">
-      <div class="edition-thumb">
-        <img src="uploads/cuarteto-photo.jpg" alt="El cuarteto en escena — The Jazz Route" loading="lazy">
-        <span class="thumb-tag">01 · <span class="es">El cuarteto</span><span class="en">The quartet</span></span>
+    <!-- Movimiento 2 — New York · with image, reversed -->
+    <article class="movement has-image reverse" data-tint="ny" style="--movement-bg:url('uploads/experience-photo-1.jpg')">
+      <div class="movement-inner">
+        <div class="movement-text">
+          <span class="movement-number">02</span>
+          <div class="movement-meta">
+            <span class="destination">New York</span>
+            <span class="sep"></span>
+            <span class="genre">Swing &amp; Bebop</span>
+          </div>
+          <h3 class="movement-title">
+            <span class="es">La Jungla de Concreto</span><span class="en">The Concrete Jungle</span>
+          </h3>
+          <p class="movement-desc">
+            <span class="es"><strong>Vértigo Cosmopolita.</strong> El jazz migra al norte y se encuentra con la metrópolis. La adrenalina de la gran ciudad se traduce en texturas crujientes, temperaturas frías y acidez punzante. Es el sonido de los rascacielos. La batería marca un ritmo frenético que exige sabores metálicos, limpios y sofisticados, como una noche de invierno en Manhattan.</span>
+            <span class="en"><strong>Cosmopolitan Vertigo.</strong> Jazz migrates north and meets the metropolis. The big city's adrenaline translates into crunchy textures, cold temperatures, and sharp acidity. It's the sound of skyscrapers. The drums set a frenetic rhythm demanding metallic, clean, and sophisticated flavors — like a winter night in Manhattan.</span>
+          </p>
+          <div class="movement-fact">
+            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
+            <p class="fact-text">
+              <span class="es">Frank Sinatra, ícono de la era Swing, tenía un ritual sagrado para su trago: 4 cubos de hielo, dos dedos de Jack Daniel's y un chorrito de agua. Lo llamaba "el néctar de los dioses" y jamás lo mezclaba con refresco.</span>
+              <span class="en">Frank Sinatra, the icon of the Swing era, had a sacred ritual for his drink: 4 ice cubes, two fingers of Jack Daniel's, and a splash of water. He called it "the nectar of the gods" and never mixed it with soda.</span>
+            </p>
+          </div>
+        </div>
+        <div class="movement-visual" aria-hidden="true">
+          <img src="uploads/experience-photo-1.jpg" alt="Cuarteto en vivo frente al mural New York — The Jazz Route" loading="lazy">
+          <span class="v-corner-tl">i</span>
+          <span class="v-corner-tr">02 / 06</span>
+          <div class="v-meta">
+            <span class="tag">Destino · Destination</span>
+            New York · NY
+          </div>
+        </div>
       </div>
-      <div class="edition-thumb">
-        <img src="uploads/mesa-photo.jpg" alt="Servicio de mesa en plena experiencia" loading="lazy">
-        <span class="thumb-tag">02 · <span class="es">La mesa</span><span class="en">The table</span></span>
+    </article>
+
+    <!-- Movimiento 3 — Rio · with image, reversed -->
+    <article class="movement has-image reverse" data-tint="rio" style="--movement-bg:url('uploads/movement-03-rio.jpg')">
+      <div class="movement-inner">
+        <div class="movement-text">
+          <span class="movement-number">03</span>
+          <div class="movement-meta">
+            <span class="destination">Rio de Janeiro</span>
+            <span class="sep"></span>
+            <span class="genre">Bossa Nova</span>
+          </div>
+          <h3 class="movement-title">
+            <span class="es">La Brisa del Sur</span><span class="en">The Southern Breeze</span>
+          </h3>
+          <p class="movement-desc">
+            <span class="es"><strong>Caricia y Frescura.</strong> El viaje cruza el ecuador buscando el mar. La tensión de Nueva York se disuelve en la playa. El Bossa Nova es la samba que aprendió a susurrar. La sensualidad de Río se refleja en texturas untuosas y sedosas. El saxofón toca suave, imitando la brisa, mientras el paladar recibe grasas nobles que recubren la boca como un beso salado.</span>
+            <span class="en"><strong>Caress and Freshness.</strong> The journey crosses the equator seeking the sea. New York's tension dissolves on the beach. Bossa Nova is the samba that learned to whisper. Rio's sensuality reflects in unctuous, silky textures. The saxophone plays softly, imitating the breeze, while the palate receives noble fats that coat the mouth like a salty kiss.</span>
+          </p>
+          <div class="movement-fact">
+            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
+            <p class="fact-text">
+              <span class="es">La Cachaça nació como una bebida de esclavos en los ingenios azucareros, igual que la Samba. El Bossa Nova la "refinó" en los bares de Ipanema al mezclarla con hielo y azúcar — la Caipirinha — volviéndola aceptable para la clase alta.</span>
+              <span class="en">Cachaça was born as a drink of enslaved workers in the sugar mills, just like Samba. Bossa Nova "refined" it in the bars of Ipanema by mixing it with ice and sugar — the Caipirinha — making it acceptable for the upper class.</span>
+            </p>
+          </div>
+        </div>
+        <div class="movement-visual" aria-hidden="true">
+          <img src="uploads/movement-03-rio.jpg" alt="Bossa Nova — movimiento Rio de Janeiro" loading="lazy">
+          <span class="v-corner-tl">i</span>
+          <span class="v-corner-tr">03 / 06</span>
+          <div class="v-meta">
+            <span class="tag">Destino · Destination</span>
+            Rio de Janeiro · BR
+          </div>
+        </div>
       </div>
-      <div class="edition-thumb">
-        <img src="uploads/coctel-photo.jpg" alt="Coctel de autor — The Jazz Route" loading="lazy">
-        <span class="thumb-tag">03 · <span class="es">El cóctel</span><span class="en">The cocktail</span></span>
+    </article>
+
+    <!-- Movimiento 4 — Havana · Bolero -->
+    <article class="movement has-image" data-tint="habana" style="--movement-bg:url('uploads/movement-04-bolero.jpg')">
+      <div class="movement-inner">
+        <div class="movement-visual" aria-hidden="true">
+          <img src="uploads/movement-04-bolero.jpg" alt="Bolero · La Habana / México — movimiento 04" loading="lazy">
+          <span class="v-corner-tl">i</span>
+          <span class="v-corner-tr">04 / 06</span>
+          <div class="v-meta">
+            <span class="tag">Destino · Destination</span>
+            <span class="es">La Habana / México</span>
+            <span class="en">Havana / Mexico City</span>
+          </div>
+        </div>
+        <div class="movement-text">
+          <span class="movement-number">04</span>
+          <div class="movement-meta">
+            <span class="destination"><span class="es">La Habana / México</span><span class="en">Havana / Mexico City</span></span>
+            <span class="sep"></span>
+            <span class="genre">Bolero &amp; Filin</span>
+          </div>
+          <h3 class="movement-title">
+            <span class="es">El Drama</span><span class="en">The Drama</span>
+          </h3>
+          <p class="movement-desc">
+            <span class="es"><strong>Terciopelo y Fuego.</strong> El jazz se impregna del romanticismo trágico latino. El bar se oscurece y el ambiente se torna denso. El Bolero es teatro puro: la música de la pasión contenida, del cigarro y la copa de vino. La voz es la protagonista, narrando historias de amor y dolor que piden sabores profundos como el cacao amargo, chiles secos o reducciones de vino.</span>
+            <span class="en"><strong>Velvet and Fire.</strong> Jazz absorbs Latin tragic romanticism. The bar darkens and the atmosphere becomes dense. Bolero is pure theater: the music of restrained passion, of cigars and wine glasses. The voice takes center stage, narrating stories of love and pain that demand deep flavors like bitter cacao, dried chiles, and wine reductions.</span>
+          </p>
+          <div class="movement-fact">
+            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
+            <p class="fact-text">
+              <span class="es">En los clubes de La Habana de los años 50, los cantantes de Bolero bebían ron añejo seco — sin azúcar — antes de salir a escena. Creían que el azúcar "empalagaba" las cuerdas vocales, mientras que el alcohol puro "limpiaba" la voz para el lamento.</span>
+              <span class="en">In 1950s Havana clubs, Bolero singers drank dry aged rum — no sugar — before going on stage. They believed sugar "cloyed" the vocal cords, while pure alcohol "cleansed" the voice for the lament.</span>
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="edition-thumb">
-        <img src="uploads/experience-photo-3.jpg" alt="Comensales brindando — The Jazz Route" loading="lazy">
-        <span class="thumb-tag">04 · <span class="es">Los comensales</span><span class="en">The guests</span></span>
+    </article>
+
+    <!-- Movimiento 5 — Caribbean · with image -->
+    <article class="movement has-image" data-tint="caribe" style="--movement-bg:url('uploads/movement-05-caribe.jpg')">
+      <div class="movement-inner">
+        <div class="movement-visual" aria-hidden="true">
+          <img src="uploads/movement-05-caribe.jpg" alt="Latin Jazz — percusión afrocubana" loading="lazy">
+          <span class="v-corner-tl">i</span>
+          <span class="v-corner-tr">05 / 06</span>
+          <div class="v-meta">
+            <span class="tag">Destino · Destination</span>
+            <span class="es">El Caribe / NY Fusión</span>
+            <span class="en">The Caribbean / NY Fusion</span>
+          </div>
+        </div>
+        <div class="movement-text">
+          <span class="movement-number">05</span>
+          <div class="movement-meta">
+            <span class="destination"><span class="es">El Caribe / NY Fusión</span><span class="en">The Caribbean / NY Fusion</span></span>
+            <span class="sep"></span>
+            <span class="genre">Latin Jazz</span>
+          </div>
+          <h3 class="movement-title">
+            <span class="es">La Explosión</span><span class="en">The Explosion</span>
+          </h3>
+          <p class="movement-desc">
+            <span class="es"><strong>Impacto y Color.</strong> El retorno a la energía, pero esta vez con sangre caliente. Los tambores recuperan su trono. El Latin Jazz es el matrimonio entre la técnica del jazz y la percusión afrocubana. Es polirritmia, baile y celebración. La euforia se refleja en contrastes agresivos: picantes vivos, frutas asadas y un choque de temperaturas que despierta todos los receptores sensoriales antes del gran final.</span>
+            <span class="en"><strong>Impact and Color.</strong> The return to energy, but this time with hot blood. The drums reclaim their throne. Latin Jazz is the marriage between jazz technique and Afro-Cuban percussion. It's polyrhythm, dance, and celebration. Euphoria reflects in aggressive contrasts: vivid spice, roasted fruits, and a temperature clash that awakens every sensory receptor before the grand finale.</span>
+          </p>
+          <div class="movement-fact">
+            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
+            <p class="fact-text">
+              <span class="es">El tema clásico "Manteca" de Dizzy Gillespie tiene doble sentido. Aunque "manteca" era jerga para la marihuana, Chano Pozo — el percusionista cubano — gritaba "¡Manteca!" porque extrañaba la grasa de cerdo y la mantequilla real de la comida cubana mientras vivía en Nueva York.</span>
+              <span class="en">Dizzy Gillespie's classic "Manteca" has a double meaning. While "manteca" was slang for marijuana, Chano Pozo — the Cuban percussionist — shouted "¡Manteca!" because he missed the real pork lard and butter from Cuban cooking while living in New York.</span>
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </article>
+
+    <!-- Movimiento 6 — Medellín · with image, reversed -->
+    <article class="movement has-image reverse" data-tint="medellin" style="--movement-bg:url('uploads/movement-06-medellin.jpg')">
+      <div class="movement-inner">
+        <div class="movement-text">
+          <span class="movement-number">06</span>
+          <div class="movement-meta">
+            <span class="destination">Medellín</span>
+            <span class="sep"></span>
+            <span class="genre">Colombian Jazz</span>
+          </div>
+          <h3 class="movement-title">
+            <span class="es">El Hogar</span><span class="en">Home</span>
+          </h3>
+          <p class="movement-desc">
+            <span class="es"><strong>Identidad y Vanguardia.</strong> El destino final. El jazz sube la montaña y abraza nuestra identidad. El Colombian Jazz toma los aires de pasillo, cumbia o bambuco y los eleva con la sofisticación de la improvisación mundial. La llegada a casa se siente reconfortante pero sorprendente. Los sabores son los de nuestra memoria — maíz, panela, frutas locales — tratados con técnicas modernas, cerrando el viaje con el orgullo de saber que Medellín tiene su propio sonido.</span>
+            <span class="en"><strong>Identity and Avant-Garde.</strong> The final destination. Jazz climbs the mountain and embraces our identity. Colombian Jazz takes the airs of pasillo, cumbia, and bambuco and elevates them with the sophistication of world-class improvisation. Coming home feels comforting yet surprising. The flavors are those of our memory — corn, panela, local fruits — treated with modern techniques, closing the journey with the pride of knowing Medellín has its own sound.</span>
+          </p>
+          <div class="movement-fact">
+            <span class="fact-label"><span class="es">Dato curioso</span><span class="en">Fun fact</span></span>
+            <p class="fact-text">
+              <span class="es">El Viche — destilado de caña del Pacífico — no es solo licor, es medicina ancestral. Los músicos de marimba lo tomaban para entrar en trance y "curar el alma" antes de tocar, conectando lo espiritual con lo festivo.</span>
+              <span class="en">Viche — a Pacific coast sugarcane spirit — is not just liquor, it's ancestral medicine. Marimba musicians drank it to enter a trance and "heal the soul" before playing, connecting the spiritual with the festive.</span>
+            </p>
+          </div>
+        </div>
+        <div class="movement-visual" aria-hidden="true">
+          <img src="uploads/movement-06-medellin.jpg" alt="Colombian Jazz — movimiento Medellín" loading="lazy">
+          <span class="v-corner-tl">i</span>
+          <span class="v-corner-tr">06 / 06</span>
+          <div class="v-meta">
+            <span class="tag">Destino · Destination</span>
+            Medellín · CO
+          </div>
+        </div>
+      </div>
+    </article>
+
   </div>
 </section>
 
@@ -3494,8 +3596,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <h2 class="venue-title reveal">Z Bar Jazz Club</h2>
         <p class="venue-copy reveal">
-          <span class="es">El primer Jazz Club de su categoría en Medellín. Ubicado en el lobby del Hotel Marquee, en El Poblado junto al Parque Lleras. Un speakeasy íntimo donde el jazz en vivo, la coctelería de autor y la gastronomía se encuentran de jueves a sábado.</span>
-          <span class="en">The first Jazz Club of its kind in Medellín. Located in the lobby of Hotel Marquee, in El Poblado next to Parque Lleras. An intimate speakeasy where live jazz, designer cocktails, and fine cuisine meet from Thursday to Saturday.</span>
+          <span class="es">El primer Jazz Club de su categoría en Medellín. Ubicado en el lobby del Hotel Marquee, en El Poblado junto al Parque Lleras. Un speakeasy íntimo donde el jazz en vivo, la coctelería de autor y la gastronomía se encuentran.</span>
+          <span class="en">The first Jazz Club of its kind in Medellín. Located in the lobby of Hotel Marquee, in El Poblado next to Parque Lleras. An intimate speakeasy where live jazz, designer cocktails, and fine cuisine meet.</span>
         </p>
 
         <div class="venue-meta reveal">
@@ -3561,9 +3663,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      STICKY MOBILE CTA
 ═══════════════════════════════════════════════════════════ -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <div class="sticky-label">
-    <span class="es">Reservá tu cupo</span><span class="en">Reserve your spot</span>
-  </div>
   <a href="https://api.whatsapp.com/send?phone=573233594562&amp;text=Hola%2C%20quiero%20reservar%20para%20The%20Jazz%20Route"
      class="btn btn-solid-gold"
      target="_blank" rel="noopener">
@@ -3606,7 +3705,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var hero = document.getElementById('hero');
   var nextFlight = document.getElementById('next-flight');
   function onScrollSticky(){
-    if(window.innerWidth > 760){ sticky.classList.remove('show'); return; }
     var heroBottom = hero.getBoundingClientRect().bottom;
     var nfTop = nextFlight.getBoundingClientRect().top;
     var nfBottom = nextFlight.getBoundingClientRect().bottom;
@@ -3987,6 +4085,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   if(document.readyState === 'complete'){ initGsap(); }
   else { window.addEventListener('load', initGsap); }
+})();
+</script>
+
+<!-- Hero video autoplay fallback ─────────────────────────────── -->
+<script>
+(function(){
+  var video = document.getElementById('heroVideo');
+  var btn   = document.getElementById('heroVideoPlay');
+  if(!video || !btn) return;
+
+  function showBtn(){ document.body.classList.add('hero-autoplay-failed'); }
+  function hideBtn(){ document.body.classList.remove('hero-autoplay-failed'); }
+
+  function tryPlay(){
+    var p = video.play();
+    if(p && typeof p.then === 'function'){
+      p.then(hideBtn).catch(showBtn);
+    }
+  }
+
+  // Detect: if after a beat the video is still paused, autoplay was blocked.
+  function checkAfterLoad(){
+    setTimeout(function(){
+      if(video.paused) showBtn();
+      else hideBtn();
+    }, 800);
+  }
+
+  tryPlay();
+  if(video.readyState >= 2) checkAfterLoad();
+  else video.addEventListener('loadeddata', checkAfterLoad, { once:true });
+
+  // Re-attempt on first user gesture (covers iOS Low-Power Mode)
+  ['touchstart','click','keydown'].forEach(function(ev){
+    window.addEventListener(ev, function once(){
+      if(video.paused) tryPlay();
+      window.removeEventListener(ev, once);
+    }, { once:true, passive:true });
+  });
+
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    tryPlay();
+    // Also hide immediately for snappier feel; will re-show if play() rejects
+    hideBtn();
+  });
+
+  video.addEventListener('playing', hideBtn);
+  video.addEventListener('pause', function(){
+    // Don't pester the user mid-scroll; only re-prompt if we're still in hero
+    var rect = video.getBoundingClientRect();
+    if(rect.bottom > 0) showBtn();
+  });
 })();
 </script>
 
