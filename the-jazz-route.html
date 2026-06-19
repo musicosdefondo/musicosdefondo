@@ -2451,6 +2451,109 @@ section.movements{
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .reveal{opacity:1!important;transform:none!important}
 }
+
+/* ─────────────────────────────────────────────────────────────
+   v4 — Background VIDEOS for each movement
+   - Sits behind .movement::after overlay (preserves tint + vignette)
+   - Cinematic slow zoom
+   - Glass card behind text block for legibility
+   - Stacking sticky preserved (video is absolute INSIDE .movement)
+   ───────────────────────────────────────────────────────────── */
+.movement-list[data-layout] .movement.has-video{
+  /* Drop the static bg-image — video replaces it */
+  background-image:none;
+  background-color:var(--color-bg-deep);
+}
+.movement .movement-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+  pointer-events:none;
+  display:block;
+  /* Subtle cinematic warmth */
+  filter:saturate(1.04) contrast(1.02);
+  /* Slow zoom for life on loop seams */
+  animation:movementVideoZoom 26s ease-in-out infinite alternate;
+  will-change:transform;
+  background:var(--color-bg-deep);
+}
+@keyframes movementVideoZoom{
+  0%   { transform:scale(1.04) }
+  100% { transform:scale(1.12) }
+}
+@media (prefers-reduced-motion: reduce){
+  .movement .movement-video{ animation:none }
+}
+
+/* Strengthen overlay slightly when a video is the bg — dynamic motion 
+   reduces text legibility otherwise */
+.movement-list[data-layout="bottom"] .movement.has-video::after{
+  background:
+    var(--tint-overlay, transparent),
+    linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.35) 40%, rgba(5,5,5,0.94) 100%);
+}
+.movement-list[data-layout="side"] .movement.has-video::after{
+  background:
+    var(--tint-overlay, transparent),
+    linear-gradient(135deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.60) 35%, rgba(10,10,10,0.32) 60%, rgba(5,5,5,0.88) 100%);
+}
+.movement-list[data-layout="side"] .movement.has-video.reverse::after{
+  background:
+    var(--tint-overlay, transparent),
+    linear-gradient(225deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.60) 35%, rgba(10,10,10,0.32) 60%, rgba(5,5,5,0.88) 100%);
+}
+.movement-list[data-layout="poster"] .movement.has-video::after{
+  background:
+    var(--tint-overlay, transparent),
+    radial-gradient(ellipse at 50% 45%, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.70) 55%, rgba(5,5,5,0.94) 100%);
+}
+
+/* Glass card behind the text block — only when has-video */
+.movement-list[data-layout] .movement.has-video .movement-text{
+  position:relative;
+  padding:clamp(28px, 3vw, 44px) clamp(26px, 3vw, 44px) clamp(28px, 3vw, 40px);
+  background:rgba(8,8,8,0.42);
+  backdrop-filter:blur(16px) saturate(125%);
+  -webkit-backdrop-filter:blur(16px) saturate(125%);
+  border:1px solid var(--hairline-gold);
+  border-radius:3px;
+  box-shadow:
+    0 30px 80px -30px rgba(0,0,0,0.75),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+/* Subtle gold corner accents on the glass card (echoes other UI motifs) */
+.movement-list[data-layout] .movement.has-video .movement-text::before,
+.movement-list[data-layout] .movement.has-video .movement-text::after{
+  content:'';position:absolute;width:14px;height:14px;
+  border:1px solid var(--color-gold);opacity:.55;
+  pointer-events:none;
+}
+.movement-list[data-layout] .movement.has-video .movement-text::before{
+  top:10px;left:10px;border-right:none;border-bottom:none;
+}
+.movement-list[data-layout] .movement.has-video .movement-text::after{
+  bottom:10px;right:10px;border-left:none;border-top:none;
+}
+/* The fact card inside the glass no longer needs its own backdrop-filter */
+.movement-list[data-layout] .movement.has-video .movement-fact{
+  background:rgba(201,169,110,0.06) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  border-left:1px solid var(--color-gold);
+}
+@media(max-width:899px){
+  .movement-list[data-layout] .movement.has-video .movement-text{
+    padding:24px 22px 26px;
+  }
+  .movement-list[data-layout] .movement.has-video .movement-text::before,
+  .movement-list[data-layout] .movement.has-video .movement-text::after{
+    width:11px;height:11px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3316,8 +3419,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="movement-list" data-layout="bottom">
 
-    <!-- Movimiento 1 — New Orleans · with image -->
-    <article class="movement has-image" data-tint="nola" style="--movement-bg:url('uploads/experience-photo-2.jpg')">
+    <!-- Movimiento 1 — New Orleans · video background -->
+    <article class="movement has-image has-video" data-tint="nola">
+      <video class="movement-video" muted loop playsinline preload="none"
+             data-src="uploads/1Nolavideo.mp4" aria-hidden="true"></video>
       <div class="movement-inner">
         <div class="movement-visual" aria-hidden="true">
           <img src="uploads/experience-photo-2.jpg" alt="Servicio de mesa frente al escenario Mississippi — Z Bar Jazz Club" loading="lazy">
@@ -3353,8 +3458,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </article>
 
-    <!-- Movimiento 2 — New York · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="ny" style="--movement-bg:url('uploads/experience-photo-1.jpg')">
+    <!-- Movimiento 2 — New York · video background, reversed -->
+    <article class="movement has-image reverse has-video" data-tint="ny">
+      <video class="movement-video" muted loop playsinline preload="none"
+             data-src="uploads/2NYVideo.mp4" aria-hidden="true"></video>
       <div class="movement-inner">
         <div class="movement-text">
           <span class="movement-number">02</span>
@@ -3390,8 +3497,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </article>
 
-    <!-- Movimiento 3 — Rio · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="rio" style="--movement-bg:url('uploads/movement-03-rio.jpg')">
+    <!-- Movimiento 3 — Rio · video background, reversed -->
+    <article class="movement has-image reverse has-video" data-tint="rio">
+      <video class="movement-video" muted loop playsinline preload="none"
+             data-src="uploads/3RioVideo.mp4" aria-hidden="true"></video>
       <div class="movement-inner">
         <div class="movement-text">
           <span class="movement-number">03</span>
@@ -3427,11 +3536,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </article>
 
-    <!-- Movimiento 4 — Havana · Bolero -->
-    <article class="movement has-image" data-tint="habana" style="--movement-bg:url('uploads/movement-04-bolero.jpg')">
+    <!-- Movimiento 4 — Havana · Bolero · video background -->
+    <article class="movement has-image has-video" data-tint="habana">
+      <video class="movement-video" muted loop playsinline preload="none"
+             data-src="uploads/4BoleroVideo.mp4" aria-hidden="true"></video>
       <div class="movement-inner">
         <div class="movement-visual" aria-hidden="true">
-          <img src="uploads/movement-04-bolero.jpg" alt="Bolero · La Habana / México — movimiento 04" loading="lazy">
           <span class="v-corner-tl">i</span>
           <span class="v-corner-tr">04 / 06</span>
           <div class="v-meta">
@@ -3465,8 +3575,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </article>
 
-    <!-- Movimiento 5 — Caribbean · with image -->
-    <article class="movement has-image" data-tint="caribe" style="--movement-bg:url('uploads/movement-05-caribe.jpg')">
+    <!-- Movimiento 5 — Caribbean · video background -->
+    <article class="movement has-image has-video" data-tint="caribe">
+      <video class="movement-video" muted loop playsinline preload="none"
+             data-src="uploads/5CaribeVideo.mp4" aria-hidden="true"></video>
       <div class="movement-inner">
         <div class="movement-visual" aria-hidden="true">
           <img src="uploads/movement-05-caribe.jpg" alt="Latin Jazz — percusión afrocubana" loading="lazy">
@@ -3503,8 +3615,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </article>
 
-    <!-- Movimiento 6 — Medellín · with image, reversed -->
-    <article class="movement has-image reverse" data-tint="medellin" style="--movement-bg:url('uploads/movement-06-medellin.jpg')">
+    <!-- Movimiento 6 — Medellín · video background, reversed -->
+    <article class="movement has-image reverse has-video" data-tint="medellin">
+      <video class="movement-video" muted loop playsinline preload="none"
+             data-src="uploads/6ColombiaVideo.mp4" aria-hidden="true"></video>
       <div class="movement-inner">
         <div class="movement-text">
           <span class="movement-number">06</span>
@@ -4137,6 +4251,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // Don't pester the user mid-scroll; only re-prompt if we're still in hero
     var rect = video.getBoundingClientRect();
     if(rect.bottom > 0) showBtn();
+  });
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MOVEMENT VIDEOS — lazy-load + play only the visible one
+═══════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  var videos = Array.prototype.slice.call(
+    document.querySelectorAll('.movement.has-video .movement-video')
+  );
+  if(!videos.length) return;
+
+  // Lazy-attach src once each video gets close to the viewport
+  function attachSrc(v){
+    if(v.dataset.src && !v.src){
+      v.src = v.dataset.src;
+      v.load();
+    }
+  }
+  function safePlay(v){
+    var p = v.play();
+    if(p && typeof p.catch === 'function'){
+      p.catch(function(){ /* autoplay blocked — silent */ });
+    }
+  }
+
+  // Preload sources as movements approach the viewport
+  if('IntersectionObserver' in window){
+    var preloadIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          attachSrc(e.target);
+          preloadIO.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '600px 0px 600px 0px', threshold: 0 });
+    videos.forEach(function(v){ preloadIO.observe(v); });
+
+    // Play only the most-visible video; pause the rest
+    var visibility = new Map();
+    var playIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        visibility.set(e.target, e.intersectionRatio);
+      });
+      var best = null, bestRatio = 0;
+      visibility.forEach(function(ratio, v){
+        if(ratio > bestRatio){ bestRatio = ratio; best = v; }
+      });
+      videos.forEach(function(v){
+        if(v === best && bestRatio > 0.25){
+          attachSrc(v);
+          if(v.paused) safePlay(v);
+        } else {
+          if(!v.paused) v.pause();
+        }
+      });
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+    videos.forEach(function(v){ playIO.observe(v); });
+  } else {
+    // Fallback: just attach + play all
+    videos.forEach(function(v){ attachSrc(v); safePlay(v); });
+  }
+
+  // Pause everything when the tab is hidden — saves battery / bandwidth
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){
+      videos.forEach(function(v){ if(!v.paused) v.pause(); });
+    }
   });
 })();
 </script>
